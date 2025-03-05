@@ -7,8 +7,32 @@ t_tuple	tuple(double x, double y, double z, double w)
 	tuple.x = x;
 	tuple.y = y;
 	tuple.z = z;
-	tuple.w = w;
+	if (w == 0 || w == 1)
+		tuple.w = w;
+	else
+		tuple.w = -1;
+	return (tuple);
+}
 
+t_tuple	point(double x, double y, double z)
+{
+	t_tuple	tuple;
+
+	tuple.x = x;
+	tuple.y = y;
+	tuple.z = z;
+	tuple.w = 1;
+	return (tuple);
+}
+
+t_tuple	vector(double x, double y, double z)
+{
+	t_tuple	tuple;
+
+	tuple.x = x;
+	tuple.y = y;
+	tuple.z = z;
+	tuple.w = 0;
 	return (tuple);
 }
 
