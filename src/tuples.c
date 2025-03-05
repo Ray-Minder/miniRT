@@ -10,7 +10,10 @@ t_tuple	tuple(double x, double y, double z, double w)
 	if (w == 0 || w == 1)
 		tuple.w = w;
 	else
+	{
+		printf("The tuple is neither a vector nor a point.\n");
 		tuple.w = -1;
+	}
 	return (tuple);
 }
 
