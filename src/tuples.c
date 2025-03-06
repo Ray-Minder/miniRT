@@ -1,8 +1,8 @@
 #include "../include/tuples.h"
 
-t_tuple	tuple(double x, double y, double z, double w)
+t_tuple tuple(double x, double y, double z, double w)
 {
-	t_tuple	tuple;
+	t_tuple tuple;
 
 	tuple.x = x;
 	tuple.y = y;
@@ -18,9 +18,9 @@ t_tuple	tuple(double x, double y, double z, double w)
 	return (tuple);
 }
 
-t_tuple	point(double x, double y, double z)
+t_tuple point(double x, double y, double z)
 {
-	t_tuple	tuple;
+	t_tuple tuple;
 
 	tuple.x = x;
 	tuple.y = y;
@@ -29,9 +29,9 @@ t_tuple	point(double x, double y, double z)
 	return (tuple);
 }
 
-t_tuple	vector(double x, double y, double z)
+t_tuple vector(double x, double y, double z)
 {
-	t_tuple	tuple;
+	t_tuple tuple;
 
 	tuple.x = x;
 	tuple.y = y;
@@ -56,7 +56,7 @@ t_tuple add_tuples(t_tuple a, t_tuple b)
 	return (result);
 }
 
-t_tuple	subtract_tuples(t_tuple a, t_tuple b)
+t_tuple subtract_tuples(t_tuple a, t_tuple b)
 {
 	t_tuple result;
 
@@ -72,18 +72,61 @@ t_tuple	subtract_tuples(t_tuple a, t_tuple b)
 	return (result);
 }
 
-t_tuple	negate_tuple(t_tuple t)
+t_tuple negate_tuple(t_tuple t)
 {
 	t_tuple negated_tuple;
 
 	negated_tuple.x = -t.x;
 	negated_tuple.y = -t.y;
 	negated_tuple.z = -t.z;
-	negated_tuple.w = t.w; //This shouldn't be negated actually.
+	negated_tuple.w = t.w; // This shouldn't be negated actually.
 	return (negated_tuple);
 }
 
-void	print_tuple(t_tuple tuple)
+t_tuple multiply_tuple_by_scalar(t_tuple t, double scalar)
+{
+	t_tuple result;
+
+	result.x = t.x * scalar;
+	result.y = t.y * scalar;
+	result.z = t.z * scalar;
+	result.w = t.w * scalar;
+	return (result);
+}
+
+t_tuple divide_tuple_by_scalar(t_tuple t, double scalar)
+{
+	t_tuple result;
+
+	result.x = t.x / scalar;
+	result.y = t.y / scalar;
+	result.z = t.z / scalar;
+	result.w = t.w / scalar;
+	return (result);
+}
+
+double tuple_magnitude(t_tuple t)
+{
+	double magnitude;
+
+	magnitude = sqrt(pow(t.x, 2) + pow(t.y, 2) + pow(t.z, 2) + pow(t.w, 2));
+	return (magnitude);
+}
+
+t_tuple normalize_tuple(t_tuple t)
+{
+	t_tuple normalized_tuple;
+	double magnitude;
+
+	magnitude = tuple_magnitude(t);
+	normalized_tuple.x = t.x / magnitude;
+	normalized_tuple.y = t.y / magnitude;
+	normalized_tuple.z = t.z / magnitude;
+	normalized_tuple.w = t.w / magnitude;
+	return (normalized_tuple);
+}
+
+void print_tuple(t_tuple tuple)
 {
 	printf("x: %f\n", tuple.x);
 	printf("y: %f\n", tuple.y);

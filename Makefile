@@ -1,5 +1,5 @@
 CC = cc
-CFLAGS = -Iinclude -Wall -Wextra -Werror
+CFLAGS = -Iinclude -Wall -Wextra -Werror -lm
 
 SRC_DIR = src
 TESTS_DIR = tests
@@ -21,6 +21,8 @@ $(BIN_DIR):
 
 clean:
 	rm -rf $(BIN_DIR)
+
+re: clean all
 
 # Run all tests
 test: all

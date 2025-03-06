@@ -1,4 +1,4 @@
-#include "tuples.h"
+#include "../include/tuples.h"
 #include <assert.h>
 
 void	test_tuple_creation()
@@ -15,14 +15,14 @@ void	test_tuple_creation()
 	assert(t2.y == 2.0);
 	assert(t2.z == 3.0);
 	assert(t2.w == 4.0);
-	printf("Tuple creation tests passed\n");
+	printf("Tuple creation tests passed.\n");
 }
 
 void test_print_tuple()
 {
     t_tuple t = tuple(1.0, 2.0, 3.0, 4.0);
     print_tuple(t);
-	printf("Print tuple tests passed\n");
+	printf("Print tuple tests passed.\n");
 }
 
 void	test_point_creation()
@@ -33,7 +33,7 @@ void	test_point_creation()
 	assert(p.y == 2.0);
 	assert(p.z == 3.0);
 	assert(p.w == 1.0);
-	printf("Point creation tests passed\n");
+	printf("Point creation tests passed.\n");
 }
 
 void	test_vector_creation()
@@ -44,7 +44,7 @@ void	test_vector_creation()
 	assert(v.y == 2.0);
 	assert(v.z == 3.0);
 	assert(v.w == 0.0);
-	printf("Vector creation tests passed\n");
+	printf("Vector creation tests passed.\n");
 }
 
 void	test_adding_two_tuples()
@@ -57,7 +57,7 @@ void	test_adding_two_tuples()
 	assert(r.y == 5.0);
 	assert(r.z == 5.0);
 	assert(r.w == 10.0);
-	printf("Adding two tuples tests passed\n");
+	printf("Adding two tuples tests passed.\n");
 }
 
 void	test_subtracting_two_tuples()
@@ -77,7 +77,7 @@ void	test_subtracting_two_tuples()
 	assert(r2.y == 1.0);
 	assert(r2.z == -1.0);
 	assert(r2.w == 0.0);
-	printf("Subtracting two tuples tests passed\n");
+	printf("Subtracting two tuples tests passed.\n");
 }
 
 void	test_subtracting_two_points()
@@ -97,7 +97,7 @@ void	test_subtracting_two_points()
 	assert(r2.y == 2.0);
 	assert(r2.z == -2.0);
 	assert(r2.w == 0.0);
-	printf("Subtracting two points tests passed\n");
+	printf("Subtracting two points tests passed.\n");
 }
 
 void	test_subtracting_two_vectors()
@@ -117,7 +117,7 @@ void	test_subtracting_two_vectors()
 	assert(r2.y == 2.0);
 	assert(r2.z == -2.0);
 	assert(r2.w == 0.0);
-	printf("Subtracting two vectors tests passed\n");
+	printf("Subtracting two vectors tests passed.\n");
 }
 
 void	test_negate_tuple()
@@ -129,7 +129,7 @@ void	test_negate_tuple()
 	assert(r.y == -2.0);
 	assert(r.z == -1.0);
 	assert(r.w == 8.0);
-	printf("Negating tuple tests passed\n");
+	printf("Negating tuple tests passed.\n");
 }
 
 void	test_negate_point()
@@ -141,7 +141,7 @@ void	test_negate_point()
 	assert(r.y == -2.0);
 	assert(r.z == -1.0);
 	assert(r.w == 1.0);
-	printf("Negating point tests passed\n");
+	printf("Negating point tests passed.\n");
 }
 
 void	test_negate_vector()
@@ -153,7 +153,89 @@ void	test_negate_vector()
 	assert(r.y == -2.0);
 	assert(r.z == -1.0);
 	assert(r.w == 0.0);
-	printf("Negating vector tests passed\n");
+	printf("Negating vector tests passed.\n");
+}
+
+void	test_multiply_tuple_by_scalar()
+{
+	t_tuple	t = tuple(1.0, -2.0, 3.0, -4.0);
+	t_tuple r = multiply_tuple_by_scalar(t, 3.5);
+
+	assert(r.x == 3.5);
+	assert(r.y == -7.0);
+	assert(r.z == 10.5);
+	assert(r.w == -14.0);
+	printf("Multiplying tuple by scalar tests passed.\n");
+}
+
+void	test_divide_tuple_by_scalar()
+{
+	t_tuple	t = tuple(1.0, -2.0, 3.0, -4.0);
+	t_tuple r = divide_tuple_by_scalar(t, 2.0);
+
+	assert(r.x == 0.5);
+	assert(r.y == -1.0);
+	assert(r.z == 1.5);
+	assert(r.w == -2.0);
+	printf("Dividing tuple by scalar tests passed.\n");
+}
+
+void	test_tuple_magnitude()
+{
+	t_tuple v = vector(1.0, 0.0, 0.0);
+	double m = tuple_magnitude(v);
+
+	assert(m == 1.0);
+
+	v = vector(0.0, 1.0, 0.0);
+	m = tuple_magnitude(v);
+
+	assert(m == 1.0);
+
+	v = vector(0.0, 0.0, 1.0);
+	m = tuple_magnitude(v);
+
+	assert(m == 1.0);
+
+	v = vector(1.0, 2.0, 3.0);
+	m = tuple_magnitude(v);
+
+	assert(m == sqrt(14));
+
+	v = vector(-1.0, -2.0, -3.0);
+	m = tuple_magnitude(v);
+
+	assert(m == sqrt(14));
+	printf("Magnitude tests passed.\n");
+}
+
+void	test_normalize_tuple()
+{
+	t_tuple v = vector(4.0, 6.0, 5.0);
+	t_tuple n = normalize_tuple(v);
+	double	m = tuple_magnitude(v);
+
+	assert(fabs(n.x - 4.0 / m) < EPSILON);
+	assert(fabs(n.y - 6.0 / m) < EPSILON);
+	assert(fabs(n.z - 5.0 / m) < EPSILON);
+	assert(fabs(n.w - 0.0 / m) < EPSILON);
+
+	m = tuple_magnitude(n);
+	assert(fabs(m - 1.0) < EPSILON);
+
+	v = vector(1.0, 2.0, 3.0);
+	n = normalize_tuple(v);
+	m = tuple_magnitude(v);
+
+	assert(fabs(n.x - 1.0 / m) < EPSILON);
+	assert(fabs(n.y - 2.0 / m) < EPSILON);
+	assert(fabs(n.z - 3.0 / m) < EPSILON);
+	assert(fabs(n.w - 0.0 / m) < EPSILON);
+
+	m = tuple_magnitude(n);
+	assert(fabs(m - 1.0) < EPSILON);
+
+	printf("Normalize tuple tests passed.\n");
 }
 
 int main()
@@ -169,6 +251,10 @@ int main()
 	test_negate_tuple();
 	test_negate_point();
 	test_negate_vector();
+	test_multiply_tuple_by_scalar();
+	test_divide_tuple_by_scalar();
+	test_tuple_magnitude();
+	test_normalize_tuple();
 	printf("All tests passed!\n");
 	return (0);
 }
