@@ -133,3 +133,21 @@ t_tuple normalize_tuple(t_tuple t)
 	normalized_tuple.w = t.w; //This one I believe shouldn't be normalized.
 	return (normalized_tuple);
 }
+
+double dot_product(t_tuple a, t_tuple b)
+{
+	double result;
+
+	result = a.x * b.x + a.y * b.y + a.z * b.z + a.w * b.w;
+	return (result);
+}
+
+t_tuple cross_product(t_tuple a, t_tuple b)
+{
+	t_tuple result;
+
+	result = vector(a.y * b.z - a.z * b.y,
+					a.z * b.x - a.x * b.z,
+					a.x * b.y - a.y * b.x);
+	return (result);
+}

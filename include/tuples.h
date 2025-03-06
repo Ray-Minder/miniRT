@@ -27,6 +27,8 @@ t_tuple	multiply_tuple_by_scalar(t_tuple t, double scalar);
 t_tuple	divide_tuple_by_scalar(t_tuple t, double scalar);
 double  tuple_magnitude(t_tuple t);
 t_tuple normalize_tuple(t_tuple t);
+double    dot_product(t_tuple a, t_tuple b);
+t_tuple cross_product(t_tuple a, t_tuple b);
 
 
 

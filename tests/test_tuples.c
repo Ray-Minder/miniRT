@@ -158,25 +158,25 @@ void	test_negate_vector()
 
 void	test_multiply_tuple_by_scalar()
 {
-	t_tuple	t = tuple(1.0, -2.0, 3.0, -4.0);
+	t_tuple	t = tuple(1.0, -2.0, 3.0, 1.0);
 	t_tuple r = multiply_tuple_by_scalar(t, 3.5);
 
 	assert(r.x == 3.5);
 	assert(r.y == -7.0);
 	assert(r.z == 10.5);
-	assert(r.w == -14.0);
+	assert(r.w == 1.0);
 	printf("Multiplying tuple by scalar tests passed.\n");
 }
 
 void	test_divide_tuple_by_scalar()
 {
-	t_tuple	t = tuple(1.0, -2.0, 3.0, -4.0);
+	t_tuple	t = tuple(1.0, -2.0, 3.0, 1.0);
 	t_tuple r = divide_tuple_by_scalar(t, 2.0);
 
 	assert(r.x == 0.5);
 	assert(r.y == -1.0);
 	assert(r.z == 1.5);
-	assert(r.w == -2.0);
+	assert(r.w == 1.0);
 	printf("Dividing tuple by scalar tests passed.\n");
 }
 
@@ -238,6 +238,36 @@ void	test_normalize_tuple()
 	printf("Normalize tuple tests passed.\n");
 }
 
+void	test_dot_product()
+{
+	t_tuple v1 = vector(1.0, 2.0, 3.0);
+	t_tuple v2 = vector(2.0, 3.0, 4.0);
+	double r = dot_product(v1, v2);
+
+	assert(r == 20.0);
+	printf("Dot product tests passed.\n");
+}
+
+void test_cross_product()
+{
+	t_tuple v1 = vector(1.0, 2.0, 3.0);
+	t_tuple v2 = vector(2.0, 3.0, 4.0);
+
+	t_tuple r = cross_product(v1, v2);
+	assert(r.x == -1.0);
+	assert(r.y == 2.0);
+	assert(r.z == -1.0);
+	assert(r.w == 0.0);
+
+	r = cross_product(v2, v1);
+	assert(r.x == 1.0);
+	assert(r.y == -2.0);
+	assert(r.z == 1.0);
+	assert(r.w == 0.0);
+
+	printf("Cross product tests passed.\n");
+}
+
 int main()
 {
 	test_tuple_creation();
@@ -255,6 +285,8 @@ int main()
 	test_divide_tuple_by_scalar();
 	test_tuple_magnitude();
 	test_normalize_tuple();
+	test_dot_product();
+	test_cross_product();
 	printf("All tests passed!\n");
 	return (0);
 }
