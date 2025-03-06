@@ -14,6 +14,8 @@ typedef struct s_tuple {
 }	t_tuple;
 
 t_tuple	tuple(double x, double y, double z, double w);
+void	print_tuple(t_tuple tuple);
+
 t_tuple	point(double x, double y, double z);
 t_tuple	vector(double x, double y, double z);
 
@@ -27,6 +29,6 @@ double  tuple_magnitude(t_tuple t);
 t_tuple normalize_tuple(t_tuple t);
 
 
-void	print_tuple(t_tuple tuple);
+
 
 #endif

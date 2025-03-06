@@ -7,15 +7,23 @@ t_tuple tuple(double x, double y, double z, double w)
 	tuple.x = x;
 	tuple.y = y;
 	tuple.z = z;
-	tuple.w = w;
-	// if (w == 0 || w == 1)
-	// 	tuple.w = w;
-	// else
-	// {
-	// 	// printf("The tuple is neither a vector nor a point.\n");
-	// 	tuple.w = -1;
-	// }
+	if (w == 0 || w == 1)
+		tuple.w = w;
+	else
+	{
+		// printf("The tuple is neither a vector nor a point.\n");
+		// tuple.w = -1;
+		tuple.w = w; //Later remove this line and uncomment the above lines.
+	}
 	return (tuple);
+}
+
+void print_tuple(t_tuple tuple)
+{
+	printf("x: %f\n", tuple.x);
+	printf("y: %f\n", tuple.y);
+	printf("z: %f\n", tuple.z);
+	printf("w: %f\n", tuple.w);
 }
 
 t_tuple point(double x, double y, double z)
@@ -90,7 +98,7 @@ t_tuple multiply_tuple_by_scalar(t_tuple t, double scalar)
 	result.x = t.x * scalar;
 	result.y = t.y * scalar;
 	result.z = t.z * scalar;
-	result.w = t.w * scalar;
+	result.w = t.w;
 	return (result);
 }
 
@@ -101,7 +109,7 @@ t_tuple divide_tuple_by_scalar(t_tuple t, double scalar)
 	result.x = t.x / scalar;
 	result.y = t.y / scalar;
 	result.z = t.z / scalar;
-	result.w = t.w / scalar;
+	result.w = t.w;
 	return (result);
 }
 
@@ -122,14 +130,6 @@ t_tuple normalize_tuple(t_tuple t)
 	normalized_tuple.x = t.x / magnitude;
 	normalized_tuple.y = t.y / magnitude;
 	normalized_tuple.z = t.z / magnitude;
-	normalized_tuple.w = t.w / magnitude;
+	normalized_tuple.w = t.w; //This one I believe shouldn't be normalized.
 	return (normalized_tuple);
-}
-
-void print_tuple(t_tuple tuple)
-{
-	printf("x: %f\n", tuple.x);
-	printf("y: %f\n", tuple.y);
-	printf("z: %f\n", tuple.z);
-	printf("w: %f\n", tuple.w);
 }

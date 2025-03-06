@@ -4,7 +4,7 @@
 void	test_tuple_creation()
 {
     t_tuple t1 = tuple(1.0, 2.0, 3.0, 1.0);
-	t_tuple t2 = tuple(1.0, 2.0, 3.0, 4.0);
+	t_tuple t2 = tuple(1.0, 2.0, 3.0, 0.0);
 
 	assert(t1.x == 1.0);
 	assert(t1.y == 2.0);
@@ -14,7 +14,7 @@ void	test_tuple_creation()
 	assert(t2.x == 1.0);
 	assert(t2.y == 2.0);
 	assert(t2.z == 3.0);
-	assert(t2.w == 4.0);
+	assert(t2.w == 0.0);
 	printf("Tuple creation tests passed.\n");
 }
 
@@ -49,21 +49,21 @@ void	test_vector_creation()
 
 void	test_adding_two_tuples()
 {
-	t_tuple t1 = tuple(1.0, 2.0, 3.0, 5.0);
-	t_tuple t2 = tuple(4.0, 3.0, 2.0, 5.0);
+	t_tuple t1 = tuple(1.0, 2.0, 3.0, 1.0);
+	t_tuple t2 = tuple(4.0, 3.0, 2.0, 1.0);
 	t_tuple r = add_tuples(t1, t2);
 
 	assert(r.x == 5.0);
 	assert(r.y == 5.0);
 	assert(r.z == 5.0);
-	assert(r.w == 10.0);
+	assert(r.w == 2.0);
 	printf("Adding two tuples tests passed.\n");
 }
 
 void	test_subtracting_two_tuples()
 {
-	t_tuple t1 = tuple(1.0, 2.0, 3.0, 5.0);
-	t_tuple t2 = tuple(4.0, 3.0, 2.0, 5.0);
+	t_tuple t1 = tuple(1.0, 2.0, 3.0, 1.0);
+	t_tuple t2 = tuple(4.0, 3.0, 2.0, 0.0);
 
 	t_tuple r1 = subtract_tuples(t1, t2);
 	t_tuple r2 = subtract_tuples(t2, t1);
@@ -71,12 +71,12 @@ void	test_subtracting_two_tuples()
 	assert(r1.x == -3.0);
 	assert(r1.y == -1.0);
 	assert(r1.z == 1.0);
-	assert(r1.w == 0.0);
+	assert(r1.w == 1.0);
 
 	assert(r2.x == 3.0);
 	assert(r2.y == 1.0);
 	assert(r2.z == -1.0);
-	assert(r2.w == 0.0);
+	assert(r2.w == -1.0);
 	printf("Subtracting two tuples tests passed.\n");
 }
 
@@ -122,13 +122,13 @@ void	test_subtracting_two_vectors()
 
 void	test_negate_tuple()
 {
-	t_tuple	t = tuple(3.0, 2.0, 1.0, 8.0);
+	t_tuple	t = tuple(3.0, 2.0, 1.0, 1.0);
 	t_tuple r = negate_tuple(t);
 
 	assert(r.x == -3.0);
 	assert(r.y == -2.0);
 	assert(r.z == -1.0);
-	assert(r.w == 8.0);
+	assert(r.w == 1.0);
 	printf("Negating tuple tests passed.\n");
 }
 
