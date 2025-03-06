@@ -13,7 +13,7 @@ all: $(BIN_DIR) $(TEST_BINS)
 
 # Rule to compile each test case
 $(BIN_DIR)/%: $(TESTS_DIR)/%.c $(SRCS)
-	$(CC) $(CFLAGS) -o $@ $^ 
+	$(CC) $(CFLAGS) -o $@ $^ -lm # lm has to be flaced a the end to link math library
 
 # Create bin directory if it doesn't exist
 $(BIN_DIR):
@@ -21,6 +21,8 @@ $(BIN_DIR):
 
 clean:
 	rm -rf $(BIN_DIR)
+
+re: clean all
 
 # Run all tests
 test: all
