@@ -13,6 +13,10 @@ typedef struct s_matrix
 
 t_matrix	create_matrix(int rows, int cols);
 void		free_matrix(t_matrix matrix);
+void		print_matrix(t_matrix matrix);
+void		set_matrix_value(t_matrix *matrix, int row, int col, double value);
+double		get_matrix_value(t_matrix matrix, int row, int col);
+
 
 
 

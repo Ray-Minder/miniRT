@@ -59,4 +59,3 @@ double	get_matrix_value(t_matrix matrix, int row, int col)
 	return (matrix.values[row][col]);
 }
 
-
