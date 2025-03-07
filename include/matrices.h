@@ -9,6 +9,7 @@ typedef struct s_matrix {
 	double	**data;
 }	t_matrix;
 
-bool compare_matrices(t_matrix m1, t_matrix m2);
+t_matrix	create_matrix(int rows, int colums, double *data);
+bool		compare_matrices(t_matrix m1, t_matrix m2);
 
 #endif

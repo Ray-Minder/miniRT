@@ -2,6 +2,19 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+void free_matrix(t_matrix *matrix)
+{
+	int	i;
+
+	i = 0;
+	while (i < matrix->rows)
+	{
+		free(matrix->data[i]);
+		i++;
+	}
+	free(matrix->data);
+}
+
 void initialize_matrix(t_matrix *matrix, double *data)
 {
 	int	i;
@@ -31,10 +44,20 @@ t_matrix	create_matrix(int rows, int colums, double *data)
 	matrix.rows = rows;
 	matrix.colums = colums;
 	matrix.data = (double **)malloc(sizeof(double *) * rows);
+	if (!matrix.data)
+	{
+		perror("Error allocating memory for matrix");
+		exit(1);
+	}
 	i = 0;
 	while (i < rows)
 	{
 		matrix.data[i] = (double *)malloc(sizeof(double) * colums);
+		if (!matrix.data[i])
+		{
+			perror("Error allocating memory for matrix");
+			exit(1);
+		}
 		i++;
 	}
 	initialize_matrix(&matrix, data);
@@ -60,15 +83,23 @@ void print_matrix(t_matrix* matrix)
 	}
 }
 
-// int main(void)
-// {
-// 	t_matrix	m1;
-// 	t_matrix	m2;
-// 	m1 = create_matrix(2, 2, (double[]){1, 2, 3, 4});
-// 	m2 = create_matrix(2, 2, (double[]){5, 6, 7, 8});
-// 	print_matrix(&m1);
-// 	printf("\n");
-// 	print_matrix(&m2);
+
+int main(void)
+{
+	t_matrix	m1;
+	t_matrix	m2;
+	m1 = create_matrix(1, 1, (double[]){1});
+	m2 = create_matrix(2, 2, (double[]){5, 6, 7, 8});
+	print_matrix(&m1);
+	printf("\n");
+	print_matrix(&m2);
+
+	if (compare_matrices(m1, m2))
+	{
+		printf("Matrices are the same");
+	}
+	else
+		printf("matrices are different");
 	
-// 	return (0);
-// }
+	return (0);
+}
