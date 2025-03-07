@@ -1,0 +1,8 @@
+# Ignore object files
+*.o
+
+# Ignore bin directory
+bin/
+
+# Ignore .vscode settings
+.vscode/

@@ -16,7 +16,7 @@ void	test_adding_colors()
 {
 	t_tuple c1 = color(0.9, 0.6, 0.75);
 	t_tuple c2 = color(0.7, 0.1, 0.25);
-	t_tuple r = add_tuples(c1, c2);
+	t_tuple r = add_colors(c1, c2);
 
 	assert(r.x == 1.6);
 	assert(r.y == 0.7);
