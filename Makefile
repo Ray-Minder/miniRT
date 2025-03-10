@@ -5,7 +5,9 @@ SRC_DIR = src
 TESTS_DIR = tests
 BIN_DIR = bin
 
-SRCS = $(wildcard $(SRC_DIR)/*.c) # Automatically find all .c files in src/
+SRCS = $(wildcard $(SRC_DIR)/*.c) \
+		$(wildcard $(SRC_DIR)/**/*.c) # Automatically find all .c source files
+
 TESTS = $(wildcard $(TESTS_DIR)/*.c) # Automatically find all .c test files
 TEST_BINS = $(patsubst $(TESTS_DIR)/%.c, $(BIN_DIR)/%, $(TESTS)) # Convert test file names to bin names
 
