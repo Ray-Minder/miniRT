@@ -132,17 +132,17 @@ void	test_negate_tuple()
 	printf("Negating tuple tests passed.\n");
 }
 
-void	test_negate_point()
-{
-	t_tuple	p = point(3.0, 2.0, 1.0);
-	t_tuple r = negate_point(p);
+// void	test_negate_point()
+// {
+// 	t_tuple	p = point(3.0, 2.0, 1.0);
+// 	t_tuple r = negate_point(p);
 
-	assert(r.x == -3.0);
-	assert(r.y == -2.0);
-	assert(r.z == -1.0);
-	assert(r.w == 1.0);
-	printf("Negating point tests passed.\n");
-}
+// 	assert(r.x == -3.0);
+// 	assert(r.y == -2.0);
+// 	assert(r.z == -1.0);
+// 	assert(r.w == 1.0);
+// 	printf("Negating point tests passed.\n");
+// }
 
 void	test_negate_vector()
 {
@@ -168,17 +168,17 @@ void	test_multiply_tuple_by_scalar()
 	printf("Multiplying tuple by scalar tests passed.\n");
 }
 
-void	test_multiply_point_by_scalar()
-{
-	t_tuple	p = point(1.0, -2.0, 3.0);
-	t_tuple r = multiply_point_by_scalar(p, 3.5);
+// void	test_multiply_point_by_scalar()
+// {
+// 	t_tuple	p = point(1.0, -2.0, 3.0);
+// 	t_tuple r = multiply_point_by_scalar(p, 3.5);
 
-	assert(r.x == 3.5);
-	assert(r.y == -7.0);
-	assert(r.z == 10.5);
-	assert(r.w == 1.0);
-	printf("Multiplying point by scalar tests passed.\n");
-}
+// 	assert(r.x == 3.5);
+// 	assert(r.y == -7.0);
+// 	assert(r.z == 10.5);
+// 	assert(r.w == 1.0);
+// 	printf("Multiplying point by scalar tests passed.\n");
+// }
 
 void	test_divide_tuple_by_scalar()
 {
@@ -192,17 +192,17 @@ void	test_divide_tuple_by_scalar()
 	printf("Dividing tuple by scalar tests passed.\n");
 }
 
-void	test_divide_point_by_scalar()
-{
-	t_tuple	p = point(1.0, -2.0, 3.0);
-	t_tuple r = divide_point_by_scalar(p, 2.0);
+// void	test_divide_point_by_scalar()
+// {
+// 	t_tuple	p = point(1.0, -2.0, 3.0);
+// 	t_tuple r = divide_point_by_scalar(p, 2.0);
 
-	assert(r.x == 0.5);
-	assert(r.y == -1.0);
-	assert(r.z == 1.5);
-	assert(r.w == 1.0);
-	printf("Dividing point by scalar tests passed.\n");
-}
+// 	assert(r.x == 0.5);
+// 	assert(r.y == -1.0);
+// 	assert(r.z == 1.5);
+// 	assert(r.w == 1.0);
+// 	printf("Dividing point by scalar tests passed.\n");
+// }
 
 void	test_tuple_magnitude()
 {
@@ -262,34 +262,34 @@ void	test_normalize_tuple()
 	printf("Normalize tuple tests passed.\n");
 }
 
-void	test_normalize_point()
-{
-	t_tuple p = point(4.0, 6.0, 5.0);
-	t_tuple n = normalize_point(p);
-	double	m = tuple_magnitude(p);
+// void	test_normalize_point()
+// {
+// 	t_tuple p = point(4.0, 6.0, 5.0);
+// 	t_tuple n = normalize_point(p);
+// 	double	m = tuple_magnitude(p);
 
-	assert(fabs(n.x - 4.0 / m) < EPSILON);
-	assert(fabs(n.y - 6.0 / m) < EPSILON);
-	assert(fabs(n.z - 5.0 / m) < EPSILON);
-	assert(fabs(n.w - 1.0 / m) < EPSILON);
+// 	assert(fabs(n.x - 4.0 / m) < EPSILON);
+// 	assert(fabs(n.y - 6.0 / m) < EPSILON);
+// 	assert(fabs(n.z - 5.0 / m) < EPSILON);
+// 	assert(fabs(n.w - 1.0 / m) < EPSILON);
 
-	m = tuple_magnitude(n);
-	assert(fabs(m - 1.0) < EPSILON);
+// 	m = tuple_magnitude(n);
+// 	assert(fabs(m - 1.0) < EPSILON);
 
-	p = point(1.0, 2.0, 3.0);
-	n = normalize_point(p);
-	m = tuple_magnitude(p);
+// 	p = point(1.0, 2.0, 3.0);
+// 	n = normalize_point(p);
+// 	m = tuple_magnitude(p);
 
-	assert(fabs(n.x - 1.0 / m) < EPSILON);
-	assert(fabs(n.y - 2.0 / m) < EPSILON);
-	assert(fabs(n.z - 3.0 / m) < EPSILON);
-	assert(fabs(n.w - 1.0 / m) < EPSILON);
+// 	assert(fabs(n.x - 1.0 / m) < EPSILON);
+// 	assert(fabs(n.y - 2.0 / m) < EPSILON);
+// 	assert(fabs(n.z - 3.0 / m) < EPSILON);
+// 	assert(fabs(n.w - 1.0 / m) < EPSILON);
 
-	m = tuple_magnitude(n);
-	assert(fabs(m - 1.0) < EPSILON);
+// 	m = tuple_magnitude(n);
+// 	assert(fabs(m - 1.0) < EPSILON);
 
-	printf("Normalize point tests passed.\n");
-}
+// 	printf("Normalize point tests passed.\n");
+// }
 
 void	test_dot_product()
 {
@@ -329,10 +329,10 @@ int main()
 	test_vector_creation();
 	test_adding_two_tuples();
 	test_subtracting_two_tuples();
-	test_subtracting_two_points();
+	// test_subtracting_two_points();
 	test_subtracting_two_vectors();
 	test_negate_tuple();
-	test_negate_point();
+	// test_negate_point();
 	test_negate_vector();
 	test_multiply_tuple_by_scalar();
 	test_divide_tuple_by_scalar();

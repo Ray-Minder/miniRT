@@ -4,7 +4,7 @@
 # include <stdio.h>
 # include <math.h>
 
-# include "tuples.h"
+# include "minirt.h"
 
 t_tuple	color(double r, double g, double b);
 t_tuple	add_colors(t_tuple c1, t_tuple c2);

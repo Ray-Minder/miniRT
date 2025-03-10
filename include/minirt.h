@@ -5,7 +5,11 @@
 # include <math.h>
 # include <assert.h>
 
-# include "tuples.h"
 # include "colors.h"
+# include "constants.h"
+# include "matrices.h"
+# include "tuples.h"
+# include "utilities.h"
+
 
 #endif
