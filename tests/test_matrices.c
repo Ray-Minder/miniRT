@@ -13,14 +13,14 @@ void test_matrix_creation()
 	initialize_matrix(&m2, (double[]){1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0}, 9);
 
 	assert(m1.rows == 2);
-	assert(m1.colums == 2);
+	assert(m1.columns == 2);
 	assert(m1.data[0] == 1.0);
 	assert(m1.data[1] == 2.0);
 	assert(m1.data[2] == 3.0);
 	assert(m1.data[3] == 4.0);
 
 	assert(m2.rows == 3);
-	assert(m2.colums == 3);
+	assert(m2.columns == 3);
 	assert(m2.data[0] == 1.0);
 	assert(m2.data[1] == 2.0);
 	assert(m2.data[2] == 3.0);

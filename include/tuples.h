@@ -4,7 +4,7 @@
 # include <stdio.h>
 # include <math.h>
 
-# define EPSILON 0.00001
+# include "constants.h"
 
 typedef struct s_tuple {
     double x;
