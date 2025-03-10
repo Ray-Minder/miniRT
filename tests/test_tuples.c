@@ -268,25 +268,25 @@ void test_cross_product()
 	printf("Cross product tests passed.\n");
 }
 
-// int main()
-// {
-// 	test_tuple_creation();
-// 	test_print_tuple();
-// 	test_point_creation();
-// 	test_vector_creation();
-// 	test_adding_two_tuples();
-// 	test_subtracting_two_tuples();
-// 	test_subtracting_two_points();
-// 	test_subtracting_two_vectors();
-// 	test_negate_tuple();
-// 	test_negate_point();
-// 	test_negate_vector();
-// 	test_multiply_tuple_by_scalar();
-// 	test_divide_tuple_by_scalar();
-// 	test_tuple_magnitude();
-// 	test_normalize_tuple();
-// 	test_dot_product();
-// 	test_cross_product();
-// 	printf("All tests passed!\n");
-// 	return (0);
-// }
+int main()
+{
+	test_tuple_creation();
+	test_print_tuple();
+	test_point_creation();
+	test_vector_creation();
+	test_adding_two_tuples();
+	test_subtracting_two_tuples();
+	test_subtracting_two_points();
+	test_subtracting_two_vectors();
+	test_negate_tuple();
+	test_negate_point();
+	test_negate_vector();
+	test_multiply_tuple_by_scalar();
+	test_divide_tuple_by_scalar();
+	test_tuple_magnitude();
+	test_normalize_tuple();
+	test_dot_product();
+	test_cross_product();
+	printf("All tests passed!\n");
+	return (0);
+}

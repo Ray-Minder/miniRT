@@ -5,20 +5,14 @@
 bool compare_matrices(t_matrix m1, t_matrix m2)
 {
 	int i;
-	int j;
 
 	i = 0;
 	if (m1.rows != m2.rows || m1.colums != m2.colums)
 		return (false);
-	while (i < m1.rows)
+	while (i < m1.rows * m1.colums)
 	{
-		j = 0;
-		while (j < m1.colums)
-		{
-			if (!compare_doubles(m1.data[i][j], m2.data[i][j]))
+			if (!compare_doubles(m1.data[i], m2.data[i]))
 				return (false);
-			j++;
-		}
 		i++;
 	}
 	return (true);
