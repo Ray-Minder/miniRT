@@ -161,6 +161,41 @@ void	test_transpose_matrix()
 	printf("Test transpose_matrix passed.\n");
 }
 
+void	test_submatrix()
+{
+	t_matrix	*matrix;
+	t_matrix	*s;
+
+	matrix = create_matrix(4, 4);
+	initialize_matrix(matrix, (double[]){1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0, 13.0, 14.0, 15.0, 16.0}, 16);
+
+	s = submatrix(matrix, 0, 0);
+	assert(compare_doubles(s->values[0][0], 6.0));
+	assert(compare_doubles(s->values[0][1], 7.0));
+	assert(compare_doubles(s->values[0][2], 8.0));
+	assert(compare_doubles(s->values[1][0], 10.0));
+	assert(compare_doubles(s->values[1][1], 11.0));
+	assert(compare_doubles(s->values[1][2], 12.0));
+	assert(compare_doubles(s->values[2][0], 14.0));
+	assert(compare_doubles(s->values[2][1], 15.0));
+	assert(compare_doubles(s->values[2][2], 16.0));
+
+	s = submatrix(matrix, 2, 1);
+	assert(compare_doubles(s->values[0][0], 1.0));
+	assert(compare_doubles(s->values[0][1], 3.0));
+	assert(compare_doubles(s->values[0][2], 4.0));
+	assert(compare_doubles(s->values[1][0], 5.0));
+	assert(compare_doubles(s->values[1][1], 7.0));
+	assert(compare_doubles(s->values[1][2], 8.0));
+	assert(compare_doubles(s->values[2][0], 13.0));
+	assert(compare_doubles(s->values[2][1], 15.0));
+	assert(compare_doubles(s->values[2][2], 16.0));
+
+	free_matrix(&matrix);
+	free_matrix(&s);
+	printf("Test submatrix passed\n");
+}
+
 int main(void)
 {
 	test_matrix_creation();
@@ -169,6 +204,7 @@ int main(void)
 	test_row_as_tuple();
 	test_multiply_matrix_by_tuple();
 	test_transpose_matrix();
+	test_submatrix();
 	printf("All tests passed!\n");
 	return (0);
 }

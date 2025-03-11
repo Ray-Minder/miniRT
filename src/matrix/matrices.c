@@ -234,3 +234,38 @@ t_matrix	*transpose_matrix(t_matrix *m)
 	return (transposed);
 }
 
+t_matrix	*submatrix(t_matrix	*m, int row, int column)
+{
+	t_matrix	*submatrix;
+	int			r;
+	int			c;
+	int			i;
+	int			j;
+
+	if (!is_matrix_initialized(m) || m->rows < 2 || m->columns < 2)
+		return (NULL);
+	submatrix = create_matrix(m->rows - 1, m->columns - 1);
+	if (!submatrix)
+	{
+		perror("Submatrix");
+		return (NULL);
+	}
+	i = -1;
+	r = 0;
+	while (++i < m->rows)
+	{
+		if (i == row)
+			continue ;
+		j = -1;
+		c = 0;
+		while (++j < m->columns)
+		{
+			if (j == column)
+				continue ;
+			submatrix->values[r][c] = m->values[i][j];
+			c++;
+		}
+		r++;
+	}
+	return (submatrix);
+}
