@@ -4,6 +4,7 @@
 # include <stdbool.h>
 # include <stdio.h>
 # include <stdlib.h>
+# include "minirt.h"
 # include "utilities.h"
 # include "constants.h"
 # include "tuples.h"
@@ -11,7 +12,7 @@
 typedef struct s_matrix {
 	int		rows;
 	int		columns;
-	double	*data;
+	double	**values;
 }	t_matrix;
 
 t_matrix	*create_matrix(int rows, int columns);

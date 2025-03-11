@@ -12,8 +12,8 @@ t_matrix	*create_matrix(int rows, int columns)
 	}
 	matrix->rows = rows;
 	matrix->columns = columns;
-	matrix->data = malloc(sizeof(double) * rows * columns);
-	if (!matrix->data)
+	matrix->values = ft_calloc(rows * columns, sizeof(double));
+	if (!matrix->values)
 	{
 		perror("Failed to allocate memory for matrix data");
 		free(matrix);
@@ -24,30 +24,37 @@ t_matrix	*create_matrix(int rows, int columns)
 
 void free_matrix(t_matrix **matrix)
 {
-	free((*matrix)->data);
-	free(*matrix);
-	*matrix = NULL;
+	if (matrix && *matrix)
+	{
+		free((*matrix)->values);
+		free(*matrix);
+		*matrix = NULL;
+	}
 	return ;
 }
 
 void initialize_matrix(t_matrix *matrix, double *data, int data_size)
 {
 	int	i;
+	int	j;
 
-	i = 0;
-	while (i < matrix->rows * matrix->columns)
+	i = -1;
+	while (++i < matrix->rows)
 	{
-		if (i >= data_size)
-			matrix->data[i] = 0;
-		else
-			matrix->data[i] = data[i];
-		i++;
+		j = -1;
+		while (++j < matrix->columns)
+		{
+			if (i * matrix->columns + j >= data_size)
+				matrix->values[i][j] = 0;
+			else
+				matrix->values[i][j] = data[i * matrix->columns + j];
+		}
 	}
 }
 
 bool	is_matrix_initialized(t_matrix *matrix)
 {
-	if (!matrix || !matrix->data)
+	if (!matrix || !matrix->values)
 		return (false);
 	return (true);
 }
@@ -59,7 +66,7 @@ double	get_value(t_matrix *matrix, int row, int col)
 		printf("Impossible to get the value of an uninitialized matrix\n");
 		return (0.0);
 	}
-	return (matrix->data[row * matrix->columns + col]);
+	return (matrix->values[row][col]);
 }
 
 void	set_value(t_matrix *matrix, int row, int col, double value)
@@ -69,7 +76,7 @@ void	set_value(t_matrix *matrix, int row, int col, double value)
 		printf("Impossible to set the value of an uninitialized matrix\n");
 		return ;
 	}
-	matrix->data[row * matrix->columns + col] = value;
+	matrix->values[row][col] = value;
 }
 
 void print_matrix(t_matrix* matrix)
@@ -78,19 +85,14 @@ void print_matrix(t_matrix* matrix)
 	int	j;
 	int k;
 
-	i = 0;
+	i = -1;
 	k = 0;
-	while (i < matrix->rows)
+	while (++i < matrix->rows)
 	{
-		j = 0;
-		while (j < matrix->columns)
-		{
-			printf("%f ", matrix->data[k]);
-			j++;
-			k++;
-		}
+		j = -1;
+		while (++j < matrix->columns)
+			printf("%f ", matrix->values[i][j]);
 		printf("\n");
-		i++;
 	}
 }
 
@@ -123,7 +125,7 @@ t_tuple	get_row_as_tuple(t_matrix *matrix, int row)
 	col = 0;
 	while (col < matrix->columns)
 	{
-		tuple.x = matrix->data[row * matrix->columns + col];
+		tuple.x = matrix->values[row * matrix->columns + col];
 		col++;
 	}
 }

@@ -5,6 +5,7 @@
 # include <math.h>
 # include <assert.h>
 
+# include "../libraries/libft/include/libft.h"
 # include "colors.h"
 # include "constants.h"
 # include "matrices.h"
