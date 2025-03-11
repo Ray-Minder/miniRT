@@ -23,6 +23,7 @@ void 		free_matrix(t_matrix **matrix);
 
 t_tuple		multiply_matrix_by_tuple(t_matrix *m, t_tuple t);
 t_tuple		get_row_as_tuple(t_matrix *m, int row);
+t_matrix	*transpose_matrix(t_matrix *m);
 
 void 		print_matrix(t_matrix* matrix);
 

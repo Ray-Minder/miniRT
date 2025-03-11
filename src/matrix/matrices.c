@@ -210,3 +210,27 @@ t_tuple	get_row_as_tuple(t_matrix *m, int row)
 	return (row_as_tuple);
 }
 
+t_matrix	*transpose_matrix(t_matrix *m)
+{
+	t_matrix	*transposed;
+	int			i;
+	int			j;
+
+	if (!is_matrix_initialized(m))
+		return (NULL);
+	transposed = create_matrix(m->columns, m->rows);
+	if (!transposed)
+	{
+		perror("Transpose matrix");
+		return (NULL);
+	}
+	i = -1;
+	while (++i < m->rows)
+	{
+		j = -1;
+		while (++j < m->columns)
+			transposed->values[j][i] = m->values[i][j];
+	}
+	return (transposed);
+}
+
