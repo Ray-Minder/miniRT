@@ -14,22 +14,22 @@ void test_matrix_creation()
 
 	assert(m1->rows == 2);
 	assert(m1->columns == 2);
-	assert(m1->data[0] == 1.0);
-	assert(m1->data[1] == 2.0);
-	assert(m1->data[2] == 3.0);
-	assert(m1->data[3] == 4.0);
+	assert(compare_doubles(m1->values[0][0], 1.0));
+	assert(compare_doubles(m1->values[0][1], 2.0));
+	assert(compare_doubles(m1->values[1][0], 3.0));
+	assert(compare_doubles(m1->values[1][1], 4.0));
 
 	assert(m2->rows == 3);
 	assert(m2->columns == 3);
-	assert(m2->data[0] == 1.0);
-	assert(m2->data[1] == 2.0);
-	assert(m2->data[2] == 3.0);
-	assert(m2->data[3] == 4.0);
-	assert(m2->data[4] == 5.0);
-	assert(m2->data[5] == 6.0);
-	assert(m2->data[6] == 7.0);
-	assert(m2->data[7] == 8.0);
-	assert(m2->data[8] == 9.0);
+	assert(compare_doubles(m2->values[0][0], 1.0));
+	assert(compare_doubles(m2->values[0][1], 2.0));
+	assert(compare_doubles(m2->values[0][2], 3.0));
+	assert(compare_doubles(m2->values[1][0], 4.0));
+	assert(compare_doubles(m2->values[1][1], 5.0));
+	assert(compare_doubles(m2->values[1][2], 6.0));
+	assert(compare_doubles(m2->values[2][0], 7.0));
+	assert(compare_doubles(m2->values[2][1], 8.0));
+	assert(compare_doubles(m2->values[2][2], 9.0));
 	printf("Matrix creation tests passed.\n");
 }
 

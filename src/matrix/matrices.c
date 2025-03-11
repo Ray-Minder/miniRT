@@ -3,6 +3,7 @@
 t_matrix	*create_matrix(int rows, int columns)
 {
 	t_matrix	*matrix;
+	int			i;
 
 	matrix = malloc(sizeof(t_matrix));
 	if (!matrix)
@@ -12,20 +13,39 @@ t_matrix	*create_matrix(int rows, int columns)
 	}
 	matrix->rows = rows;
 	matrix->columns = columns;
-	matrix->values = ft_calloc(rows * columns, sizeof(double));
+	matrix->values = ft_calloc(rows, sizeof(double *));
 	if (!matrix->values)
 	{
-		perror("Failed to allocate memory for matrix data");
 		free(matrix);
+		perror("Failed to allocate memory for matrix rows");
 		return (NULL);
+	}
+	i = -1;
+	while (++i < matrix->rows)
+	{
+		matrix->values[i] = ft_calloc(columns, sizeof(double));
+		if (!matrix->values[i])
+		{
+			while (--i >= 0)
+            	free(matrix->values[i]);
+			free(matrix->values);
+			free(matrix);
+			perror("Failed to allocate memory for matrix columns");
+			return (NULL);
+		}
 	}
 	return (matrix);
 }
 
 void free_matrix(t_matrix **matrix)
 {
+	int	i;
+
 	if (matrix && *matrix)
 	{
+		i = -1;
+		while (++i < (*matrix)->rows)
+			free((*matrix)->values[i]);
 		free((*matrix)->values);
 		free(*matrix);
 		*matrix = NULL;
@@ -37,17 +57,21 @@ void initialize_matrix(t_matrix *matrix, double *data, int data_size)
 {
 	int	i;
 	int	j;
+	int	index;
 
+	if (!matrix || !matrix->values || !data)
+		return ;
 	i = -1;
 	while (++i < matrix->rows)
 	{
 		j = -1;
 		while (++j < matrix->columns)
 		{
-			if (i * matrix->columns + j >= data_size)
-				matrix->values[i][j] = 0;
+			index = i * matrix->columns + j;
+			if (index < data_size)
+				matrix->values[i][j] = data[index];
 			else
-				matrix->values[i][j] = data[i * matrix->columns + j];
+				matrix->values[i][j] = 0;
 		}
 	}
 }
