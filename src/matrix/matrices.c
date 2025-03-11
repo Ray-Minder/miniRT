@@ -1,4 +1,4 @@
-#include "../include/matrices.h"
+#include "../../include/matrices.h"
 
 t_matrix	*create_matrix(int rows, int columns)
 {
@@ -99,65 +99,69 @@ void print_matrix(t_matrix* matrix)
 bool	compare_matrices(t_matrix *a, t_matrix *b)
 {
 	int	i;
+	int	j;
 
 	if (!is_matrix_initialized(a) || !is_matrix_initialized(b))
 		return (false); //Un-initialized matrices are a default false.
 	if (a->rows != b->rows || a->columns != b->columns)
 		return (false);
-	i = 0;
-	while (i < a->rows * a->columns)
+	i = -1;
+	while (++i < a->rows)
 	{
-		if (!compare_doubles(a->data[i], b->data[i]))
-			return (false);
-		i++;
+		j = -1;
+		while (++j < a->columns)
+		{
+			if (!compare_doubles(a->values[i][j], b->values[i][j]))
+				return (false);
+		}
 	}
 	return (true);
 }
 
-t_tuple	get_row_as_tuple(t_matrix *matrix, int row)
-{
-	t_tuple	tuple;
-	int		col;
+// t_tuple	get_row_as_tuple(t_matrix *matrix, int row)
+// {
+// 	t_tuple	tuple;
+// 	int		col;
 
-	tuple = initialize_tuple(0,0,0,0);
-	if (!is_matrix_initialized(matrix))
-		return (tuple);
-	col = 0;
-	while (col < matrix->columns)
-	{
-		tuple.x = matrix->values[row * matrix->columns + col];
-		col++;
-	}
-}
+// 	tuple = initialize_tuple(0,0,0,0);
+// 	if (!is_matrix_initialized(matrix))
+// 		return (tuple);
+// 	col = 0;
+// 	while (col < matrix->columns)
+// 	{
+// 		tuple.x = matrix->values[row * matrix->columns + col];
+// 		col++;
+// 	}
+// }
 
-t_matrix	*multiply_matrices(t_matrix *a, t_matrix *b)
-{
-	t_matrix	*result;
-	int			r;
-	int			c;
-	int			i;
-	int			dot_product;
+// t_matrix	*multiply_matrices(t_matrix *a, t_matrix *b)
+// {
+// 	t_matrix	*result;
+// 	int			r;
+// 	int			c;
+// 	int			i;
+// 	int			dot_product;
 
-	if (!is_matrix_initialized(a) || !is_matrix_initialized(b))
-		return (NULL);
-	if (a->columns != b->rows)
-		return (NULL);
-	result = create_matrix(a->rows, b->columns);
-	if (!result)
-	{
-		perror("Error at multiply matrices");
-		return (NULL);
-	}
-	r = -1;
-	while (++r < a->rows)
-	{
-		c = -1;
-		while (++c < b->columns)
-		{
-			i = -1;
-			while (++i < a->rows * b->columns)
-				result->data[]
-		}
-	}
-}
+// 	if (!is_matrix_initialized(a) || !is_matrix_initialized(b))
+// 		return (NULL);
+// 	if (a->columns != b->rows)
+// 		return (NULL);
+// 	result = create_matrix(a->rows, b->columns);
+// 	if (!result)
+// 	{
+// 		perror("Error at multiply matrices");
+// 		return (NULL);
+// 	}
+// 	r = -1;
+// 	while (++r < a->rows)
+// 	{
+// 		c = -1;
+// 		while (++c < b->columns)
+// 		{
+// 			i = -1;
+// 			while (++i < a->rows * b->columns)
+// 				result->data[]
+// 		}
+// 	}
+// }
 
