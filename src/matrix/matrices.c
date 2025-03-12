@@ -322,9 +322,9 @@ double	cofactor(t_matrix *m, int row, int col)
 	return (minor * sign);
 }
 
-t_matrix	*inverse(t_matrix *m)
+t_matrix	*invert_matrix(t_matrix *m)
 {
-	t_matrix	*_inverse;
+	t_matrix	*inverse;
 	double		_determinant;
 	int			r;
 	int			c;
@@ -340,13 +340,13 @@ t_matrix	*inverse(t_matrix *m)
 		printf("The matrix is not invertible.\n");
 		return (NULL);
 	}
-	_inverse = create_matrix(m->rows, m->columns);
+	inverse = create_matrix(m->rows, m->columns);
 	r = -1;
 	while (++r < m->rows)
 	{
 		c = -1;
 		while (++c < m->columns)
-			_inverse->values[c][r] = cofactor(m, r, c) / _determinant;
+			inverse->values[c][r] = cofactor(m, r, c) / _determinant;
 	}
-	return(_inverse);
+	return(inverse);
 }
