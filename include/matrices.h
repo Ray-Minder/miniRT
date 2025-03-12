@@ -4,10 +4,11 @@
 # include <stdbool.h>
 # include <stdio.h>
 # include <stdlib.h>
-# include "minirt.h"
+
 # include "utilities.h"
 # include "constants.h"
 # include "tuples.h"
+# include "../libraries/libft/include/libft.h"
 
 typedef struct s_matrix {
 	int		rows;

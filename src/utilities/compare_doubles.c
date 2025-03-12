@@ -1,5 +1,4 @@
-#include "../../include/constants.h"
-#include <stdbool.h>
+#include "../../include/utilities.h"
 
 bool compare_doubles(double a, double b)
 {

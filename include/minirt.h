@@ -11,6 +11,7 @@
 # include "matrices.h"
 # include "tuples.h"
 # include "utilities.h"
+# include "transformations.h"
 
 
 #endif
