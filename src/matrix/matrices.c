@@ -350,3 +350,30 @@ t_matrix	*invert_matrix(t_matrix *m)
 	}
 	return(inverse);
 }
+
+t_matrix	*identity(int size)
+{
+	t_matrix	*_identity;
+	int			r;
+	int			c;
+
+	_identity = create_matrix(size, size);
+	if (!_identity)
+	{
+		perror("Identity");
+		return (NULL);
+	}
+	r = -1;
+	while (++r < size)
+	{
+		c = -1;
+		while (++c < size)
+		{
+			if (r == c)
+				_identity->values[r][c] = 1.0;
+			else
+				_identity->values[r][c] = 0.0;
+		}
+	}
+	return (_identity);
+}

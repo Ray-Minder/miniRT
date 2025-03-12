@@ -312,6 +312,32 @@ void	test_inverse()
 	printf("Test inverse passed.\n");
 }
 
+void	test_identity()
+{
+	t_matrix	*_identity;
+
+	_identity = identity(4);
+	assert(compare_doubles(_identity->values[0][0], 1));
+	assert(compare_doubles(_identity->values[0][1], 0));
+	assert(compare_doubles(_identity->values[0][2], 0));
+	assert(compare_doubles(_identity->values[0][3], 0));
+	assert(compare_doubles(_identity->values[1][0], 0));
+	assert(compare_doubles(_identity->values[1][1], 1));
+	assert(compare_doubles(_identity->values[1][2], 0));
+	assert(compare_doubles(_identity->values[1][3], 0));
+	assert(compare_doubles(_identity->values[2][0], 0));
+	assert(compare_doubles(_identity->values[2][1], 0));
+	assert(compare_doubles(_identity->values[2][2], 1));
+	assert(compare_doubles(_identity->values[2][3], 0));
+	assert(compare_doubles(_identity->values[3][0], 0));
+	assert(compare_doubles(_identity->values[3][1], 0));
+	assert(compare_doubles(_identity->values[3][2], 0));
+	assert(compare_doubles(_identity->values[3][3], 1));
+
+	free_matrix(&_identity);
+	printf("Test identity passed.\n");
+}
+
 int main(void)
 {
 	test_matrix_creation();
@@ -324,6 +350,7 @@ int main(void)
 	test_determinant();
 	test_cofactor();
 	test_inverse();
+	test_identity();
 	printf("All tests passed!\n");
 	return (0);
 }
