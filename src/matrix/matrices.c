@@ -202,7 +202,7 @@ t_tuple	get_row_as_tuple(t_matrix *m, int row)
 	t_tuple	row_as_tuple;
 	int		column;
 
-	if (!is_matrix_initialized(m))
+	if (!is_matrix_initialized(m) || row > m->rows)
 		return (tuple(-1, -1, -1, -1));
 	row_as_tuple = tuple(0, 0, 0, 0);
 	column = -1;
@@ -252,7 +252,8 @@ t_matrix	*submatrix(t_matrix	*m, int row, int column)
 	int			i;
 	int			j;
 
-	if (!is_matrix_initialized(m) || m->rows < 2 || m->columns < 2)
+	if (!is_matrix_initialized(m) || m->rows < 1 || m->columns < 1
+		|| row > m->rows || column > m->columns)
 		return (NULL);
 	submatrix = create_matrix(m->rows - 1, m->columns - 1);
 	if (!submatrix)
@@ -307,7 +308,7 @@ double	cofactor(t_matrix *m, int row, int col)
 	double		minor;
 	double		sign;
 
-	if (!is_matrix_initialized(m))
+	if (!is_matrix_initialized(m) || row > m->rows || col > m->columns)
 	{
 		perror("Cofactor");
 		return (0);
