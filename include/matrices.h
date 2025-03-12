@@ -27,6 +27,7 @@ t_matrix	*transpose_matrix(t_matrix *m);
 t_matrix	*submatrix(t_matrix	*m, int row, int column);
 double		determinant(t_matrix *m);
 double		cofactor(t_matrix *m, int row, int col);
+t_matrix	*inverse(t_matrix *m);
 
 void 		print_matrix(t_matrix* matrix);
 

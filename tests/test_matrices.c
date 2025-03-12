@@ -254,6 +254,64 @@ void	test_cofactor()
 	printf("Test cofactor passed.\n");
 }
 
+void	test_inverse()
+{
+	t_matrix	*a;
+	t_matrix	*b;
+	t_matrix	*c;
+	t_matrix	*recovering_a;
+	t_matrix	*_inverse_of_b;
+
+	a = create_matrix(4, 4);
+	initialize_matrix(a, (double[]){1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0}, 16);
+	b = create_matrix(4, 4);
+	initialize_matrix(b, (double[]){1.0, 16.0, 2.0, 15.0, 3.0, 14.0, 5.0, 13.0, 6.0, 55.0, 44.0, 11.0, 22.0, 23.0, 32.0, 16.0}, 16);
+	_inverse_of_b = inverse(b);
+
+	assert(compare_doubles(_inverse_of_b->values[0][0], 1.420624));
+	assert(compare_doubles(_inverse_of_b->values[0][1], -1.924016));
+	assert(compare_doubles(_inverse_of_b->values[0][2], -0.028494));
+	assert(compare_doubles(_inverse_of_b->values[0][3], 0.251018));
+	assert(compare_doubles(_inverse_of_b->values[1][0], 1.024053));
+	assert(compare_doubles(_inverse_of_b->values[1][1], -1.356359));
+	assert(compare_doubles(_inverse_of_b->values[1][2], 0.008635));
+	assert(compare_doubles(_inverse_of_b->values[1][3], 0.136055));
+	assert(compare_doubles(_inverse_of_b->values[2][0], -1.234859));
+	assert(compare_doubles(_inverse_of_b->values[2][1], 1.617984));
+	assert(compare_doubles(_inverse_of_b->values[2][2], 0.018256));
+	assert(compare_doubles(_inverse_of_b->values[2][3], -0.169483));
+	assert(compare_doubles(_inverse_of_b->values[3][0], -0.955717));
+	assert(compare_doubles(_inverse_of_b->values[3][1], 1.359319));
+	assert(compare_doubles(_inverse_of_b->values[3][2], -0.009745));
+	assert(compare_doubles(_inverse_of_b->values[3][3], -0.139262));
+
+	c = multiply_matrices(a, b);
+	recovering_a = multiply_matrices(c, _inverse_of_b);
+
+	assert(compare_doubles(recovering_a->values[0][0], 1));
+	assert(compare_doubles(recovering_a->values[0][1], 1));
+	assert(compare_doubles(recovering_a->values[0][2], 1));
+	assert(compare_doubles(recovering_a->values[0][3], 1));
+	assert(compare_doubles(recovering_a->values[1][0], 1));
+	assert(compare_doubles(recovering_a->values[1][1], 1));
+	assert(compare_doubles(recovering_a->values[1][2], 1));
+	assert(compare_doubles(recovering_a->values[1][3], 1));
+	assert(compare_doubles(recovering_a->values[2][0], 1));
+	assert(compare_doubles(recovering_a->values[2][1], 1));
+	assert(compare_doubles(recovering_a->values[2][2], 1));
+	assert(compare_doubles(recovering_a->values[2][3], 1));
+	assert(compare_doubles(recovering_a->values[3][0], 1));
+	assert(compare_doubles(recovering_a->values[3][1], 1));
+	assert(compare_doubles(recovering_a->values[3][2], 1));
+	assert(compare_doubles(recovering_a->values[3][3], 1));
+
+	free_matrix(&a);
+	free_matrix(&b);
+	free_matrix(&c);
+	free_matrix(&_inverse_of_b);
+	printf("Test inverse passed.\n");
+}
+
 int main(void)
 {
 	test_matrix_creation();
@@ -265,6 +323,7 @@ int main(void)
 	test_submatrix();
 	test_determinant();
 	test_cofactor();
+	test_inverse();
 	printf("All tests passed!\n");
 	return (0);
 }
