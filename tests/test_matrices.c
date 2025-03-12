@@ -193,7 +193,65 @@ void	test_submatrix()
 
 	free_matrix(&matrix);
 	free_matrix(&s);
-	printf("Test submatrix passed\n");
+	printf("Test submatrix passed.\n");
+}
+
+void	test_determinant()
+{
+	t_matrix	*m1;
+	t_matrix	*m2;
+	t_matrix	*m3;
+	t_matrix	*m4;
+	double		det;
+
+	m1 = create_matrix(1, 1);
+	initialize_matrix(m1, (double[]){1.0}, 1);
+	det = determinant(m1);
+	assert(compare_doubles(det, 1.0));
+
+	m2 = create_matrix(2, 2);
+	initialize_matrix(m2, (double[]){1.0, 2.0, 3.0, 4.0}, 4);
+	det = determinant(m2);
+	assert(compare_doubles(det, -2.0));
+
+	m3 = create_matrix(3, 3);
+	initialize_matrix(m3, (double[]){1.0, 9.0, 4.0, 16.0, 11.0, 14.0, 7.0, 8.0, 2.0}, 9);
+	det = determinant(m3);
+	assert(compare_doubles(det, 708.0));
+	
+	m4 = create_matrix(4, 4);
+	initialize_matrix(m4, (double[]){1.0, 16.0, 2.0, 15.0, 3.0, 14.0, 5.0, 13.0, 6.0, 55.0, 44.0, 11.0, 22.0, 23.0, 32.0, 16.0}, 16);
+	det = determinant(m4);
+	assert(compare_doubles(det, 8107.0));
+
+	free_matrix(&m1);
+	free_matrix(&m2);
+	free_matrix(&m3);
+	free_matrix(&m4);
+	printf("Test determinant passed.\n");
+}
+
+void	test_cofactor()
+{
+	t_matrix	*m3;
+	double		_cofactor;
+
+	m3 = create_matrix(3, 3);
+	initialize_matrix(m3, (double[]){1.0, 9.0, 4.0, 16.0, 11.0, 14.0, 7.0, 8.0, 2.0}, 9);
+	_cofactor = cofactor(m3, 0, 0);
+	assert(compare_doubles(_cofactor, -90.0));
+
+	_cofactor = cofactor(m3, 1, 1);
+	assert(compare_doubles(_cofactor, -26.0));
+
+	_cofactor = cofactor(m3, 2, 2);
+	assert(compare_doubles(_cofactor, -133.0));
+
+	_cofactor = cofactor(m3, 2, 0);
+	assert(compare_doubles(_cofactor, 82.0));
+
+	free_matrix(&m3);
+	printf("Test cofactor passed.\n");
 }
 
 int main(void)
@@ -205,6 +263,8 @@ int main(void)
 	test_multiply_matrix_by_tuple();
 	test_transpose_matrix();
 	test_submatrix();
+	test_determinant();
+	test_cofactor();
 	printf("All tests passed!\n");
 	return (0);
 }

@@ -90,6 +90,11 @@ double	get_value(t_matrix *matrix, int row, int col)
 		printf("Impossible to get the value of an uninitialized matrix\n");
 		return (0.0);
 	}
+	if (row > matrix->rows || col > matrix->columns)
+	{
+		printf("Out of bounds to get the value.\n");
+		return (0.0);
+	}
 	return (matrix->values[row][col]);
 }
 
@@ -98,6 +103,11 @@ void	set_value(t_matrix *matrix, int row, int col, double value)
 	if (!is_matrix_initialized(matrix))
 	{
 		printf("Impossible to set the value of an uninitialized matrix\n");
+		return ;
+	}
+	if (row > matrix->rows || col > matrix->columns)
+	{
+		printf("Out of bounds to set the value.\n");
 		return ;
 	}
 	matrix->values[row][col] = value;
@@ -268,4 +278,45 @@ t_matrix	*submatrix(t_matrix	*m, int row, int column)
 		r++;
 	}
 	return (submatrix);
+}
+
+double	determinant(t_matrix *m)
+{
+	double	determinant;
+	int		i;
+
+	if (!is_matrix_initialized(m) || m->columns != m->rows)
+	{
+		perror("Determinant");
+		return (0);
+	}
+	if (m->columns == 1)
+		return (m->values[0][0]);
+	if (m->columns == 2)
+		return (m->values[0][0] * m->values[1][1] - m->values[0][1] * m->values[1][0]);
+	determinant = 0;
+	i = -1;
+	while (++i < m->columns)
+		determinant += m->values[0][i] * cofactor(m, 0, i);
+	return (determinant);
+}
+
+double	cofactor(t_matrix *m, int row, int col)
+{
+	t_matrix	*s_matrix;
+	double		minor;
+	double		sign;
+
+	if (!is_matrix_initialized(m))
+	{
+		perror("Cofactor");
+		return (0);
+	}
+	s_matrix = submatrix(m, row, col);
+	minor = determinant(s_matrix);
+	if ((row + col) % 2 == 0)
+		sign = 1;
+	else
+		sign = -1;
+	return (minor * sign);
 }

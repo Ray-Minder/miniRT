@@ -25,6 +25,8 @@ t_tuple		multiply_matrix_by_tuple(t_matrix *m, t_tuple t);
 t_tuple		get_row_as_tuple(t_matrix *m, int row);
 t_matrix	*transpose_matrix(t_matrix *m);
 t_matrix	*submatrix(t_matrix	*m, int row, int column);
+double		determinant(t_matrix *m);
+double		cofactor(t_matrix *m, int row, int col);
 
 void 		print_matrix(t_matrix* matrix);
 
