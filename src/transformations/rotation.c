@@ -36,9 +36,9 @@ t_matrix	*rotation_y(double radians)
 	cosine = cos(radians);
 	sine = sin(radians);
 	rotation_matrix->values[0][0] = cosine;
-	rotation_matrix->values[0][3] = sine;
-	rotation_matrix->values[3][0] = -sine;
-	rotation_matrix->values[3][3] = cosine;
+	rotation_matrix->values[0][2] = sine;
+	rotation_matrix->values[2][0] = -sine;
+	rotation_matrix->values[2][2] = cosine;
 	return (rotation_matrix);
 }
 
