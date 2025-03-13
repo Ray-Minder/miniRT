@@ -1,5 +1,5 @@
 CC = cc
-CFLAGS = -Iinclude -Wall -Wextra -Werror
+CFLAGS = -Iinclude -Wall -Wextra -Werror -g
 
 SRC_DIR = src
 TESTS_DIR = tests
@@ -15,7 +15,9 @@ all: $(BIN_DIR) $(TEST_BINS)
 
 # Rule to compile each test case
 $(BIN_DIR)/%: $(TESTS_DIR)/%.c $(SRCS)
-	$(CC) $(CFLAGS) -o $@ $^ -lm # lm has to be flaced a the end to link math library
+	make -C ./libft
+	$(CC) $(CFLAGS) -o $@ $^ -lm ./libft/libft.a
+# lm has to be flaced a the end to link math library
 
 # Create bin directory if it doesn't exist
 $(BIN_DIR):
@@ -23,6 +25,7 @@ $(BIN_DIR):
 
 clean:
 	rm -rf $(BIN_DIR)
+	make -C ./libft fclean
 
 re: clean all
 

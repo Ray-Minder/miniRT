@@ -38,6 +38,7 @@ typedef struct s_sphere
 	t_tuple	position;
 	double	diameter;
 	t_color	color;
+	struct s_sphere	*next;
 }	t_sphere;
 
 typedef struct s_plane
@@ -45,6 +46,7 @@ typedef struct s_plane
 	t_tuple	point;
 	t_tuple	normal;
 	t_color	color;
+	struct s_plane	*next;
 }	t_plane;
 
 typedef struct s_cylinder
@@ -54,13 +56,14 @@ typedef struct s_cylinder
 	double	diameter;
 	double	height;
 	t_color	color;
+	struct s_cylinder	*next;
 }	t_cylinder;
 
 typedef struct s_scene
 {
-	t_ambient_light *ambient_light;
-	t_camera		*camera;
-	t_light			*light;
+	t_ambient_light ambient_light;
+	t_camera		camera;
+	t_light			light;
 	t_sphere		*sphere;
 	t_plane			*plane;
 	t_cylinder		*cylinder;

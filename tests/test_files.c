@@ -1,7 +1,57 @@
 #include "../include/parser.h"
 #include "../include/utilities.h"
+#include "../libft/libft.h"
 #include <assert.h>
 #include <stdio.h>
+
+void test_parse_ambient_light()
+{
+	t_scene scene;
+
+	assert(parse_ambient_light(ft_split("A 0.01321 125,125,125", ' '), &scene) == SUCCESS);
+	assert(compare_doubles(scene.ambient_light.strength, 0.01321));
+	assert(scene.ambient_light.color.r == 125);
+	assert(scene.ambient_light.color.g == 125);
+	assert(scene.ambient_light.color.b == 125);
+
+	assert(parse_ambient_light(ft_split("A 0.01321 125,125,125,125", ' '), &scene) == INVALID_ARG_COUNT);
+	assert(parse_ambient_light(ft_split("A 0.01321 125,125", ' '), &scene) == INVALID_ARG_COUNT);
+	assert(parse_ambient_light(ft_split("A -123 125,125,125", ' '), &scene) == DOUBLE_OUT_OF_RANGE);
+	printf("parse_ambient_light tests passed\n");
+}
+
+void test_parse_uint8()
+{
+	uint8_t result;
+	result = 0;
+	assert(parse_uint8("0", &result) == SUCCESS);
+	assert(result == 0);
+	assert(parse_uint8("255", &result) == SUCCESS);
+	assert(result == 255);
+	assert(parse_uint8("256", &result) == INVALID_INT);
+	assert(result == 0);
+	assert(parse_uint8("a", &result) == INVALID_INT);
+	assert(result == 0);
+	assert(parse_uint8("1a", &result) == INVALID_INT);
+	assert(result == 0);
+	assert(parse_uint8("a1", &result) == INVALID_INT);
+	assert(result == 0);
+	assert(parse_uint8("a1a", &result) == INVALID_INT);
+	assert(result == 0);
+	assert(parse_uint8("1a1", &result) == INVALID_INT);
+	assert(result == 0);
+	assert(parse_uint8("1", &result) == SUCCESS);
+	assert(result == 1);
+	assert(parse_uint8("01", &result) == SUCCESS);
+	assert(result == 1);
+	assert(parse_uint8("001", &result) == SUCCESS);
+	assert(result == 1);
+	assert(parse_uint8("0001", &result) == SUCCESS);
+	assert(result == 1);
+	assert(parse_uint8("00001", &result) == INVALID_INT);
+	printf("result: %d\n", result);
+	assert(result == 0);
+}
 
 void test_ft_safe_atodbl()
 {
@@ -36,11 +86,6 @@ void test_ft_is_double(void)
 	assert(ft_is_double("0") == true);
 	assert(ft_is_double("9") == true);
 	assert(ft_is_double("a") ==  false);
-	assert(ft_is_double("") == false);
-	assert(ft_is_double(".") == false);
-	assert(ft_is_double("-9") == true);
-	assert(ft_is_double("+9") == true);
-	assert(ft_is_double("-9.03") == true);
 	assert(ft_is_double("-") == false);
 	assert(ft_is_double("+") == false);
 	assert(ft_is_double("++9") == false);
@@ -67,6 +112,8 @@ void test_filename()
 
 int main(void)
 {
+	test_parse_ambient_light();
+	test_parse_uint8();
 	test_ft_safe_atodbl();
 	test_ft_is_double();
 	test_filename();

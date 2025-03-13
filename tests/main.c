@@ -1,14 +1,29 @@
 #include <fcntl.h>
 #include "../include/parser.h"
+#include "../libft/libft.h"
+#include "../include/scene.h"
 #include <stdio.h>
 
 int main(int argc, char *argv[])
 {
-	if (argc != 1)
+	t_scene scene;
+	int error;
+
+	error = 0;
+	if (argc != 2)
 	{
 		printf("Usage: %s <filename>\n", argv[0]);
 		return (1);
 	}
-	// parse_scene(argv[1]);
-	printf("%f\n", ft_atodbl("0.001"));
+	error = parse_scene(argv[1], &scene);
+	printf("Ambient light strength: %f\n", scene.ambient_light.strength);
+	printf("Ambient light color: %d, %d, %d\n\n", scene.ambient_light.color.r, scene.ambient_light.color.g, scene.ambient_light.color.b);
+	printf("Camera position: %f, %f, %f\n", scene.camera.position.x, scene.camera.position.y, scene.camera.position.z);
+	printf("Camera forward: %f, %f, %f\n", scene.camera.forward.x, scene.camera.forward.y, scene.camera.forward.z);
+	printf("Camera fov: %f\n\n", scene.camera.fov);
+	printf("Light position: %f, %f, %f\n", scene.light.position.x, scene.light.position.y, scene.light.position.z);
+	printf("Light brightness: %f\n", scene.light.brightness);
+	printf("Light color: %d, %d, %d\n\n", scene.light.color.r, scene.light.color.g, scene.light.color.b);
+	printf("Error: %d\n", error);
+	return (0);
 }
