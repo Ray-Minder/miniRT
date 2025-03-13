@@ -3,9 +3,10 @@
 //	=== Function Declarations ===
 
 void 	free_matrix(t_matrix **matrix);
+void 	free_array_of_matrices(t_matrix ***matrices);
+int		size_of_array_of_matrices(t_matrix **matrices);
 bool	is_matrix_initialized(t_matrix *matrix);
 void 	print_matrix(t_matrix* matrix);
-t_tuple	get_row_as_tuple(t_matrix *m, int row);
 
 //	=== Function Definitions ===
 
@@ -23,6 +24,34 @@ void free_matrix(t_matrix **matrix)
 		*matrix = NULL;
 	}
 	return ;
+}
+
+void free_array_of_matrices(t_matrix ***matrices)
+{
+	int	i;
+
+	if (!matrices || !*matrices)
+		return ;
+	i = 0;
+	while ((*matrices)[i])
+	{
+		free_matrix(matrices[i]);
+		i++;
+	}
+	*matrices = NULL;
+	return ;
+}
+
+int	size_of_array_of_matrices(t_matrix **matrices)
+{
+	int	i;
+
+	if (!matrices)
+		return (0);
+	i = 0;
+	while (matrices[i] != NULL)
+		i++;
+	return (i);
 }
 
 bool	is_matrix_initialized(t_matrix *matrix)
@@ -47,27 +76,4 @@ void print_matrix(t_matrix* matrix)
 			printf("%f ", matrix->values[i][j]);
 		printf("\n");
 	}
-}
-
-t_tuple	get_row_as_tuple(t_matrix *m, int row)
-{
-	t_tuple	row_as_tuple;
-	int		column;
-
-	if (!is_matrix_initialized(m) || row > m->rows)
-		return (tuple(-1, -1, -1, -1));
-	row_as_tuple = tuple(0, 0, 0, 0);
-	column = -1;
-	while (++column < m->columns && column < 4)
-	{
-		if (column == 0)
-			row_as_tuple.x = m->values[row][column];
-        else if (column == 1)
-			row_as_tuple.y = m->values[row][column];
-        else if (column == 2)
-			row_as_tuple.z = m->values[row][column];
-        else if (column == 3)
-			row_as_tuple.w = m->values[row][column];
-	}
-	return (row_as_tuple);
 }

@@ -17,4 +17,6 @@ t_matrix	*rotation_z(double radians);
 t_matrix	*shearing(double xy, double xz, double yx, 
 						double yz, double zx, double zy);
 
+t_matrix	*chain_transformations(t_matrix *matrices[]);
+
 #endif

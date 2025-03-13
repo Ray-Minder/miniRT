@@ -4,6 +4,7 @@
 
 bool		compare_matrices(t_matrix *a, t_matrix *b);
 t_matrix	*multiply_matrices(t_matrix *a, t_matrix *b);
+t_tuple		get_row_as_tuple(t_matrix *m, int row);
 t_tuple		multiply_matrix_by_tuple(t_matrix *m, t_tuple t);
 t_matrix	*transpose_matrix(t_matrix *m);
 
@@ -61,6 +62,29 @@ t_matrix	*multiply_matrices(t_matrix *a, t_matrix *b)
 		}
 	}
 	return (result);
+}
+
+t_tuple	get_row_as_tuple(t_matrix *m, int row)
+{
+	t_tuple	row_as_tuple;
+	int		column;
+
+	if (!is_matrix_initialized(m) || row > m->rows)
+		return (tuple(-1, -1, -1, -1));
+	row_as_tuple = tuple(0, 0, 0, 0);
+	column = -1;
+	while (++column < m->columns && column < 4)
+	{
+		if (column == 0)
+			row_as_tuple.x = m->values[row][column];
+        else if (column == 1)
+			row_as_tuple.y = m->values[row][column];
+        else if (column == 2)
+			row_as_tuple.z = m->values[row][column];
+        else if (column == 3)
+			row_as_tuple.w = m->values[row][column];
+	}
+	return (row_as_tuple);
 }
 
 t_tuple	multiply_matrix_by_tuple(t_matrix *m, t_tuple t)
