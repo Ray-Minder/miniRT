@@ -18,7 +18,8 @@ typedef enum e_error
 	TOO_MANY_CAMERAS,
 	TOO_MANY_LIGHTS,
 	FOV_OUT_OF_RANGE,
-	DOUBLE_OUT_OF_RANGE
+	DOUBLE_OUT_OF_RANGE,
+	MALLOC_FAIL
 }	t_error;
 
 bool	verify_filename(char *filename);
@@ -38,6 +39,9 @@ int		parse_color(char *line, t_color *color);
 int		parse_tuple(char *line, t_tuple *tuple);
 int		count_tokens(char **tokens);
 void	ft_free_ptrs(char **ptrs);
+void print_objects(t_object *object_list);
+void cleanup(t_scene *scene);
+
 
 
 #endif

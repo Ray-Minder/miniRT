@@ -3,6 +3,14 @@
 
 #include <stdint.h>
 #include "tuples.h"
+#include "matrices.h"
+
+typedef enum e_object_type
+{
+	SPHERE,
+	PLANE,
+	CYLINDER
+}	t_object_type;
 
 typedef struct s_color
 {
@@ -59,6 +67,17 @@ typedef struct s_cylinder
 	struct s_cylinder	*next;
 }	t_cylinder;
 
+typedef struct s_object
+{
+	t_object_type	type;
+	t_tuple			position;
+	t_tuple			transform;
+	t_color			color;
+	double			diameter;
+	double			height;
+	struct s_object	*next;
+}	t_object;
+
 typedef struct s_scene
 {
 	t_ambient_light ambient_light;
@@ -67,6 +86,7 @@ typedef struct s_scene
 	t_sphere		*sphere;
 	t_plane			*plane;
 	t_cylinder		*cylinder;
+	t_object		*objects;
 }	t_scene;
 
 #endif

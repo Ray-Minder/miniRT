@@ -37,8 +37,9 @@ int	parse_line(char *line, t_scene *scene)
 	{
 		if (ft_strncmp(split_line[0], elements[i], ft_strlen(elements[i]) + 1) == 0)
 		{
-			return (p[i](split_line, scene));
-			break ;
+			error = p[i](split_line, scene);
+			ft_free_ptrs(split_line);
+			return (error);
 		}
 		if (i == 5)
 		{
@@ -76,6 +77,5 @@ int parse_scene(char *filename, t_scene *scene)
 		free(line);
 	}
 	close(file);
-	printf("success\n");
 	return (SUCCESS);
 }

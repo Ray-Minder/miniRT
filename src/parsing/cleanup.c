@@ -1,0 +1,17 @@
+#include "../../include/scene.h"
+#include <stdlib.h>
+
+void cleanup(t_scene *scene)
+{
+	t_object *object;
+	t_object *next;
+
+	object = scene->objects;
+	while (object)
+	{
+		next = object->next;
+		free(object);
+		object = next;
+	}
+	scene->objects = NULL;
+}

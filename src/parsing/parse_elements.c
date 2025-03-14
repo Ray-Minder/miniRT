@@ -73,27 +73,3 @@ int parse_light(char **line, t_scene *scene)
 		return (error);
 	return (0);
 }
-
-int parse_sphere(char **line, t_scene *scene)
-{
-	if (!line || !scene)
-		return (1);
-	printf("sphere\n");
-	return (0);
-}
-
-int parse_plane(char **line, t_scene *scene)
-{
-	if (!line || !scene)
-		return (1);
-	printf("plane\n");
-	return (0);
-}
-
-int parse_cylinder(char **line, t_scene *scene)
-{
-	if (!line || !scene)
-		return (1);
-	printf("cylinder\n");
-	return (0);
-}

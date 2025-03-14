@@ -2,15 +2,6 @@
 #include <stdbool.h>
 #include "../../libft/libft.h"
 
-/**
- * @brief Converts a string to a double.
- *
- * This function takes a string representation of a number and converts it
- * to a double-precision floating-point number.
- *
- * @param s The string to be converted.
- * @return The converted double value.
- */
 double ft_atodbl(char *s)
 {
 	double result;
@@ -40,16 +31,6 @@ double ft_atodbl(char *s)
 	return (result * sign);
 }
 
-/**
- * @brief Checks if a given string represents a valid double value.
- *
- * This function verifies if the input string `s` is a valid representation
- * of a double-precision floating-point number. It allows for an optional
- * leading sign ('+' or '-'), a single decimal point, and digits.
- *
- * @param s The input string to be checked.
- * @return true if the string represents a valid double value, false otherwise.
- */
 bool ft_is_double(const char *s)
 {
 	int i;
@@ -77,17 +58,6 @@ bool ft_is_double(const char *s)
 	return (true);
 }
 
-/**
- * @brief Safely converts a string to a double.
- *
- * This function checks if the given string can be converted to a double
- * using the `ft_is_double` function. If the string is a valid double,
- * it converts the string to a double using the `ft_atodbl` function.
- * If the string is not a valid double, it returns 0.
- *
- * @param s The string to be converted to a double.
- * @return The converted double value if the string is valid, otherwise 0.
- */
 double ft_safe_atodbl(char *s)
 {
 	if (!ft_is_double(s))
@@ -95,19 +65,6 @@ double ft_safe_atodbl(char *s)
 	return (ft_atodbl(s));
 }
 
-/**
- * @brief Parses a string to a double value.
- *
- * This function checks if the given string represents a valid double value.
- * If the string is valid, it converts the string to a double and stores the
- * result in the provided double pointer.
- *
- * @param s The string to be parsed.
- * @param result A pointer to a double where the parsed value will be stored.
- * @return Returns NO_ERROR if the string is a valid double and the conversion
- *         is successful. Returns INVALID_DOUBLE if the string is not a valid
- *         double.
- */
 int	parse_double(const char *s, double *result)
 {
 	*result = 0;
