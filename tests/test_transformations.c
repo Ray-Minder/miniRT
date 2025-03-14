@@ -171,49 +171,76 @@ void	test_chained_transformations()
 {
 	t_matrix	*transformations[4];
 	t_matrix	*chained_transformations;
-	// t_matrix	*manually_chained;
+	t_matrix	*manually_chained;
 	t_tuple		p;
 	t_tuple		transformed_point1;
 	t_tuple		transformed_point2;
 
 	transformations[0] = rotation_x(PI / 2);
+
+	// printf("\nRotation matrix:\n");
+	// print_matrix(transformations[0]);
+	// printf("\n\n");
+
 	transformations[1] = scaling(5, 5, 5);
+
+	// printf("\nScaling matrix:\n");
+	// print_matrix(transformations[1]);
+	// printf("\n\n");
+
 	transformations[2] = translation(10, 5, 7);
+
+	// printf("\nTranslation matrix:\n");
+	// print_matrix(transformations[2]);
+	// printf("\n\n");
+
 	transformations[3] = NULL;
 
 	p = point(10, 5, 7);
 	chained_transformations = chain_transformations(transformations);
-	printf("\nChained transformations:\n");
-	print_matrix(chained_transformations);
-	printf("\n\n");
+
+	// printf("\nChained transformations:\n");
+	// print_matrix(chained_transformations);
+	// printf("\n\n");
 
 	transformed_point1 = multiply_matrix_by_tuple(chained_transformations, p);
-	print_tuple(transformed_point1);
-	printf("\n\n");
+
+	// printf("Transformed point by chain transformations\n");
+	// print_tuple(transformed_point1);
+	// printf("\n\n");
 	
 	transformed_point2 = multiply_matrix_by_tuple(transformations[0], p);
+
+	// printf("Rotation by point = point'\n");
 	// print_tuple(transformed_point2);
+	// printf("\n\n");
+
 	transformed_point2 = multiply_matrix_by_tuple(transformations[1], transformed_point2);
+
+	// printf("Scaling by point' = point''\n");
 	// print_tuple(transformed_point2);
+	// printf("\n\n");
+
 	transformed_point2 = multiply_matrix_by_tuple(transformations[2], transformed_point2);
-	print_tuple(transformed_point2); // result if applied 1 by 1.
 
-	// manually_chained = multiply_matrices(transformations[2], transformations[1]);
-	// manually_chained = multiply_matrices(manually_chained, transformations[0]);
-	// transformed_point2 = multiply_matrix_by_tuple(manually_chained, p);
-	
-	// print_matrix(manually_chained);
-	printf("\n\n");
+	// printf("Translation by point'' = transformed point 2\n");
+	// printf("Transformed point 2\n");
+	// print_tuple(transformed_point2); // result if applied 1 by 1.
+	// printf("\n\n");
 
-	print_tuple(transformed_point2); // This should be the correct result probably, but I don't get the same result as the book.
-	
+	manually_chained = multiply_matrices(transformations[2], transformations[1]);
+	manually_chained = multiply_matrices(manually_chained, transformations[0]);
+	transformed_point2 = multiply_matrix_by_tuple(manually_chained, p);
 
-	assert(compare_doubles(transformed_point1.x, transformed_point2.x));
-	assert(compare_doubles(transformed_point1.y, transformed_point2.y));
-	assert(compare_doubles(transformed_point1.z, transformed_point2.z));
+	assert(compare_doubles(transformed_point1.x, transformed_point2.x) && "X coordinates do not match");
+	assert(compare_doubles(transformed_point1.y, transformed_point2.y) && "Y coordinates do not match");
+	assert(compare_doubles(transformed_point1.z, transformed_point2.z) && "Z coordinates do not match");
 
-	// free_array_of_matrices(&matrices);
-	printf("Test chained_transformations passed.\n");
+	for (int i = 0; i < 4; i++)
+		free_matrix(&transformations[i]);
+	free_matrix(&chained_transformations);
+	free_matrix(&manually_chained);
+	printf("Test for chained transformations passed.\n");
 }
 
 int main(void)
@@ -223,6 +250,6 @@ int main(void)
 	test_rotation();
 	test_shearing();
 	test_chained_transformations();
-	printf("All tests passed!\n");
+	printf("All transformations tests passed!\n");
 	return (0);
 }

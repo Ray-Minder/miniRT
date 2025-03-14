@@ -10,7 +10,7 @@ t_matrix	*chain_transformations(t_matrix *matrices[])
 	size = size_of_array_of_matrices(matrices) - 1;
 	if (size == 1)
 		return (matrices[0]);
-	chained_matrix = matrices[size];
+	chained_matrix = copy_matrix(matrices[size]);
 	while (--size >= 0)
 	{
 		current = matrices[size];

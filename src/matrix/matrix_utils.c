@@ -65,10 +65,8 @@ void print_matrix(t_matrix* matrix)
 {
 	int	i;
 	int	j;
-	int k;
 
 	i = -1;
-	k = 0;
 	while (++i < matrix->rows)
 	{
 		j = -1;

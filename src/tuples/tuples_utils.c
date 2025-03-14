@@ -8,11 +8,14 @@ void print_tuple(t_tuple tuple);
 
 void print_tuple(t_tuple tuple)
 {
-	if (tuple.w == 1.0)
+	if (tuple.w == 0.0)
+		printf("The tuple is a vector.\n");
+	else if (tuple.w == 1.0)
 		printf("The tuple is a point.\n");
 	else
-		printf("The Tuple is a vector.\n");
+		printf("The tuple is neither a vector nor a point.\n");
 	printf("x: %f\n", tuple.x);
 	printf("y: %f\n", tuple.y);
 	printf("z: %f\n", tuple.z);
+	printf("w: %f\n", tuple.w);
 }

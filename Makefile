@@ -1,4 +1,4 @@
-CC = cc
+CC = gcc
 CFLAGS = -Iinclude -Wall -Wextra -Werror
 
 LIBFT_DIR = libraries/libft
