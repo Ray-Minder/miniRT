@@ -351,6 +351,6 @@ int main(void)
 	test_cofactor();
 	test_inverse();
 	test_identity();
-	printf("All tests passed!\n");
+	printf("All matrices tests passed!\n");
 	return (0);
 }

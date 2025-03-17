@@ -63,36 +63,3 @@ t_tuple divide_tuple_by_scalar(t_tuple t, double scalar)
 	result.w = t.w;
 	return (result);
 }
-
-// t_tuple	negate_point(t_tuple t)
-// {
-// 	t_tuple negated_tuple;
-
-// 	negated_tuple.x = -t.x;
-// 	negated_tuple.y = -t.y;
-// 	negated_tuple.z = -t.z;
-// 	negated_tuple.w = t.w;
-// 	return (negated_tuple);
-// }
-
-// t_tuple	multiply_point_by_scalar(t_tuple t, double scalar)
-// {
-// 	t_tuple result;
-
-// 	result.x = t.x * scalar;
-// 	result.y = t.y * scalar;
-// 	result.z = t.z * scalar;
-// 	result.w = t.w;
-// 	return (result);
-// }
-
-// t_tuple	divide_point_by_scalar(t_tuple t, double scalar)
-// {
-// 	t_tuple result;
-
-// 	result.x = t.x / scalar;
-// 	result.y = t.y / scalar;
-// 	result.z = t.z / scalar;
-// 	result.w = t.w;
-// 	return (result);
-// }

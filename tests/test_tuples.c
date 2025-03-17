@@ -340,6 +340,6 @@ int main()
 	test_normalize_tuple();
 	test_dot_product();
 	test_cross_product();
-	printf("All tests passed!\n");
+	printf("All tuples tests passed!\n");
 	return (0);
 }

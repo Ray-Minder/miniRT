@@ -2,12 +2,37 @@
 
 //	=== Function Declarations ===
 
+t_matrix	*transpose_matrix(t_matrix *m);
 t_matrix	*submatrix(t_matrix	*m, int row, int column);
 double		determinant(t_matrix *m);
 double		cofactor(t_matrix *m, int row, int col);
 t_matrix	*invert_matrix(t_matrix *m);
 
 //	=== Function Definitions ===
+
+t_matrix	*transpose_matrix(t_matrix *m)
+{
+	t_matrix	*transposed;
+	int			i;
+	int			j;
+
+	if (!is_matrix_initialized(m))
+		return (NULL);
+	transposed = create_matrix(m->columns, m->rows);
+	if (!transposed)
+	{
+		perror("Transpose matrix");
+		return (NULL);
+	}
+	i = -1;
+	while (++i < m->rows)
+	{
+		j = -1;
+		while (++j < m->columns)
+			transposed->values[j][i] = m->values[i][j];
+	}
+	return (transposed);
+}
 
 t_matrix	*submatrix(t_matrix	*m, int row, int column)
 {
