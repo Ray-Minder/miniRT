@@ -12,16 +12,15 @@ SRC_DIR = src
 TESTS_DIR = tests
 BIN_DIR = bin
 
-SRCS = $(shell find $(SRC_DIR) -name '*.c' ! -name 'main.c') # Automatically find all .c files in src/
-MAIN_SRC = $(SRC_DIR)/main.c
+SRCS = $(shell find $(SRC_DIR) -name '*.c') # Automatically find all .c files in src/
 TESTS = $(wildcard $(TESTS_DIR)/*.c) # Automatically find all .c test files
 TEST_BINS = $(patsubst $(TESTS_DIR)/%.c, $(BIN_DIR)/%, $(TESTS)) # Convert test file names to bin names
 
-all: $(BIN_DIR) $(TEST_BINS) $(NAME)
+all: $(NAME)
 
-$(NAME): $(LIBFT) $(MLX42) $(MAIN_SRC) $(OBJ)
+$(NAME): $(LIBFT) $(MLX42) $(OBJ)
 	@echo $(BLUE)"Linking object files."$(RESET)
-	@$(CC) $(FLAGS) $(MAIN_SRC) $(OBJ) $(MLX42) -L $(LIBFT_DIR) -lft -ldl -lglfw -lm -o $(NAME)
+	@$(CC) $(FLAGS) $(OBJ) $(MLX42) -L $(LIBFT_DIR) -lft -ldl -lglfw -lm -o $(NAME)
 	@echo $(GREEN)"Finished linking object files."$(RESET)
 
 $(LIBFT):
@@ -36,9 +35,9 @@ $(MLX42):
 	@echo $(GREEN)"Finished creating MLX42 library."$(RESET)
 
 # Rule to compile each test case
-$(BIN_DIR)/%: $(TESTS_DIR)/%.c $(SRCS) $(LIBFT)
+$(BIN_DIR)/%: $(TESTS_DIR)/%.c $(SRCS) $(LIBFT) $(MLX42)
 #@echo $(MAGENTA)"Creating binaries."$(RESET)
-	@$(CC) $(CFLAGS) -o $@ $^ -L$(LIBFT_DIR) -lft -lm 
+	@$(CC) $(CFLAGS) -o $@ $^ $(MLX42) -L$(LIBFT_DIR) -lft -ldl -lglfw -lm 
 # lm has to be placed a the end to link math library
 #@echo $(GREEN)"Binaries created."$(RESET)
 
@@ -58,14 +57,17 @@ fclean: clean
 	else \
 		echo $(BLUE)"MLX42 is already removed."$(RESET); \
 	fi
+	@rm -f ./minirt
 
 re: fclean all
+	
 
 # Run all tests
-test: all
+test: all $(BIN_DIR) $(TEST_BINS)
 	@for test in $(TEST_BINS); do echo "Running $$test..."; $$test; echo ""; done
 
-
+exe: all
+	./minirt
 
 # COLOURS
 BOLD = "\e[1m"
