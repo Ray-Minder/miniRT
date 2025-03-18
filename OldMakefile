@@ -1,0 +1,110 @@
+NAME = minirt
+
+CC = cc
+CFLAGS = -Iinclude -Wall -Wextra -Werror
+
+LIBFT_DIR = libraries/libft
+LIBFT = $(LIBFT_DIR)/libft.a
+MLX42_DIR = ./libraries/MLX42
+MLX42 = $(MLX42_DIR)/build/libmlx42.a
+
+SRC_DIR = src
+TESTS_DIR = tests
+BIN_DIR = bin
+OBJ_DIR = obj
+
+SRCS = \
+	$(SRC_DIR)/main.c \
+	$(SRC_DIR)/colors.c \
+	$(SRC_DIR)/matrix/matrices.c \
+	$(SRC_DIR)/matrix/matrix_operations_1.c \
+	$(SRC_DIR)/matrix/matrix_operations_2.c \
+	$(SRC_DIR)/matrix/matrix_utils.c \
+	$(SRC_DIR)/mlx/hooks.c \
+	$(SRC_DIR)/transformations/chain_transformations.c \
+	$(SRC_DIR)/transformations/rotation.c \
+	$(SRC_DIR)/transformations/scaling.c \
+	$(SRC_DIR)/transformations/shearing.c \
+	$(SRC_DIR)/transformations/translation.c \
+	$(SRC_DIR)/tuples/tuples_advanced_operations.c \
+	$(SRC_DIR)/tuples/tuples_basic_operations.c \
+	$(SRC_DIR)/tuples/tuples_utils.c \
+	$(SRC_DIR)/tuples/tuples.c \
+	$(SRC_DIR)/utilities/compare_doubles.c \
+	$(SRC_DIR)/utilities/degrees_to_radians.c
+
+OBJ = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRCS))
+
+TESTS = $(wildcard $(TESTS_DIR)/*.c) # Automatically find all .c test files
+TEST_BINS = $(patsubst $(TESTS_DIR)/%.c, $(BIN_DIR)/%, $(TESTS)) # Convert test file names to bin names
+
+all: $(NAME)
+
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
+	@mkdir -p $(@D)
+	@$(CC) $(CFLAGS) -c $< -o $@
+	@echo "$(GREEN)Compiling: $< into $@$(RESET)"
+
+$(NAME): $(OBJ) $(LIBFT) $(MLX42) 
+	@echo $(BLUE)"Linking object files."$(RESET)
+	@$(CC) $(CFLAGS) $(OBJ) $(MLX42) -L $(LIBFT_DIR) -lft -ldl -lglfw -lm -o $(NAME)
+	@echo $(GREEN)"Finished linking object files."$(RESET)
+
+$(LIBFT):
+	@echo $(GREEN)"Creating libft library."$(RESET)
+	@$(MAKE) -C $(LIBFT_DIR) >/dev/null
+	@echo $(GREEN)"Library libft created."$(RESET)
+
+$(MLX42):
+	@echo $(BLUE)"Building MLX42"$(RESET)
+	@cmake $(MLX42_DIR) -B $(MLX42_DIR)/build > /dev/null 2>&1
+	@cmake --build $(MLX42_DIR)/build -j4 > /dev/null 2>&1
+	@echo $(GREEN)"Finished creating MLX42 library."$(RESET)
+
+# Rule to compile each test case
+$(BIN_DIR)/%: $(TESTS_DIR)/%.c $(SRCS) $(LIBFT) $(MLX42)
+#@echo $(MAGENTA)"Creating binaries."$(RESET)
+	@$(CC) $(CFLAGS) -o $@ $^ $(MLX42) -L$(LIBFT_DIR) -lft -ldl -lglfw -lm 
+# lm has to be placed a the end to link math library
+#@echo $(GREEN)"Binaries created."$(RESET)
+
+# Create bin directory if it doesn't exist
+$(BIN_DIR):
+	@mkdir -p $(BIN_DIR)
+
+clean:
+	@rm -rf $(BIN_DIR)
+	@rm -rf $(OBJ_DIR)
+	@make -C $(LIBFT_DIR) clean >/dev/null
+
+fclean: clean
+	@$(MAKE) -C $(LIBFT_DIR) fclean >/dev/null
+	@if [ -d $(MLX42_DIR)/build ]; then \
+		$(RM) -r $(MLX42_DIR)/build; \
+		echo $(WHITE)"Cleaned MLX42 library."$(RESET); \
+	else \
+		echo $(BLUE)"MLX42 is already removed."$(RESET); \
+	fi
+	@rm -f ./minirt
+
+re: fclean all
+	
+
+# Run all tests
+test: all $(BIN_DIR) $(TEST_BINS)
+	@for test in $(TEST_BINS); do echo "Running $$test..."; $$test; echo ""; done
+
+exe: all
+	./minirt
+
+# COLOURS
+BOLD = "\e[1m"
+BLACK = "\033[0;30m"
+RED = "\033[0;31m"
+GREEN = "\033[0;32m"
+YELLOW = "\033[0;33m"
+BLUE = "\033[0;34m"
+MAGENTA = "\033[0;35m"
+CYAN = "\033[0;36m"
+WHITE = "\033[0;37m"
+RESET = "\033[0m"
