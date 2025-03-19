@@ -1,17 +1,20 @@
 #include "../../include/scene.h"
 #include "../../include/parser.h"
 
-int count_tokens(char **tokens)
+int	count_tokens(char **tokens)
 {
-	int count = 0;
+	int	count;
+
+	count = 0;
 	while (tokens[count])
 		count++;
 	return (count);
 }
-int parse_ambient_light(char **line, t_scene *scene)
+
+int	parse_ambient_light(char **line, t_scene *scene)
 {
-	static int count = 0;
-	int error;
+	static int	count = 0;
+	int			error;
 
 	count++;
 	if (count > 1)
@@ -28,10 +31,10 @@ int parse_ambient_light(char **line, t_scene *scene)
 	return (SUCCESS);
 }
 
-int parse_camera(char **line, t_scene *scene)
+int	parse_camera(char **line, t_scene *scene)
 {
-	static int count = 0;
-	int error;
+	static int	count = 0;
+	int			error;
 
 	count++;
 	if (count > 1)
@@ -52,10 +55,10 @@ int parse_camera(char **line, t_scene *scene)
 	return (SUCCESS);
 }
 
-int parse_light(char **line, t_scene *scene)
+int	parse_light(char **line, t_scene *scene)
 {
-	static int count = 0;
-	int error;
+	static int	count = 0;
+	int			error;
 
 	count++;
 	if (count > 1)

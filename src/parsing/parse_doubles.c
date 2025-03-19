@@ -2,11 +2,11 @@
 #include <stdbool.h>
 #include "../../libft/libft.h"
 
-double ft_atodbl(char *s)
+double	ft_atodbl(char *s)
 {
-	double result;
-	double power;
-	int sign;
+	double	result;
+	double	power;
+	int		sign;
 
 	result = 0.0;
 	power = 0.1;
@@ -31,10 +31,10 @@ double ft_atodbl(char *s)
 	return (result * sign);
 }
 
-bool ft_is_double(const char *s)
+bool	ft_is_double(const char *s)
 {
-	int i;
-	int dot;
+	int	i;
+	int	dot;
 
 	i = 0;
 	dot = 0;
@@ -58,7 +58,7 @@ bool ft_is_double(const char *s)
 	return (true);
 }
 
-double ft_safe_atodbl(char *s)
+double	ft_safe_atodbl(char *s)
 {
 	if (!ft_is_double(s))
 		return (0);
@@ -74,11 +74,11 @@ int	parse_double(const char *s, double *result)
 	return (SUCCESS);
 }
 
-int parse_tuple(char *line, t_tuple *tuple)
+int	parse_tuple(char *line, t_tuple *tuple)
 {
-	char **split_line;
-	int error;
-	
+	char	**split_line;
+	int		error;
+
 	split_line = ft_split(line, ',');
 	if (!split_line)
 		return (SPLIT_ERROR);

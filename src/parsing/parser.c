@@ -5,9 +5,9 @@
 #include <fcntl.h>
 #include <stdbool.h>
 
-void ft_free_ptrs(char **ptrs)
+void	ft_free_ptrs(char **ptrs)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (ptrs[i])

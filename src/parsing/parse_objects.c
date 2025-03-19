@@ -2,47 +2,10 @@
 #include "../../include/scene.h"
 #include <stdlib.h>
 
-t_object *get_last_object(t_object *object)
+int	parse_sphere(char **line, t_scene *scene)
 {
-	if (!object)
-		return (NULL);
-	while (object->next)
-	{
-		object = object->next;
-	}
-	return (object);
-}
-
-t_object	*create_object(void)
-{
-	t_object *ptr;
-
-	ptr = (t_object *)malloc(sizeof(t_object));
-	if (!ptr)
-		return (NULL);
-	ptr->next = NULL;
-	return (ptr);
-}
-
-int add_new_object(t_scene *scene, t_object **new_object)
-{
-    t_object *last_object;
-
-    *new_object = create_object();
-    if (!*new_object)
-        return (MALLOC_FAIL);
-    last_object = get_last_object(scene->objects);
-    if (!last_object)
-        scene->objects = *new_object;
-    else
-        last_object->next = *new_object;
-    return (SUCCESS);
-}
-
-int parse_sphere(char **line, t_scene *scene)
-{
-	t_object *new_object;
-	int error;
+	t_object	*new_object;
+	int			error;
 
 	error = add_new_object(scene, &new_object);
 	if (error != SUCCESS)
@@ -62,10 +25,10 @@ int parse_sphere(char **line, t_scene *scene)
 	return (SUCCESS);
 }
 
-int parse_plane(char **line, t_scene *scene)
+int	parse_plane(char **line, t_scene *scene)
 {
-	t_object *new_object;
-	int error;
+	t_object	*new_object;
+	int			error;
 
 	error = add_new_object(scene, &new_object);
 	if (error != SUCCESS)
@@ -85,10 +48,10 @@ int parse_plane(char **line, t_scene *scene)
 	return (SUCCESS);
 }
 
-int parse_cylinder(char **line, t_scene *scene)
+int	parse_cylinder(char **line, t_scene *scene)
 {
-	t_object *new_object;
-	int error;
+	t_object	*new_object;
+	int			error;
 
 	error = add_new_object(scene, &new_object);
 	if (error != SUCCESS)
@@ -112,15 +75,4 @@ int parse_cylinder(char **line, t_scene *scene)
 	if (error != SUCCESS)
 		return (error);
 	return (SUCCESS);
-}
-
-void print_objects(t_object *object_list)
-{
-	while (object_list)
-	{
-		printf("position: %f, %f, %f\n", object_list->position.x, object_list->position.y, object_list->position.z);
-		printf("diameter: %f\n", object_list->diameter);
-		printf("color: %d, %d, %d\n\n\n", object_list->color.r, object_list->color.g, object_list->color.b);
-		object_list = object_list->next;
-	}
 }
