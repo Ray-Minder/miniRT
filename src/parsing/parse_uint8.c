@@ -30,7 +30,6 @@ int	parse_color(char *line, t_color *color)
 	split_line = ft_split(line, ',');
 	if (!split_line)
 		return (SPLIT_ERROR);
-	printf("count: %d\n", count_tokens(split_line));
 	if (count_tokens(split_line) != 3)
 	{
 		ft_free_ptrs(split_line);

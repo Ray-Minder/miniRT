@@ -39,8 +39,10 @@ int		parse_color(char *line, t_color *color);
 int		parse_tuple(char *line, t_tuple *tuple);
 int		count_tokens(char **tokens);
 void	ft_free_ptrs(char **ptrs);
-void print_objects(t_object *object_list);
-void cleanup(t_scene *scene);
+void	print_objects(t_object *object_list);
+void	cleanup(t_scene *scene);
+int		add_new_object(t_scene *scene, t_object **new_object);
+int		print_error(t_error error);
 
 
 
