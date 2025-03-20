@@ -8,7 +8,7 @@ typedef struct	s_ray
 {
 	t_tuple	origin;
 	t_tuple	direction;
-
+	
 }	t_ray;
 
 typedef struct s_data t_data;
