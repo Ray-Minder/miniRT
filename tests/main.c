@@ -1,6 +1,6 @@
 #include <fcntl.h>
 #include "../include/parser.h"
-#include "../../libraries/libft/include/libft.h"
+#include "../libraries/libft/include/libft.h"
 #include "../include/scene.h"
 #include <stdio.h>
 
