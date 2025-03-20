@@ -98,5 +98,9 @@ int	parse_scene(char *filename, t_scene *scene)
 		return (print_error(NO_ACCESS));
 	error = process_file_lines(file, scene);
 	close(file);
+	if (error == SUCCESS)
+		error = validate_scene(scene);
+	if (error != SUCCESS)
+		print_error(error);
 	return (error);
 }

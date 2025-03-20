@@ -15,8 +15,11 @@ typedef enum e_error
 	INVALID_INT,
 	INVALID_ARG_COUNT,
 	TOO_MANY_AMBIENT_LIGHTS,
+	NO_AMBIENT_LIGHT,
 	TOO_MANY_CAMERAS,
+	NO_CAMERA,
 	TOO_MANY_LIGHTS,
+	NO_LIGHTS,
 	FOV_OUT_OF_RANGE,
 	DOUBLE_OUT_OF_RANGE,
 	MALLOC_FAIL
@@ -43,6 +46,7 @@ void	print_objects(t_object *object_list);
 void	cleanup(t_scene *scene);
 int		add_new_object(t_scene *scene, t_object **new_object);
 int		print_error(t_error error);
+int		validate_scene(t_scene *scene);
 
 
 

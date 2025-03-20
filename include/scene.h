@@ -21,12 +21,14 @@ typedef struct s_color
 
 typedef struct s_ambient_light
 {
+	bool	is_set;
 	double	strength;
 	t_color color;
 }	t_ambient_light;
 
 typedef struct s_camera
 {
+	bool	is_set;
 	t_tuple	position;
 	t_tuple forward;
 	t_tuple	up;
@@ -36,6 +38,7 @@ typedef struct s_camera
 
 typedef struct s_light
 {
+	bool	is_set;
 	t_tuple	position;
 	double	brightness;
 	t_color	color;
@@ -83,9 +86,6 @@ typedef struct s_scene
 	t_ambient_light ambient_light;
 	t_camera		camera;
 	t_light			light;
-	t_sphere		*sphere;
-	t_plane			*plane;
-	t_cylinder		*cylinder;
 	t_object		*objects;
 }	t_scene;
 
