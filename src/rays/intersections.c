@@ -3,11 +3,11 @@
 
 t_xs	sphere_intersect(t_ray *ray, t_object *sphere)
 {
-	t_xs xs;
-	double discriminant;
-	double a;
-	double b;
-	t_tuple sphere_to_ray;
+	t_xs	xs;
+	double	discriminant;
+	double	a;
+	double	b;
+	t_tuple	sphere_to_ray;
 
 	discriminant = calculate_discriminant(ray);
 	if (discriminant < 0)
@@ -23,16 +23,16 @@ t_xs	sphere_intersect(t_ray *ray, t_object *sphere)
 	xs.count = 2;
 	xs.t[0] = (-b - sqrt(discriminant)) / (2 * a);
 	xs.t[1] = (-b + sqrt(discriminant)) / (2 * a);
-	return (xs);	
+	return (xs);
 }
 
 double	calculate_discriminant(t_ray *ray)
 {
-	double a;
-	double b;
-	double c;
-	double discriminant;
-	t_tuple sphere_to_ray;
+	double	a;
+	double	b;
+	double	c;
+	double	discriminant;
+	t_tuple	sphere_to_ray;
 	
 	sphere_to_ray = subtract_tuples(ray->origin, point(0, 0, 0));
 	a = dot_product(ray->direction, ray->direction);

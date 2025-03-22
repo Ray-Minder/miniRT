@@ -55,7 +55,7 @@ int	parse_camera(char **line, t_scene *scene)
 
 int	parse_light(char **line, t_scene *scene)
 {
-	int			error;
+	int	error;
 
 	if (scene->light.is_set)
 		return (TOO_MANY_LIGHTS);
