@@ -1,7 +1,7 @@
 #include "../../include/intersect.h"
 #include "math.h"
 
-t_xs	*intersect(t_ray *ray, t_object *object)
+t_x	*intersect(t_ray *ray, t_object *object)
 {
 	if (!ray || !object)
 		return (NULL);
@@ -10,9 +10,30 @@ t_xs	*intersect(t_ray *ray, t_object *object)
 	return (NULL);
 }
 
-void	add_intersection(t_xs **xs_list, t_xs *current)
+t_x	*hit(t_x *xs_list)
 {
-	t_xs	*iterator;
+	t_x	*current;
+	t_x	*lowest_hit;
+
+	if (!xs_list)
+	{
+		printf("Cannot determine the hit from a NULL xs_list.\n");
+		return (NULL);
+	}
+	current = xs_list;
+	lowest_hit = current;
+	while (current != NULL)
+	{
+		if (current->t > 0 && current->t < lowest_hit->t)
+			lowest_hit = current;
+		current = current->next;
+	}
+	return (lowest_hit);
+}
+
+void	add_intersection_node(t_x **xs_list, t_x *current)
+{
+	t_x	*iterator;
 
 	if ((!xs_list || !*xs_list) && !current)
 	{
@@ -30,9 +51,9 @@ void	add_intersection(t_xs **xs_list, t_xs *current)
 	iterator->next = current;
 }
 
-t_xs	*sphere_intersect(t_ray *ray, t_object *sphere)
+t_x	*sphere_intersect(t_ray *ray, t_object *sphere)
 {
-	t_xs	*xs;
+	t_x		*xs;
 	double	discriminant;
 	double	a;
 	double	b;
@@ -44,17 +65,17 @@ t_xs	*sphere_intersect(t_ray *ray, t_object *sphere)
 	discriminant = calculate_discriminant(ray);
 	if (discriminant < 0)
 	{
-		xs->count = 0;
-		xs->t[0] = 0;
-		xs->t[1] = 0;
+		xs->t = 0;
 		return (xs);
 	}
+	xs->next = new_intersection_node();
+	if (!xs->next)
+		return (free_intersections_list(&xs), NULL);
 	sphere_to_ray = subtract_tuples(ray->origin, sphere->position);
 	a = dot_product(ray->direction, ray->direction);
-	b = 2 * dot_product(ray->direction, sphere_to_ray);	
-	xs->count = 2;
-	xs->t[0] = (-b - sqrt(discriminant)) / (2 * a);
-	xs->t[1] = (-b + sqrt(discriminant)) / (2 * a);
+	b = 2 * dot_product(ray->direction, sphere_to_ray);
+	xs->t = (-b - sqrt(discriminant)) / (2 * a);
+	xs->next->t = (-b + sqrt(discriminant)) / (2 * a);
 	return (xs);
 }
 

@@ -1,27 +1,26 @@
 #include "../../include/intersect.h"
 
-t_xs	*new_intersection_node(void)
+t_x	*new_intersection_node(void)
 {
-	t_xs	*new_node;
+	t_x	*new_node;
 
-	new_node = ft_calloc(1, sizeof(t_xs));
+	new_node = ft_calloc(1, sizeof(t_x));
 	if (!new_node)
 	{
 		perror("Failed to create new intersection node.");
 		return (NULL);
 	}
-	new_node->next = NULL;
 	new_node->object = NULL;
-	new_node->count = 0;
-	new_node->t[0] = 0;
-	new_node->t[1] = 0;
+	new_node->t = 0;
+	// new_node->hit = false;
+	new_node->next = NULL;
 	return (new_node);
 }
 
-void	free_intersections_list(t_xs **xs_list)
+void	free_intersections_list(t_x **xs_list)
 {
-	t_xs	*current;
-	t_xs	*next;
+	t_x	*current;
+	t_x	*next;
 
 	if (!xs_list || !*xs_list)
 		return ;
@@ -36,7 +35,7 @@ void	free_intersections_list(t_xs **xs_list)
 	}
 }
 
-void	free_intersection_node(t_xs **node_ptr)
+void	free_intersection_node(t_x **node_ptr)
 {
 	if (!node_ptr || !*node_ptr)
 		return ;
