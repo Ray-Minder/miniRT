@@ -138,13 +138,39 @@ void test_hit()
 	assert(_hit->t == 1.0);
 
 	free_intersections_list(&xs);
-	printf("Test hit function passed!\n");
+	printf("Test hit passed!\n");
+}
+
+void	test_transform()
+{
+	t_ray		ray;
+	t_matrix	*_translation;
+	t_matrix	*_scaling;
+	t_ray		r2;
+	
+	ray = create_ray(point(1, 2, 3), vector(0, 1, 0));
+
+	_translation = translation(3, 4, 5);
+	r2 = transform(&ray, _translation);
+	assert(compare_tuples(r2.origin, point(4, 6, 8)));
+	assert(compare_tuples(r2.direction, vector(0, 1, 0)));
+
+	_scaling = scaling(2, 3, 4);
+	r2 = transform(&ray, _scaling);
+	assert(compare_tuples(r2.origin, point(2, 6, 12)));
+	assert(compare_tuples(r2.direction, vector(0, 3, 0)));
+
+	
+
+
+	printf("Test transform passed!\n");
 }
 
 int main()
 {
 	test_sphere_intersect();
 	test_hit();
+	test_transform();
 	// t_ray ray = create_ray(point(5, 0, 0), vector(0, 0, 1));
 	// printf("%f\n", calculate_discriminant(&ray));
 

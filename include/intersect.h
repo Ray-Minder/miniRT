@@ -32,4 +32,8 @@ t_x		*new_intersection_node(void);
 void	free_intersections_list(t_x **xs_list);
 void	free_intersection_node(t_x **node_ptr);
 
+// TRANSFORM
+
+t_ray	transform(t_ray *ray, t_matrix *matrix);
+
 #endif
