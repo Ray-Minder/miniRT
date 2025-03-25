@@ -1,26 +1,33 @@
 #include "../../include/intersect.h"
 #include "math.h"
 
-t_xs	*new_intersection_node(void)
-{
-	t_xs	*new_node;
-
-	new_node = ft_calloc(1, sizeof(t_xs));
-	if (!new_node)
-	{
-		perror("Failed to create new intersection node.");
-		return (NULL);
-	}
-	new_node->next = NULL;
-	new_node->object = NULL;
-	return (new_node);
-}
-
 t_xs	*intersect(t_ray *ray, t_object *object)
 {
+	if (!ray || !object)
+		return (NULL);
 	if (object->type == SPHERE)
 		return (sphere_intersect(ray, object));
 	return (NULL);
+}
+
+void	add_intersection(t_xs **xs_list, t_xs *current)
+{
+	t_xs	*iterator;
+
+	if ((!xs_list || !*xs_list) && !current)
+	{
+		printf("There's no xs list, and no intersection to add either.\n");
+		return ;
+	}
+	if (xs_list && !*xs_list && current)
+	{
+		*xs_list = current;
+		return ;
+	}
+	iterator = *xs_list;
+	while (iterator && iterator->next)
+		iterator = iterator->next;
+	iterator->next = current;
 }
 
 t_xs	*sphere_intersect(t_ray *ray, t_object *sphere)
