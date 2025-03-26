@@ -21,6 +21,12 @@ t_object	*create_object(void)
 	if (!ptr)
 		return (NULL);
 	ptr->next = NULL;
+	ptr->transform = identity(4);
+	if (!ptr->transform)
+	{
+		free(ptr);
+		return (NULL);
+	}
 	return (ptr);
 }
 
