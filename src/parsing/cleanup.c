@@ -9,6 +9,7 @@ void	cleanup(t_scene *scene)
 	object = scene->objects;
 	while (object)
 	{
+		free(object->transform);
 		next = object->next;
 		free(object);
 		object = next;
