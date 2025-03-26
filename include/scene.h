@@ -74,7 +74,8 @@ typedef struct s_object
 {
 	t_object_type	type;
 	t_tuple			position;
-	t_tuple			transform;
+	t_matrix		transform;
+	t_tuple			direction;
 	t_color			color;
 	double			diameter;
 	double			height;
