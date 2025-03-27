@@ -1,9 +1,22 @@
-#ifndef SCENE_H
-# define SCENE_H
+#ifndef STRUCTS_H
+# define STRUCTS_H
 
-#include <stdint.h>
-#include "tuples.h"
-#include "matrices.h"
+# include "minirt.h"
+
+typedef struct s_intersection t_x;
+
+typedef struct s_tuple {
+    double x;
+    double y;
+    double z;
+    double w;
+}	t_tuple;
+
+typedef struct s_matrix {
+	int		rows;
+	int		columns;
+	double	**values;
+}	t_matrix;
 
 typedef enum e_object_type
 {
@@ -82,6 +95,14 @@ typedef struct s_object
 	struct s_object	*next;
 }	t_object;
 
+typedef struct s_intersection
+{
+	t_object	*object;
+	double		t;
+	bool		hit;
+	t_x			*next;
+}	t_x;
+
 typedef struct s_scene
 {
 	t_ambient_light ambient_light;
@@ -90,4 +111,21 @@ typedef struct s_scene
 	t_object		*objects;
 }	t_scene;
 
+typedef struct	s_ray
+{
+	t_tuple	origin;
+	t_tuple	direction;
+}	t_ray;
+
+typedef struct s_data
+{
+	mlx_t		*mlx;
+	mlx_image_t	*canvas;
+	t_camera	*cam;
+	t_light		*light;
+	int			width;
+	int			height;
+}	t_data;
+
 #endif
+

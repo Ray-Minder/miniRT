@@ -1,4 +1,4 @@
-#include "../../include/transformations.h"
+#include "../../include/minirt.h"
 
 t_matrix	*shearing(double xy, double xz, double yx, 
 						double yz, double zx, double zy)

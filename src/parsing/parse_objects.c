@@ -1,6 +1,5 @@
 #include "../../include/parser.h"
-#include "../../include/scene.h"
-#include <stdlib.h>
+#include "../../include/minirt.h"
 
 int	parse_sphere(char **line, t_scene *scene)
 {

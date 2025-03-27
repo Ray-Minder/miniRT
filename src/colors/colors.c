@@ -1,4 +1,4 @@
-#include "../../include/colors.h"
+#include "../../include/minirt.h"
 
 t_color	color(uint8_t r, uint8_t g, uint8_t b);
 t_color	add_colors(t_color c1, t_color c2);

@@ -1,4 +1,4 @@
-#include "../../include/scene.h"
+#include "../../include/minirt.h"
 #include "../../include/parser.h"
 
 t_tuple get_camera_right(t_tuple forward)

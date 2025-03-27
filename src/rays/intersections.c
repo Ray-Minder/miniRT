@@ -1,5 +1,4 @@
-#include "../../include/intersect.h"
-#include "math.h"
+#include "../../include/minirt.h"
 
 t_x	*intersect(t_ray *ray, t_object *object)
 {

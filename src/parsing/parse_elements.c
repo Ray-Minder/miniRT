@@ -1,4 +1,4 @@
-#include "../../include/scene.h"
+#include "../../include/minirt.h"
 #include "../../include/parser.h"
 
 int	count_tokens(char **tokens)

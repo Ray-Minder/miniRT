@@ -1,6 +1,4 @@
-#include "../include/matrices.h"
-#include <stdio.h>
-#include <assert.h>
+#include "../include/minirt.h"
 
 void test_matrix_creation()
 {

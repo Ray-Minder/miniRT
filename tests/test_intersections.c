@@ -1,6 +1,4 @@
-#include "../include/intersect.h"
-#include <assert.h>
-#include <stdio.h>
+#include "../include/minirt.h"
 
 void test_sphere_intersect()
 {

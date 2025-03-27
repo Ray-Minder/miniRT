@@ -4,40 +4,36 @@
 # include <stdio.h>
 # include <math.h>
 # include <assert.h>
+# include <stdint.h>
+# include <stdbool.h>
+# include <stdlib.h>
+# include <fcntl.h>
 
 # include "../libraries/libft/include/libft.h"
 # include "../libraries/MLX42/include/MLX42/MLX42.h"
-# include "colors.h"
+
+# include "structs.h"
 # include "constants.h"
-# include "matrices.h"
-# include "tuples.h"
-# include "utilities.h"
-# include "transformations.h"
-# include "rays.h"
-# include "intersect.h"
+# include "definitions.h"
+# include "errors.h"
+# include "get_next_line.h"
 # include "parser.h"
 
-# define SCALE 4
-# define MAX_WINDOW_WIDTH 3840
-# define MAX_WINDOW_HEIGHT 2160
-# define WINDOW_WIDTH 800
-# define WINDOW_HEIGHT 600
-# define MIN_WINDOW_WIDTH 100
-# define MIN_WINDOW_HEIGHT 100
+typedef struct s_tuple t_tuple;
+typedef struct s_matrix t_matrix;
+typedef enum e_object_type t_object_type;
+typedef struct s_color t_color;
+typedef struct s_ambient_light t_ambient_light;
+typedef struct s_camera t_camera;
+typedef struct s_light t_light;
+typedef struct s_sphere t_sphere;
+typedef struct s_plane t_plane;
+typedef struct s_cylinder t_cylinder;
+typedef struct s_object t_object;
+typedef struct s_scene t_scene;
+typedef struct s_intersection t_x;
+typedef struct	s_ray t_ray;
+typedef struct s_data t_data;
 
-typedef struct s_data
-{
-	mlx_t		*mlx;
-	mlx_image_t	*canvas;
-	t_camera	*cam;
-	t_light		*light;
-	int			width;
-	int			height;
-}	t_data;
-
-void	init_data(t_data *data);
-void	init_mlx(t_data	*data);
-void	key_hooks(mlx_key_data_t keydata, void *param);
-void 	render_sphere(t_data *data);
 
 #endif

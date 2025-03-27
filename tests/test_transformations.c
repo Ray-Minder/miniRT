@@ -1,5 +1,4 @@
-#include "../include/transformations.h"
-#include <assert.h>
+#include "../include/minirt.h"
 
 void	test_translation()
 {

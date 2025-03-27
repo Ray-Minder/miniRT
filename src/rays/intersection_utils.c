@@ -1,4 +1,4 @@
-#include "../../include/intersect.h"
+#include "../../include/minirt.h"
 
 t_x	*new_intersection_node(void)
 {

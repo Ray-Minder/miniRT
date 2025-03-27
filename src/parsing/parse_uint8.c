@@ -1,6 +1,5 @@
-#include <stdint.h>
 #include "../../include/parser.h"
-#include "../../libraries/libft/include/libft.h"
+#include "../../include/minirt.h"
 
 int	parse_uint8(const char *s, uint8_t *result)
 {

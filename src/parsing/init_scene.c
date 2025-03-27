@@ -1,5 +1,5 @@
 #include "../../include/parser.h"
-#include "../../include/scene.h"
+# include "../../include/minirt.h"
 
 void	initialize_scene(t_scene *scene)
 {

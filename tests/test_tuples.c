@@ -1,5 +1,4 @@
-#include "../include/tuples.h"
-#include <assert.h>
+#include "../include/minirt.h"
 
 void	test_tuple_creation()
 {

@@ -1,8 +1,5 @@
-#include <fcntl.h>
 #include "../include/parser.h"
-#include "../libraries/libft/include/libft.h"
-#include "../include/scene.h"
-#include <stdio.h>
+#include "../include/minirt.h"
 
 int main(int argc, char *argv[])
 {

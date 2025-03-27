@@ -1,4 +1,4 @@
-#include "../../include/utilities.h"
+#include "../../include/minirt.h"
 
 bool compare_doubles(double a, double b)
 {
