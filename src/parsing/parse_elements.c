@@ -13,12 +13,11 @@ int	count_tokens(char **tokens)
 
 int	parse_ambient_light(char **line, t_scene *scene)
 {
-	static int	count = 0;
 	int			error;
 
-	count++;
-	if (count > 1)
+	if (scene->ambient_light.is_set)
 		return (TOO_MANY_AMBIENT_LIGHTS);
+	scene->ambient_light.is_set = true;
 	if (count_tokens(line) != 3)
 		return (INVALID_ARG_COUNT);
 	if (parse_double(line[1], &scene->ambient_light.strength) != SUCCESS)
@@ -33,12 +32,11 @@ int	parse_ambient_light(char **line, t_scene *scene)
 
 int	parse_camera(char **line, t_scene *scene)
 {
-	static int	count = 0;
 	int			error;
 
-	count++;
-	if (count > 1)
+	if (scene->camera.is_set)
 		return (TOO_MANY_CAMERAS);
+	scene->camera.is_set = true;
 	if (count_tokens(line) != 4)
 		return (INVALID_ARG_COUNT);
 	error = parse_tuple(line[1], &scene->camera.position);
@@ -57,12 +55,11 @@ int	parse_camera(char **line, t_scene *scene)
 
 int	parse_light(char **line, t_scene *scene)
 {
-	static int	count = 0;
-	int			error;
+	int	error;
 
-	count++;
-	if (count > 1)
+	if (scene->light.is_set)
 		return (TOO_MANY_LIGHTS);
+	scene->light.is_set = true;
 	if (count_tokens(line) != 4)
 		return (INVALID_ARG_COUNT);
 	error = parse_tuple(line[1], &scene->light.position);

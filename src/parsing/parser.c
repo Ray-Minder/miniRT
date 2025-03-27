@@ -1,6 +1,6 @@
 #include "../../include/scene.h"
 #include "../../include/parser.h"
-#include "../../libft/libft.h"
+#include "../../libraries/libft/include/libft.h"
 #include "../../include/get_next_line.h"
 #include <fcntl.h>
 #include <stdbool.h>
@@ -72,7 +72,7 @@ int	process_file_lines(int file, t_scene *scene)
 			error = process_line(line, scene);
 			if (error != SUCCESS)
 			{
-				ft_putstr_fd("On line ", 2);
+				ft_putstr_fd("Error on line ", 2);
 				ft_putnbr_fd(i + 1, 2);
 				ft_putstr_fd(": ", 2);
 				free(line);
@@ -98,5 +98,9 @@ int	parse_scene(char *filename, t_scene *scene)
 		return (print_error(NO_ACCESS));
 	error = process_file_lines(file, scene);
 	close(file);
+	if (error == SUCCESS)
+		error = validate_scene(scene);
+	if (error != SUCCESS)
+		print_error(error);
 	return (error);
 }

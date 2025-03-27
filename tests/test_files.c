@@ -1,6 +1,6 @@
 #include "../include/parser.h"
 #include "../include/utilities.h"
-#include "../libft/libft.h"
+#include "../libraries/libft/include/libft.h"
 #include <assert.h>
 #include <stdio.h>
 

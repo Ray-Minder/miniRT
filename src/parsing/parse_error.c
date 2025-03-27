@@ -1,5 +1,5 @@
 #include "../../include/parser.h"
-#include "../../libft/libft.h"
+#include "../../libraries/libft/include/libft.h"
 
 static char	*g_error_messages[] = {
 	"Success",
@@ -11,8 +11,11 @@ static char	*g_error_messages[] = {
 	"Invalid integer",
 	"Invalid argument count",
 	"Too many ambient lights",
+	"No ambient light",
 	"Too many cameras",
+	"No camera",
 	"Too many lights",
+	"No light",
 	"FOV out of range",
 	"Double out of range",
 	"Malloc failed"

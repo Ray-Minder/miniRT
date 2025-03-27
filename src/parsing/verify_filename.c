@@ -1,6 +1,6 @@
 #include "../../include/parser.h"
 #include <stdio.h>
-#include "../../libft/libft.h"
+#include "../../libraries/libft/include/libft.h"
 
 bool	verify_filename(char *filename)
 {

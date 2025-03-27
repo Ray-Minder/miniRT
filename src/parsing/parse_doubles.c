@@ -1,6 +1,6 @@
 #include "../../include/parser.h"
 #include <stdbool.h>
-#include "../../libft/libft.h"
+#include "../../libraries/libft/include/libft.h"
 
 double	ft_atodbl(char *s)
 {
