@@ -9,6 +9,5 @@ void	key_hooks(mlx_key_data_t keydata, void *param)
 	{
 		printf("Closing the window\n");
 		mlx_close_window(data->mlx);
-		// mlx_terminate(data->mlx);
 	}
 }
