@@ -61,11 +61,16 @@ bool	is_matrix_initialized(t_matrix *matrix)
 	return (true);
 }
 
-void print_matrix(t_matrix* matrix)
+void print_matrix(t_matrix *matrix)
 {
 	int	i;
 	int	j;
 
+	if (!matrix || !matrix->values)
+	{
+		printf("There's no matrix to print.\n");
+		return ;
+	}
 	i = -1;
 	while (++i < matrix->rows)
 	{

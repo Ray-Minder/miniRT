@@ -12,6 +12,7 @@ void test_sphere_intersect()
 	ray = create_ray(tuple(0, 0, -5, 1), tuple(0, 0, 1, 0));
 	sphere.diameter = 2;
 	sphere.position = point(0, 0, 0);
+	sphere.transform = identity(4);
 	xs = intersect(&ray, &sphere);
 	current = xs;
 	if (!xs)
@@ -19,6 +20,8 @@ void test_sphere_intersect()
 		printf("Failure with intersection\n");
 		return ;
 	}
+	// printf("x0 %f\n", current->t);
+	// printf("x1 %f\n", current->next->t);
 	assert(current->t == 4.0);
 	current = current->next;
 	assert(current->t == 6.0);
@@ -84,6 +87,7 @@ void test_hit()
 	ray = create_ray(tuple(0, 0, -5, 1), tuple(0, 0, 1, 0));
 	sphere.diameter = 2;
 	sphere.position = point(0, 0, 0);
+	sphere.transform = identity(4);
 	xs = intersect(&ray, &sphere);
 	current = xs;
 	if (!xs)
@@ -147,6 +151,8 @@ void	test_transform()
 	t_matrix	*_translation;
 	t_matrix	*_scaling;
 	t_ray		r2;
+	t_object	sphere;
+	t_x			*xs;
 	
 	ray = create_ray(point(1, 2, 3), vector(0, 1, 0));
 
@@ -160,8 +166,20 @@ void	test_transform()
 	assert(compare_tuples(r2.origin, point(2, 6, 12)));
 	assert(compare_tuples(r2.direction, vector(0, 3, 0)));
 
-	
+	sphere.diameter = 2;
+	sphere.position = point(0, 0, 0);
+	sphere.transform = identity(4);
+	r2 = create_ray(point(0, 0, -5), vector(0, 0, 1));
 
+	set_transform(&sphere, scaling(2, 2, 2));
+	xs = intersect(&r2, &sphere);
+	assert(xs->hit == true);
+	assert(xs->t == 3);
+	assert(xs->next->t == 7);
+
+	set_transform(&sphere, translation(5, 0, 0));
+	xs = intersect(&r2, &sphere);
+	assert(xs->hit == false);
 
 	printf("Test transform passed!\n");
 }

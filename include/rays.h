@@ -3,6 +3,7 @@
 
 # include "tuples.h"
 # include "minirt.h"
+# include "scene.h"
 
 typedef struct	s_ray
 {

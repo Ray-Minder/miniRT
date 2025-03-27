@@ -24,6 +24,8 @@ t_matrix	*create_matrix(int rows, int columns)
 	}
 	matrix->rows = rows;
 	matrix->columns = columns;
+	// printf("In create matrix\n");
+	// printf("Rows: %d Cols: %d\n", matrix->rows, matrix->columns);
 	matrix->values = ft_calloc(rows, sizeof(double *));
 	if (!matrix->values)
 	{

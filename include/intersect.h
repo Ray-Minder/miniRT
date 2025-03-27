@@ -10,7 +10,7 @@ typedef struct s_intersection
 {
 	t_object	*object;
 	double		t;
-	// bool		hit;
+	bool		hit;
 	t_x			*next;
 }	t_x;
 
@@ -35,5 +35,6 @@ void	free_intersection_node(t_x **node_ptr);
 // TRANSFORM
 
 t_ray	transform(t_ray *ray, t_matrix *matrix);
+void	set_transform(t_object *object, t_matrix *transformation);
 
 #endif

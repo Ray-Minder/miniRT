@@ -3,10 +3,15 @@
 
 t_x	*intersect(t_ray *ray, t_object *object)
 {
+	t_ray	transformed_ray;
+
 	if (!ray || !object)
 		return (NULL);
+	if (!object->transform)
+		object->transform = identity(4); //LATER REMOVE, IT SHOULD be INIT already. 
+	transformed_ray = transform(ray, invert_matrix(object->transform));
 	if (object->type == SPHERE)
-		return (sphere_intersect(ray, object));
+		return (sphere_intersect(&transformed_ray, object));
 	return (NULL);
 }
 
@@ -76,6 +81,9 @@ t_x	*sphere_intersect(t_ray *ray, t_object *sphere)
 	b = 2 * dot_product(ray->direction, sphere_to_ray);
 	xs->t = (-b - sqrt(discriminant)) / (2 * a);
 	xs->next->t = (-b + sqrt(discriminant)) / (2 * a);
+	xs->hit = true;
+	if (xs->next)
+		xs->next->hit = true;
 	return (xs);
 }
 
