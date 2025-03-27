@@ -28,18 +28,18 @@ typedef struct s_ambient_light
 
 typedef struct s_camera
 {
-	bool	is_set;
-	t_tuple	position;
-	t_tuple forward;
-	t_tuple	up;
-	t_tuple right;
-	double	fov;	
+	bool		is_set;
+	t_tuple		position;
+	t_tuple		forward;
+	t_matrix	*transform;
+	double		fov;
 }	t_camera;
 
 typedef struct s_light
 {
 	bool	is_set;
 	t_tuple	position;
+	t_matrix	*transform;
 	double	brightness;
 	t_color	color;
 }	t_light;

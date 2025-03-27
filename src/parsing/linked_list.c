@@ -20,6 +20,14 @@ t_object	*create_object(void)
 	ptr = (t_object *)malloc(sizeof(t_object));
 	if (!ptr)
 		return (NULL);
+	ptr->diameter = 0;
+	ptr->height = 0;
+	ptr->color.b = 0;
+	ptr->color.g = 0;
+	ptr->color.r = 0;
+	ptr->position = point(0, 0, 0);
+	ptr->direction = vector(0, 0, 0);
+	ptr->transform = NULL;
 	ptr->next = NULL;
 	ptr->transform = identity(4);
 	if (!ptr->transform)
