@@ -3,6 +3,7 @@
 
 # include <stdio.h>
 # include <math.h>
+# include <stdbool.h>
 
 # include "constants.h"
 
@@ -37,5 +38,6 @@ double  dot_product(t_tuple a, t_tuple b);
 t_tuple cross_product(t_tuple a, t_tuple b);
 
 void	print_tuple(t_tuple tuple);
+bool	compare_tuples(t_tuple a, t_tuple b);
 
 #endif

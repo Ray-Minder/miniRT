@@ -4,7 +4,7 @@ NAME = minirt
 CC = cc
 
 # Compiler flags
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g
 
 SRC_DIR = src
 OBJ_DIR = obj
