@@ -78,9 +78,34 @@ void test_normal_at()
 	printf("All normal_at_sphere tests passed!\n");
 }
 
+void test_reflect()
+{
+	t_tuple in;
+	t_tuple normal;
+	t_tuple result;
+	t_tuple expected;
+
+	in = vector(1, -1, 0);
+	normal = vector(0, 1, 0);
+	result = reflect(in, normal);
+	expected = vector(1, 1, 0);
+	print_tuple(result);
+	assert(compare_tuple(result, expected));
+
+	in = vector(0, -1, 0);
+	normal = vector(sqrt(2) / 2, sqrt(2) / 2, 0);
+	result = reflect(in, normal);
+	expected = vector(1, 0, 0);
+	print_tuple(result);
+	assert(compare_tuple(result, expected));
+
+	printf("All reflect tests passed!\n");
+}
+
 int main(void)
 {
 	test_normal_at();
+	test_reflect();
 	printf("All tests passed!\n");
 	return (0);
 }	
