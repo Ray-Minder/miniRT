@@ -78,7 +78,7 @@ t_x	*sphere_intersect(t_ray *ray, t_object *sphere)
 	discriminant = calculate_discriminant(ray);
 	if (discriminant < 0)
 	{
-		printf("There's no intersection because discriminant is less than 0\n");
+		// printf("There's no intersection because discriminant is less than 0\n");
 		xs->t = 0;
 		return (xs);
 	}

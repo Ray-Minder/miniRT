@@ -9,7 +9,6 @@ void	render_sphere(t_data *data)
 	t_tuple		ray_direction;
 	t_x			*xs;
 	t_x			*_hit;
-	
 
 	double		wall_z;
 	double		wall_size;
@@ -20,7 +19,11 @@ void	render_sphere(t_data *data)
 	int			x;
 	double		world_y;
 	double		world_x;
-//
+
+//Declarations
+//-------------------------
+//Definitions
+
 	sphere.type = SPHERE;
 	sphere.diameter = 2;
 	sphere.position = point(0, 0, 0);
@@ -41,23 +44,15 @@ void	render_sphere(t_data *data)
 		while (++x < data->width)
 		{
 			world_x = -half + pixel_size * x;
-			// printf("World X:|%f| World Y:|%f|\n", world_x, world_y);
 			position = point(world_x, world_y, wall_z);
 			ray_direction = normalize_tuple(subtract_tuples(position, ray_origin));
-			// print_tuple(ray_direction);
 			ray = create_ray(ray_origin, ray_direction);
 			xs = intersect(&ray, &sphere);
 			if (!xs)
-			{
-				// printf("Current x:|%d| and y:|%d|\n", x, y);
 				continue ;
-			}
 			_hit = hit(xs);
 			if (_hit && _hit->hit)
-			{
-				printf("Putting pixel on screen\n");
 				mlx_put_pixel(data->canvas, x, y, 0xFF0000FF);
-			}
 		}
 	}
 	
