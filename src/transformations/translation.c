@@ -1,4 +1,4 @@
-#include "../../include/transformations.h"
+#include "../../include/minirt.h"
 
 t_matrix	*translation(double x, double y, double z)
 {

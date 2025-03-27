@@ -1,4 +1,4 @@
-#include "../../include/transformations.h"
+#include "../../include/minirt.h"
 
 t_matrix	*chain_transformations(t_matrix *matrices[])
 {

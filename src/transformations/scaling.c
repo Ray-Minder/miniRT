@@ -1,4 +1,4 @@
-#include "../../include/transformations.h"
+#include "../../include/minirt.h"
 
 t_matrix	*scaling(double x, double y, double z)
 {

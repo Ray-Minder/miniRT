@@ -1,5 +1,4 @@
-#include "../../include/tuples.h"
-#include "../../include/utilities.h"
+#include "../../include/minirt.h"
 
 //	=== Function Declarations ===
 

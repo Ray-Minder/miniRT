@@ -1,5 +1,4 @@
-#include "../../include/scene.h"
-#include <stdlib.h>
+# include "../../include/minirt.h"
 
 void	cleanup(t_scene *scene)
 {

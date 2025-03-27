@@ -1,8 +1,7 @@
 #ifndef	PARSER_H
 # define PARSER_H
 
-# include <stdbool.h>
-# include "scene.h"
+# include "minirt.h"
 
 typedef enum e_error
 {

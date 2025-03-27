@@ -1,9 +1,5 @@
-#include "../../include/scene.h"
 #include "../../include/parser.h"
-#include "../../libraries/libft/include/libft.h"
-#include "../../include/get_next_line.h"
-#include <fcntl.h>
-#include <stdbool.h>
+#include "../../include/minirt.h"
 
 void	ft_free_ptrs(char **ptrs)
 {

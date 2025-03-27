@@ -1,6 +1,5 @@
 #include "../../include/parser.h"
-#include <stdbool.h>
-#include "../../libraries/libft/include/libft.h"
+#include "../../include/minirt.h"
 
 double	ft_atodbl(char *s)
 {

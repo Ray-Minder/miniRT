@@ -1,4 +1,4 @@
-#include "../../include/rays.h"
+#include "../../include/minirt.h"
 
 t_ray	transform(t_ray *ray, t_matrix *matrix)
 {

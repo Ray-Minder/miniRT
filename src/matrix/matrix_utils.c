@@ -1,4 +1,4 @@
-#include "../../include/matrices.h"
+# include "../../include/minirt.h"
 
 //	=== Function Declarations ===
 

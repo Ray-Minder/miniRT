@@ -1,6 +1,5 @@
-#include "../../include/scene.h"
 #include "../../include/parser.h"
-#include "../../include/matrices.h"
+# include "../../include/minirt.h"
 
 void	print_objects(t_object *object_list)
 {

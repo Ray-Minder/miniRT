@@ -1,6 +1,5 @@
-#include "../../include/scene.h"
 #include "../../include/parser.h"
-#include <stdlib.h>
+#include "../../include/minirt.h"
 
 t_object	*get_last_object(t_object *object)
 {

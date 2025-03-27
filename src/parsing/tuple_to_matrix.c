@@ -1,6 +1,4 @@
-#include "../../include/matrices.h"
-#include "../../include/utilities.h"
-#include "../../include/scene.h"
+#include "../../include/minirt.h"
 #include "../../include/parser.h"
 
 t_tuple get_right(t_tuple up)
