@@ -127,7 +127,5 @@ typedef struct s_data
 	int			height;
 }	t_data;
 
-
-
 #endif
 

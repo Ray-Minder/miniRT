@@ -1,8 +1,5 @@
 #include "../include/parser.h"
-#include "../include/utilities.h"
-#include "../libraries/libft/include/libft.h"
-#include <assert.h>
-#include <stdio.h>
+#include "../include/minirt.h"
 
 void test_parse_ambient_light()
 {

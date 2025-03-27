@@ -1,5 +1,4 @@
-#include "../include/parser.h"
-#include "../include/tuples.h"
+#include "../include/minirt.h"
 
 void test_tuple_to_matrix()
 {
