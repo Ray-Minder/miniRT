@@ -56,7 +56,7 @@ t_matrix *get_transform(t_tuple tuple, t_tuple position)
 
 int set_object_transforms(t_object *objects)
 {
-	while (objects->next)
+	while (objects)
 	{
 		if (objects->type == SPHERE)
 			objects->direction = vector(0, 1, 0);
