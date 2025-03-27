@@ -118,19 +118,24 @@ t_matrix	*invert_matrix(t_matrix *m)
 	double		_determinant;
 	int			r;
 	int			c;
+	t_matrix	*_identity;
 
 	if (!is_matrix_initialized(m))
 	{
 		perror ("Inverse");
 		return (NULL);
 	}
+	_identity = identity(m->columns); //Check if it fails
+	if (compare_matrices(m, _identity))
+		return (_identity);
+	free_matrix(&_identity); 
 	_determinant = determinant(m);
 	if (compare_doubles(_determinant, 0.0))
 	{
 		printf("The matrix is not invertible.\n");
 		return (NULL);
 	}
-	inverse = create_matrix(m->rows, m->columns);
+	inverse = create_matrix(m->rows, m->columns); //Or replace by identity?
 	r = -1;
 	while (++r < m->rows)
 	{

@@ -6,8 +6,6 @@ t_matrix	*create_matrix(int rows, int columns);
 void 		initialize_matrix(t_matrix *matrix, double *data, int data_size);
 t_matrix	*copy_matrix(t_matrix *m);
 t_matrix	*identity(int size);
-// double		get_value(t_matrix *matrix, int row, int col);
-// void		set_value(t_matrix *matrix, int row, int col, double value);
 
 //	=== Function Definitions ===
 
@@ -124,33 +122,3 @@ t_matrix	*identity(int size)
 	}
 	return (_identity);
 }
-
-// double	get_value(t_matrix *matrix, int row, int col)
-// {
-// 	if (!is_matrix_initialized(matrix))
-// 	{
-// 		printf("Impossible to get the value of an uninitialized matrix\n");
-// 		return (0.0);
-// 	}
-// 	if (row > matrix->rows || col > matrix->columns)
-// 	{
-// 		printf("Out of bounds to get the value.\n");
-// 		return (0.0);
-// 	}
-// 	return (matrix->values[row][col]);
-// }
-
-// void	set_value(t_matrix *matrix, int row, int col, double value)
-// {
-// 	if (!is_matrix_initialized(matrix))
-// 	{
-// 		printf("Impossible to set the value of an uninitialized matrix\n");
-// 		return ;
-// 	}
-// 	if (row > matrix->rows || col > matrix->columns)
-// 	{
-// 		printf("Out of bounds to set the value.\n");
-// 		return ;
-// 	}
-// 	matrix->values[row][col] = value;
-// }

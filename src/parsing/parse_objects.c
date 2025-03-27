@@ -39,7 +39,7 @@ int	parse_plane(char **line, t_scene *scene)
 	error = parse_tuple(line[1], &new_object->position);
 	if (error != SUCCESS)
 		return (error);
-	error = parse_tuple(line[2], &new_object->transform);
+	error = parse_tuple(line[2], &new_object->direction);
 	if (error != SUCCESS)
 		return (error);
 	error = parse_color(line[3], &new_object->color);
@@ -62,7 +62,7 @@ int	parse_cylinder(char **line, t_scene *scene)
 	error = parse_tuple(line[1], &new_object->position);
 	if (error != SUCCESS)
 		return (error);
-	error = parse_tuple(line[2], &new_object->transform);
+	error = parse_tuple(line[2], &new_object->direction);
 	if (error != SUCCESS)
 		return (error);
 	error = parse_double(line[3], &new_object->diameter);
