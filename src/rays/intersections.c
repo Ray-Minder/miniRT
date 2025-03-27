@@ -1,31 +1,69 @@
 #include "../../include/intersect.h"
 #include "math.h"
 
-t_xs	*new_intersection_node(void)
+t_x	*intersect(t_ray *ray, t_object *object)
 {
-	t_xs	*new_node;
+	t_ray	transformed_ray;
 
-	new_node = ft_calloc(1, sizeof(t_xs));
-	if (!new_node)
+	if (!ray || !object)
 	{
-		perror("Failed to create new intersection node.");
+		printf("Returning intersect because there's no ray or object\n");
 		return (NULL);
 	}
-	new_node->next = NULL;
-	new_node->object = NULL;
-	return (new_node);
-}
-
-t_xs	*intersect(t_ray *ray, t_object *object)
-{
+	if (!object->transform)
+		object->transform = identity(4); //LATER REMOVE, IT SHOULD be INIT already. 
+	transformed_ray = transform(ray, invert_matrix(object->transform));
 	if (object->type == SPHERE)
-		return (sphere_intersect(ray, object));
+		return (sphere_intersect(&transformed_ray, object));
+	printf("Returning intersect because the object type wasn't SPHERE\n");
 	return (NULL);
 }
 
-t_xs	*sphere_intersect(t_ray *ray, t_object *sphere)
+t_x	*hit(t_x *xs_list)
 {
-	t_xs	*xs;
+	t_x	*current;
+	t_x	*lowest_hit;
+
+	if (!xs_list)
+	{
+		printf("Cannot determine the hit from a NULL xs_list.\n");
+		return (NULL);
+	}
+	current = xs_list;
+	lowest_hit = current;
+	while (current != NULL)
+	{
+		if (current->t > 0 && current->t < lowest_hit->t)
+			lowest_hit = current;
+		current = current->next;
+	}
+	// printf("Lowest hit: %f\n", lowest_hit->t);
+	return (lowest_hit);
+}
+
+void	add_intersection_node(t_x **xs_list, t_x *current)
+{
+	t_x	*iterator;
+
+	if ((!xs_list || !*xs_list) && !current)
+	{
+		printf("There's no xs list, and no intersection to add either.\n");
+		return ;
+	}
+	if (xs_list && !*xs_list && current)
+	{
+		*xs_list = current;
+		return ;
+	}
+	iterator = *xs_list;
+	while (iterator && iterator->next)
+		iterator = iterator->next;
+	iterator->next = current;
+}
+
+t_x	*sphere_intersect(t_ray *ray, t_object *sphere)
+{
+	t_x		*xs;
 	double	discriminant;
 	double	a;
 	double	b;
@@ -33,21 +71,29 @@ t_xs	*sphere_intersect(t_ray *ray, t_object *sphere)
 
 	xs = new_intersection_node();
 	if (!xs)
+	{
+		printf("failure to allocate new intersection\n");
 		return (NULL);
+	}
 	discriminant = calculate_discriminant(ray);
 	if (discriminant < 0)
 	{
-		xs->count = 0;
-		xs->t[0] = 0;
-		xs->t[1] = 0;
+		// printf("There's no intersection because discriminant is less than 0\n");
+		xs->t = 0;
 		return (xs);
 	}
+	xs->next = new_intersection_node();
+	if (!xs->next)
+		return (free_intersections_list(&xs), NULL);
 	sphere_to_ray = subtract_tuples(ray->origin, sphere->position);
 	a = dot_product(ray->direction, ray->direction);
-	b = 2 * dot_product(ray->direction, sphere_to_ray);	
-	xs->count = 2;
-	xs->t[0] = (-b - sqrt(discriminant)) / (2 * a);
-	xs->t[1] = (-b + sqrt(discriminant)) / (2 * a);
+	b = 2 * dot_product(ray->direction, sphere_to_ray);
+	xs->t = (-b - sqrt(discriminant)) / (2 * a);
+	xs->next->t = (-b + sqrt(discriminant)) / (2 * a);
+	xs->hit = true;
+	if (xs->next)
+		xs->next->hit = true;
+	// printf("Returned intersection: %f\n", xs->t);
 	return (xs);
 }
 

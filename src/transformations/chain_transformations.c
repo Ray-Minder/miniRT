@@ -8,7 +8,7 @@ t_matrix	*chain_transformations(t_matrix *matrices[])
 	int			size;
 
 	size = size_of_array_of_matrices(matrices) - 1;
-	if (size == 1)
+	if (size == 0)
 		return (matrices[0]);
 	chained_matrix = copy_matrix(matrices[size]);
 	while (--size >= 0)
@@ -19,5 +19,6 @@ t_matrix	*chain_transformations(t_matrix *matrices[])
 			free_matrix(&chained_matrix);
 		chained_matrix = temp;
 	}
+	// printf("Exiting chain transformations\n");
 	return (chained_matrix);
 }

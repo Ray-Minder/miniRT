@@ -1,74 +1,68 @@
 #include "../../include/colors.h"
 
-t_tuple	color(double r, double g, double b);
-t_tuple	add_colors(t_tuple c1, t_tuple c2);
-t_tuple	subtract_colors(t_tuple c1, t_tuple c2);
-t_tuple	multiply_color_by_scalar(t_tuple c, double scalar);
-t_tuple	divide_color_by_scalar(t_tuple c, double scalar);
-t_tuple	hadamard_product(t_tuple c1, t_tuple c2);
+t_color	color(uint8_t r, uint8_t g, uint8_t b);
+t_color	add_colors(t_color c1, t_color c2);
+t_color	subtract_colors(t_color c1, t_color c2);
+t_color	multiply_color_by_scalar(t_color c, double scalar);
+t_color	divide_color_by_scalar(t_color c, double scalar);
+t_color	hadamard_product(t_color c1, t_color c2);
 
-t_tuple	color(double r, double g, double b)
+t_color	color(uint8_t r, uint8_t g, uint8_t b)
 {
-	t_tuple color;
+	t_color color;
 
-	color.x = r;
-	color.y = g;
-	color.z = b;
-	color.w = 0;
+	color.r = r;
+	color.g = g;
+	color.b = b;
 	return (color);
 }
 
-t_tuple	add_colors(t_tuple c1, t_tuple c2)
+t_color	add_colors(t_color c1, t_color c2)
 {
-	t_tuple result;
+	t_color result;
 
-	result.x = c1.x + c2.x;
-	result.y = c1.y + c2.y;
-	result.z = c1.z + c2.z;
-	result.w = c1.w;
+	result.r = c1.r + c2.r;
+	result.g = c1.g + c2.g;
+	result.b = c1.b + c2.b;
 	return (result);
 }
 
-t_tuple	subtract_colors(t_tuple c1, t_tuple c2)
+t_color	subtract_colors(t_color c1, t_color c2)
 {
-	t_tuple result;
+	t_color result;
 
-	result.x = c1.x - c2.x;
-	result.y = c1.y - c2.y;
-	result.z = c1.z - c2.z;
-	result.w = c1.w;
+	result.r = c1.r - c2.r;
+	result.g = c1.g - c2.g;
+	result.b = c1.b - c2.b;
 	return (result);
 }
 
-t_tuple	multiply_color_by_scalar(t_tuple c, double scalar)
+t_color	multiply_color_by_scalar(t_color c, double scalar)
 {
-	t_tuple result;
+	t_color result;
 
-	result.x = c.x * scalar;
-	result.y = c.y * scalar;
-	result.z = c.z * scalar;
-	result.w = c.w;
+	result.r = c.r * scalar;
+	result.g = c.g * scalar;
+	result.b = c.b * scalar;
 	return (result);
 }
 
-t_tuple	divide_color_by_scalar(t_tuple c, double scalar)
+t_color	divide_color_by_scalar(t_color c, double scalar)
 {
-	t_tuple result;
+	t_color result;
 
-	result.x = c.x / scalar;
-	result.y = c.y / scalar;
-	result.z = c.z / scalar;
-	result.w = c.w;
+	result.r = c.r / scalar;
+	result.g = c.g / scalar;
+	result.b = c.b / scalar;
 	return (result);
 }
 
-t_tuple	hadamard_product(t_tuple c1, t_tuple c2)
+t_color	hadamard_product(t_color c1, t_color c2)
 {
-	t_tuple result;
+	t_color result;
 
-	result.x = c1.x * c2.x;
-	result.y = c1.y * c2.y;
-	result.z = c1.z * c2.z;
-	result.w = c1.w;
+	result.r = c1.r * c2.r;
+	result.g = c1.g * c2.g;
+	result.b = c1.b * c2.b;
 	return (result);
 }
