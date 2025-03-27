@@ -4,6 +4,9 @@
 #include "../include/tuples.h"
 #include "../include/scene.h"
 #include "../include/normals.h"
+#include "../include/parser.h"
+#include "../include/rays.h"
+#include "../include/constants.h"
 
 bool compare_tuple(t_tuple a, t_tuple b)
 {
@@ -19,6 +22,8 @@ void test_normal_at()
 	sphere.position = point(0, 0, 0);
 	sphere.diameter = 2;
 	sphere.type = SPHERE;
+	sphere.transform = get_transform(vector(0, 1, 0), sphere.position);
+
 	intersect = point(1, 0, 0);
 	normal = normal_at_sphere(&sphere, intersect);
 	print_tuple(normal);
@@ -54,15 +59,22 @@ void test_normal_at()
 	normal = normal_at_sphere(&sphere, intersect);
 	assert(compare_tuple(normal, vector(0, 0, -1)));
 
-	sphere.position = point(0, 1, 0);
-	intersect = point(0, 2, 0);
-	normal = normal_at_sphere(&sphere, intersect);
-	print_tuple(normal);
-
-	sphere.position = point(0, 1, 0);
+	set_transform(&sphere, translation(0, 1, 0));
 	intersect = point(0, 1.70711, -0.70711);
 	normal = normal_at_sphere(&sphere, intersect);
 	print_tuple(normal);
+	assert(compare_tuple(normal, vector(0, 0.70711, -0.70711)));
+	set_transform(&sphere, translation(0, -1, 0));
+
+	t_matrix *m;
+	m = scaling(1, 0.5, 1);
+	m = multiply_matrices(m, rotation_z(PI / 5));
+	set_transform(&sphere, m);
+	intersect = point(0, sqrt(2) / 2, -sqrt(2) / 2);
+	normal = normal_at_sphere(&sphere, intersect);
+	print_tuple(normal);
+	assert(compare_tuple(normal, vector(0, 0.97014, -0.24254)));
+
 	printf("All normal_at_sphere tests passed!\n");
 }
 
