@@ -9,15 +9,16 @@ void	init_mlx(t_data	*data)
 
 int	main(void)
 {
-	t_data	data;
-	mlx_image_t	*img;
+	t_data		data;
+	mlx_image_t	*img = NULL;
 
 	init_mlx(&data);
-	img = draw_circle(&data, 100);
+	img = mlx_new_image(data.mlx, data.width, data.height);
 	if (!img || (mlx_image_to_window(data.mlx, img, 800 / 2, 600 / 2) < 0))
 		printf("Error\n");
 	mlx_key_hook(data.mlx, &key_hooks, (void *) &data);
 	mlx_loop(data.mlx);
+	mlx_terminate(data.mlx);
 	printf("Exiting\n");
 	return (0);
 }

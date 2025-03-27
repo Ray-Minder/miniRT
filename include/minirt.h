@@ -22,12 +22,11 @@
 typedef struct s_data
 {
 	mlx_t		*mlx;
-	// mlx_image_t	*img;
+	mlx_image_t	*img;
 	int			width;
 	int			height;
 }	t_data;
 
 void	key_hooks(mlx_key_data_t keydata, void *param);
-
 
 #endif
