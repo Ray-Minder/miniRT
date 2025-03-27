@@ -32,7 +32,7 @@ typedef struct s_camera
 	t_tuple		position;
 	t_tuple		forward;
 	t_matrix	*transform;
-	double		fov;	
+	double		fov;
 }	t_camera;
 
 typedef struct s_light
