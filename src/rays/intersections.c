@@ -6,12 +6,16 @@ t_x	*intersect(t_ray *ray, t_object *object)
 	t_ray	transformed_ray;
 
 	if (!ray || !object)
+	{
+		printf("Returning intersect because there's no ray or object\n");
 		return (NULL);
+	}
 	if (!object->transform)
 		object->transform = identity(4); //LATER REMOVE, IT SHOULD be INIT already. 
 	transformed_ray = transform(ray, invert_matrix(object->transform));
 	if (object->type == SPHERE)
 		return (sphere_intersect(&transformed_ray, object));
+	printf("Returning intersect because the object type wasn't SPHERE\n");
 	return (NULL);
 }
 
@@ -33,6 +37,7 @@ t_x	*hit(t_x *xs_list)
 			lowest_hit = current;
 		current = current->next;
 	}
+	// printf("Lowest hit: %f\n", lowest_hit->t);
 	return (lowest_hit);
 }
 
@@ -66,10 +71,14 @@ t_x	*sphere_intersect(t_ray *ray, t_object *sphere)
 
 	xs = new_intersection_node();
 	if (!xs)
+	{
+		printf("failure to allocate new intersection\n");
 		return (NULL);
+	}
 	discriminant = calculate_discriminant(ray);
 	if (discriminant < 0)
 	{
+		printf("There's no intersection because discriminant is less than 0\n");
 		xs->t = 0;
 		return (xs);
 	}
@@ -84,6 +93,7 @@ t_x	*sphere_intersect(t_ray *ray, t_object *sphere)
 	xs->hit = true;
 	if (xs->next)
 		xs->next->hit = true;
+	// printf("Returned intersection: %f\n", xs->t);
 	return (xs);
 }
 

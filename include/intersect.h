@@ -5,6 +5,7 @@
 #include "rays.h"
 
 typedef struct s_intersection t_x;
+typedef struct s_ray t_ray;
 
 typedef struct s_intersection
 {
