@@ -46,6 +46,7 @@ void	print_objects(t_object *object_list);
 void	cleanup(t_scene *scene);
 int		add_new_object(t_scene *scene, t_object **new_object);
 int		print_error(t_error error);
+void	initialize_scene(t_scene *scene);
 int		validate_scene(t_scene *scene);
 int		set_object_transforms(t_object *objects);
 t_matrix *get_transform(t_tuple tuple, t_tuple position);

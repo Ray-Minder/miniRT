@@ -26,6 +26,7 @@ int	parse_color(char *line, t_color *color)
 {
 	char	**split_line;
 	int		error;
+	t_uint8color	color8;
 
 	split_line = ft_split(line, ',');
 	if (!split_line)
@@ -35,14 +36,17 @@ int	parse_color(char *line, t_color *color)
 		ft_free_ptrs(split_line);
 		return (INVALID_ARG_COUNT);
 	}
-	error = parse_uint8(split_line[0], &color->r);
-	error += parse_uint8(split_line[1], &color->g);
-	error += parse_uint8(split_line[2], &color->b);
+	error = parse_uint8(split_line[0], &color8.r);
+	error += parse_uint8(split_line[1], &color8.g);
+	error += parse_uint8(split_line[2], &color8.b);
 	if (error != SUCCESS)
 	{
 		ft_free_ptrs(split_line);
 		return (INVALID_INT);
 	}
+	color->r = (double)color8.r / 255.0;
+	color->g = (double)color8.g / 255.0;
+	color->b = (double)color8.b / 255.0;
 	ft_free_ptrs(split_line);
 	return (SUCCESS);
 }

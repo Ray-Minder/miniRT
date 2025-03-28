@@ -9,7 +9,7 @@ int main(int argc, char *argv[])
 {
 	t_scene scene;
 
-	scene.objects = NULL;
+	initialize_scene(&scene);
 	if (argc != 2)
 	{
 		printf("Usage: %s <filename>\n", argv[0]);

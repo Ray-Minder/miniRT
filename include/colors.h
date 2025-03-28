@@ -7,7 +7,7 @@
 # include "tuples.h"
 # include "scene.h"
 
-t_color	color(uint8_t r, uint8_t g, uint8_t b);
+t_color	color(double r, double g, double b);
 t_color	add_colors(t_color c1, t_color c2);
 t_color	subtract_colors(t_color c1, t_color c2);
 t_color	multiply_color_by_scalar(t_color c, double scalar);
