@@ -30,4 +30,3 @@ int	main(void)
 	printf("All color tests passed.\n");
 	return (0);
 }
-
