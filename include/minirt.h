@@ -8,6 +8,8 @@
 # include <stdbool.h>
 # include <stdlib.h>
 # include <fcntl.h>
+# include <string.h>
+# include <errno.h>
 
 # include "../libraries/libft/include/libft.h"
 # include "../libraries/MLX42/include/MLX42/MLX42.h"

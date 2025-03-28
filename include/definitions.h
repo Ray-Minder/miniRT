@@ -33,8 +33,8 @@ void	clean_and_exit(t_data *data, char *error_msg, int exit_code);
 
 //	print_error.c
 
-void	print_error(char *error_msg);
-
+void	print_error_msg(char *error_msg);
+void	print_errno(char *function_name);
 
 //	===== INIT =====
 

@@ -16,19 +16,12 @@ t_matrix	*create_matrix(int rows, int columns)
 
 	matrix = malloc(sizeof(t_matrix));
 	if (!matrix)
-	{
-		perror("Failed to allocate memory for matrix");
-		return (NULL);
-	}
+		return (print_errno("create_matrix"), NULL);
 	matrix->rows = rows;
 	matrix->columns = columns;
 	matrix->values = ft_calloc(rows, sizeof(double *));
 	if (!matrix->values)
-	{
-		free(matrix);
-		perror("Failed to allocate memory for matrix rows");
-		return (NULL);
-	}
+		return (free(matrix), print_errno("create_matrix"), NULL);
 	i = -1;
 	while (++i < matrix->rows)
 	{
@@ -39,8 +32,7 @@ t_matrix	*create_matrix(int rows, int columns)
             	free(matrix->values[i]);
 			free(matrix->values);
 			free(matrix);
-			perror("Failed to allocate memory for matrix columns");
-			return (NULL);
+			return (print_errno("create_matrix"), NULL);
 		}
 	}
 	return (matrix);
@@ -76,16 +68,10 @@ t_matrix	*copy_matrix(t_matrix *m)
 	int			c;
 
 	if (!is_matrix_initialized(m))
-	{
-		printf("Error copying matrix\n");
-		return (NULL);
-	}
+		return (print_error_msg("Error copying matrix"), NULL);
 	copy = create_matrix(m->rows, m->columns);
 	if (!copy)
-	{
-		perror("Copy matrix");
-		return (NULL);
-	}
+		return (print_error_msg("Error copying matrix"), NULL);
 	r = -1;
 	while (++r < m->rows)
 	{
@@ -104,10 +90,7 @@ t_matrix	*identity(int size)
 
 	_identity = create_matrix(size, size);
 	if (!_identity)
-	{
-		perror("Identity");
-		return (NULL);
-	}
+	return (print_error_msg("Error creating identity matrix"), NULL);
 	r = -1;
 	while (++r < size)
 	{
