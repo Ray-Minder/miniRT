@@ -1,9 +1,9 @@
-# include "../../include/minirt.h"
+#include "../../include/minirt.h"
 
 //	=== Function Declarations ===
 
 t_matrix	*create_matrix(int rows, int columns);
-void 		initialize_matrix(t_matrix *matrix, double *data, int data_size);
+void		initialize_matrix(t_matrix *matrix, double *data, int data_size);
 t_matrix	*copy_matrix(t_matrix *m);
 t_matrix	*identity(int size);
 
@@ -29,7 +29,7 @@ t_matrix	*create_matrix(int rows, int columns)
 		if (!matrix->values[i])
 		{
 			while (--i >= 0)
-            	free(matrix->values[i]);
+				free(matrix->values[i]);
 			free(matrix->values);
 			free(matrix);
 			return (print_errno("create_matrix"), NULL);
@@ -38,7 +38,7 @@ t_matrix	*create_matrix(int rows, int columns)
 	return (matrix);
 }
 
-void initialize_matrix(t_matrix *matrix, double *data, int data_size)
+void	initialize_matrix(t_matrix *matrix, double *data, int data_size)
 {
 	int	i;
 	int	j;
@@ -90,7 +90,7 @@ t_matrix	*identity(int size)
 
 	_identity = create_matrix(size, size);
 	if (!_identity)
-	return (print_error_msg("Error creating identity matrix"), NULL);
+		return (print_error_msg("Error creating identity matrix"), NULL);
 	r = -1;
 	while (++r < size)
 	{

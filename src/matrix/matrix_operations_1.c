@@ -1,4 +1,4 @@
-# include "../../include/minirt.h"
+#include "../../include/minirt.h"
 
 //	=== Function Declarations ===
 
@@ -6,6 +6,7 @@ bool		compare_matrices(t_matrix *a, t_matrix *b);
 t_matrix	*multiply_matrices(t_matrix *a, t_matrix *b);
 t_tuple		get_row_as_tuple(t_matrix *m, int row);
 t_tuple		multiply_matrix_by_tuple(t_matrix *m, t_tuple t);
+t_matrix	*transpose_matrix(t_matrix *m);
 
 //	=== Function Definitions ===
 
@@ -67,18 +68,18 @@ t_tuple	get_row_as_tuple(t_matrix *m, int row)
 
 	if (!is_matrix_initialized(m) || row > m->rows)
 		return (print_error_msg("Error getting a matrix row as a tuple"),
-				tuple(-1, -1, -1, -1));
+			tuple(-1, -1, -1, -1));
 	row_as_tuple = tuple(0, 0, 0, 0);
 	column = -1;
 	while (++column < m->columns && column < 4)
 	{
 		if (column == 0)
 			row_as_tuple.x = m->values[row][column];
-        else if (column == 1)
+		else if (column == 1)
 			row_as_tuple.y = m->values[row][column];
-        else if (column == 2)
+		else if (column == 2)
 			row_as_tuple.z = m->values[row][column];
-        else if (column == 3)
+		else if (column == 3)
 			row_as_tuple.w = m->values[row][column];
 	}
 	return (row_as_tuple);
@@ -99,8 +100,29 @@ t_tuple	multiply_matrix_by_tuple(t_matrix *m, t_tuple t)
 	row[2] = get_row_as_tuple(m, 2);
 	row[3] = get_row_as_tuple(m, 3);
 	result = tuple(dot_product(row[0], t),
-					dot_product(row[1], t), 
-					dot_product(row[2], t),
-					dot_product(row[3], t));
+			dot_product(row[1], t),
+			dot_product(row[2], t),
+			dot_product(row[3], t));
 	return (result);
+}
+
+t_matrix	*transpose_matrix(t_matrix *m)
+{
+	t_matrix	*transposed;
+	int			i;
+	int			j;
+
+	if (!is_matrix_initialized(m))
+		return (print_error_msg("Error transposing matrix"), NULL);
+	transposed = create_matrix(m->columns, m->rows);
+	if (!transposed)
+		return (print_error_msg("Error transposing matrix"), NULL);
+	i = -1;
+	while (++i < m->rows)
+	{
+		j = -1;
+		while (++j < m->columns)
+			transposed->values[j][i] = m->values[i][j];
+	}
+	return (transposed);
 }

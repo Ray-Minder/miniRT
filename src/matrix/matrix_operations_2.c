@@ -1,68 +1,57 @@
-# include "../../include/minirt.h"
+#include "../../include/minirt.h"
+
+#define ROW 0
+#define COL 1
 
 //	=== Function Declarations ===
 
-t_matrix	*transpose_matrix(t_matrix *m);
 t_matrix	*submatrix(t_matrix	*m, int row, int column);
+static bool	init_submatrix(t_matrix	*m,
+				t_matrix **submatrix, int row, int column);
 double		determinant(t_matrix *m);
 double		cofactor(t_matrix *m, int row, int col);
 t_matrix	*invert_matrix(t_matrix *m);
 
 //	=== Function Definitions ===
 
-t_matrix	*transpose_matrix(t_matrix *m)
-{
-	t_matrix	*transposed;
-	int			i;
-	int			j;
-
-	if (!is_matrix_initialized(m))
-		return (print_error_msg("Error transposing matrix"), NULL);
-	transposed = create_matrix(m->columns, m->rows);
-	if (!transposed)
-		return (print_error_msg("Error transposing matrix"), NULL);
-	i = -1;
-	while (++i < m->rows)
-	{
-		j = -1;
-		while (++j < m->columns)
-			transposed->values[j][i] = m->values[i][j];
-	}
-	return (transposed);
-}
-
 t_matrix	*submatrix(t_matrix	*m, int row, int column)
 {
 	t_matrix	*submatrix;
-	int			r;
-	int			c;
-	int			i;
-	int			j;
+	int			i[2];
+	int			j[2];
 
-	if (!is_matrix_initialized(m) || m->rows < 1 || m->columns < 1
-		|| row > m->rows || column > m->columns)
-		return (print_error_msg("Error at submatrix"), NULL);
-	submatrix = create_matrix(m->rows - 1, m->columns - 1);
-	if (!submatrix)
-		return (print_error_msg("Error creating submatrix"), NULL);
-	i = -1;
-	r = 0;
-	while (++i < m->rows)
+	if (!init_submatrix(m, &submatrix, row, column))
+		return (NULL);
+	i[ROW] = -1;
+	j[ROW] = 0;
+	while (++i[ROW] < m->rows)
 	{
-		if (i == row)
+		if (i[ROW] == row)
 			continue ;
-		j = -1;
-		c = 0;
-		while (++j < m->columns)
+		i[COL] = -1;
+		j[COL] = 0;
+		while (++i[COL] < m->columns)
 		{
-			if (j == column)
+			if (i[COL] == column)
 				continue ;
-			submatrix->values[r][c] = m->values[i][j];
-			c++;
+			submatrix->values[j[ROW]][j[COL]] = m->values[i[ROW]][i[COL]];
+			j[COL]++;
 		}
-		r++;
+		j[ROW]++;
 	}
 	return (submatrix);
+}
+
+static bool	init_submatrix(t_matrix	*m,
+				t_matrix **submatrix, int row, int column)
+{
+	if (!is_matrix_initialized(m) || m->rows < 1 || m->columns < 1
+		|| row > m->rows || column > m->columns)
+		return (print_error_msg("Error at submatrix"), false);
+	*submatrix = create_matrix(m->rows - 1, m->columns - 1);
+	if (!submatrix)
+		return (print_error_msg("Error creating submatrix"), false);
+	return (true);
 }
 
 double	determinant(t_matrix *m)
@@ -75,7 +64,8 @@ double	determinant(t_matrix *m)
 	if (m->columns == 1)
 		return (m->values[0][0]);
 	if (m->columns == 2)
-		return (m->values[0][0] * m->values[1][1] - m->values[0][1] * m->values[1][0]);
+		return (m->values[0][0] * m->values[1][1]
+			- m->values[0][1] * m->values[1][0]);
 	determinant = 0;
 	i = -1;
 	while (++i < m->columns)
@@ -113,7 +103,7 @@ t_matrix	*invert_matrix(t_matrix *m)
 	_identity = identity(m->columns); //Check if it fails
 	if (compare_matrices(m, _identity))
 		return (_identity);
-	free_matrix(&_identity); 
+	free_matrix(&_identity);
 	_determinant = determinant(m);
 	if (compare_doubles(_determinant, 0.0))
 		return (print_error_msg("The matrix is not invertible."), NULL);
@@ -125,5 +115,5 @@ t_matrix	*invert_matrix(t_matrix *m)
 		while (++c < m->columns)
 			inverse->values[c][r] = cofactor(m, r, c) / _determinant;
 	}
-	return(inverse);
+	return (inverse);
 }

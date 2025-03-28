@@ -1,16 +1,16 @@
-# include "../../include/minirt.h"
+#include "../../include/minirt.h"
 
 //	=== Function Declarations ===
 
-void 	free_matrix(t_matrix **matrix);
-void 	free_array_of_matrices(t_matrix ***matrices);
+void	free_matrix(t_matrix **matrix);
+void	free_array_of_matrices(t_matrix ***matrices);
 int		size_of_array_of_matrices(t_matrix **matrices);
 bool	is_matrix_initialized(t_matrix *matrix);
-void 	print_matrix(t_matrix* matrix);
+void	print_matrix(t_matrix *matrix);
 
 //	=== Function Definitions ===
 
-void free_matrix(t_matrix **matrix)
+void	free_matrix(t_matrix **matrix)
 {
 	int	i;
 
@@ -26,7 +26,7 @@ void free_matrix(t_matrix **matrix)
 	return ;
 }
 
-void free_array_of_matrices(t_matrix ***matrices)
+void	free_array_of_matrices(t_matrix ***matrices)
 {
 	int	i;
 
@@ -61,7 +61,7 @@ bool	is_matrix_initialized(t_matrix *matrix)
 	return (true);
 }
 
-void print_matrix(t_matrix *matrix)
+void	print_matrix(t_matrix *matrix)
 {
 	int	i;
 	int	j;
