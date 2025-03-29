@@ -102,6 +102,11 @@ void test_reflect()
 	printf("All reflect tests passed!\n");
 }
 
+void test_phong()
+{
+	
+}
+
 int main(void)
 {
 	test_normal_at();
