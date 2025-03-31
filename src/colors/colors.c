@@ -71,6 +71,12 @@ uint32_t	color_to_uint32(t_color color)
 {
 	uint32_t result;
 
+	if (color.r > 1.0)
+		color.r = 1.0;
+	if (color.g > 1.0)
+		color.g = 1.0;
+	if (color.b > 1.0)
+		color.b = 1.0;
 	result = ((uint32_t)(color.r * 255) << 24) | ((uint32_t)(color.g * 255) << 16) | (uint32_t)(color.b * 255) << 8 | 0xFF;
 	return (result);
 }
