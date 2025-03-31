@@ -42,7 +42,7 @@ typedef struct s_color
 typedef struct s_ambient_light
 {
 	bool	is_set;
-	double	strength;
+	double	brightness;
 	t_color color;
 }	t_ambient_light;
 

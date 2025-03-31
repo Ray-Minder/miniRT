@@ -6,7 +6,7 @@ void test_parse_ambient_light()
 	t_scene scene;
 
 	assert(parse_ambient_light(ft_split("A 0.01321 125,125,125", ' '), &scene) == SUCCESS);
-	assert(compare_doubles(scene.ambient_light.strength, 0.01321));
+	assert(compare_doubles(scene.ambient_light.brightness, 0.01321));
 	assert(scene.ambient_light.color.r == 125);
 	assert(scene.ambient_light.color.g == 125);
 	assert(scene.ambient_light.color.b == 125);

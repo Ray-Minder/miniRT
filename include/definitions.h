@@ -17,12 +17,13 @@
 
 //	===== COLORS =====
 
-t_color	color(uint8_t r, uint8_t g, uint8_t b);
+t_color	color(double r, double g, double b);
 t_color	add_colors(t_color c1, t_color c2);
 t_color	subtract_colors(t_color c1, t_color c2);
 t_color	multiply_color_by_scalar(t_color c, double scalar);
 t_color	divide_color_by_scalar(t_color c, double scalar);
 t_color	hadamard_product(t_color c1, t_color c2);
+uint32_t	color_to_uint32(t_color color);
 
 //	===== ERRORS =====
 
@@ -98,6 +99,9 @@ double	calculate_discriminant(t_ray *ray);
 
 t_ray	create_ray(t_tuple origin, t_tuple direction);
 t_tuple	position(t_ray ray, double t);
+t_tuple normal_at_sphere(t_object *object, t_tuple world_point);
+t_color ambient_lighting(t_ambient_light ambient_light, t_color object_color);
+t_color diffuse_lighting(t_light light, t_tuple normal, t_tuple position, t_color object_color);
 
 //	transform.c
 
