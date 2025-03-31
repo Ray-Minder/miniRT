@@ -25,11 +25,18 @@ typedef enum e_object_type
 	CYLINDER
 }	t_object_type;
 
-typedef struct s_color
+typedef struct s_uint8color
 {
 	uint8_t	r;
 	uint8_t g;
 	uint8_t b;
+}	t_uint8color;
+
+typedef struct s_color
+{
+	double	r;
+	double	g;
+	double	b;
 }	t_color;
 
 typedef struct s_ambient_light
