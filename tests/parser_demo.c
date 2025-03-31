@@ -4,7 +4,8 @@
 int main(int argc, char *argv[])
 {
 	t_scene scene;
-
+	initialize_scene(&scene);
+	
 	scene.objects = NULL;
 	if (argc != 2)
 	{
@@ -16,6 +17,7 @@ int main(int argc, char *argv[])
 		cleanup(&scene);
 		return (EXIT_FAILURE);
 	}
+	print_objects(scene.objects);
 	cleanup(&scene);
 	return (0);
 }

@@ -20,9 +20,9 @@ int	parse_ambient_light(char **line, t_scene *scene)
 	scene->ambient_light.is_set = true;
 	if (count_tokens(line) != 3)
 		return (INVALID_ARG_COUNT);
-	if (parse_double(line[1], &scene->ambient_light.strength) != SUCCESS)
+	if (parse_double(line[1], &scene->ambient_light.brightness) != SUCCESS)
 		return (INVALID_DOUBLE);
-	if (scene->ambient_light.strength < 0 || scene->ambient_light.strength > 1)
+	if (scene->ambient_light.brightness < 0 || scene->ambient_light.brightness > 1)
 		return (DOUBLE_OUT_OF_RANGE);
 	error = parse_color(line[2], &scene->ambient_light.color);
 	if (error != SUCCESS)
