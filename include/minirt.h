@@ -34,8 +34,10 @@ typedef struct s_cylinder t_cylinder;
 typedef struct s_object t_object;
 typedef struct s_scene t_scene;
 typedef struct s_intersection t_x;
-typedef struct	s_ray t_ray;
+typedef struct s_ray t_ray;
 typedef struct s_data t_data;
-
+typedef struct s_world	t_world;
+typedef struct s_scene t_scene;
+typedef struct s_material t_material;
 
 #endif

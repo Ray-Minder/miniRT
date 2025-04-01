@@ -95,13 +95,23 @@ void	add_intersection_node(t_x **xs_list, t_x *current);
 t_x		*sphere_intersect(t_ray *ray, t_object *sphere);
 double	calculate_discriminant(t_ray *ray);
 
+//	lighting.c
+
+t_color	ambient_lighting(t_ambient_light ambient_light, t_color object_color);
+t_color	diffuse_lighting(t_light light, t_tuple normal, t_tuple position, t_color object_color);
+t_color	lighting(t_material material, t_light light, t_tuple point, t_tuple eyev, t_tuple normalv);
+
+//	normals.c
+
+t_tuple	normal_at_sphere(t_object *object, t_tuple world_point);
+t_tuple	reflect(t_tuple in, t_tuple normal);
+
 //	ray.c
 
 t_ray	create_ray(t_tuple origin, t_tuple direction);
 t_tuple	position(t_ray ray, double t);
-t_tuple normal_at_sphere(t_object *object, t_tuple world_point);
-t_color ambient_lighting(t_ambient_light ambient_light, t_color object_color);
-t_color diffuse_lighting(t_light light, t_tuple normal, t_tuple position, t_color object_color);
+
+
 
 //	transform.c
 

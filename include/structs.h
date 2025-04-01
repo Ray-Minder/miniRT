@@ -82,13 +82,22 @@ typedef struct s_plane
 
 typedef struct s_cylinder
 {
-	t_tuple	position;
-	t_tuple	axis;
-	double	diameter;
-	double	height;
-	t_color	color;
+	t_tuple				position;
+	t_tuple				axis;
+	double				diameter;
+	double				height;
+	t_color				color;
 	struct s_cylinder	*next;
 }	t_cylinder;
+
+typedef struct s_material
+{
+	t_color	color;
+	double	ambient;
+	double	diffuse;
+	double	specular;
+	double	shininess;
+}	t_material;
 
 typedef struct s_object
 {
@@ -97,6 +106,7 @@ typedef struct s_object
 	t_tuple			direction;
 	t_matrix		*transform;
 	t_color			color;
+	t_material		material;
 	double			diameter;
 	double			height;
 	struct s_object	*next;
@@ -126,7 +136,7 @@ typedef struct	s_ray
 
 typedef struct s_world
 {
-
+	t_object *objects;
 }	t_world;
 
 typedef struct s_data

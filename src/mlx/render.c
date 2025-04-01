@@ -36,7 +36,7 @@ void	render_sphere(t_data *data)
 	ambient_light.brightness = 0.4;
 	
 	light.position = point(10, 10, -10);
-	light.color = color(.8, .5, .8);
+	light.color = color(1, 1, 1);
 	light.brightness = 0.8;
 
 	ray_origin = point(0, 0, -5);
@@ -61,16 +61,37 @@ void	render_sphere(t_data *data)
 			if (!xs)
 				continue ;
 			_hit = hit(xs);
+			// if (_hit && _hit->hit)
+			// {
+			// 	t_color ambient;
+			// 	t_color diffuse;
+			// 	t_tuple hit_pos;
+
+			// 	hit_pos = position(ray, _hit->t);
+			// 	ambient = ambient_lighting(ambient_light, sphere.color);
+			// 	diffuse = diffuse_lighting(light, normal_at_sphere(&sphere, hit_pos), hit_pos, sphere.color);
+			// 	mlx_put_pixel(data->canvas, x, y, color_to_uint32(add_colors(ambient, diffuse)));
+			// }
 			if (_hit && _hit->hit)
 			{
-				t_color ambient;
-				t_color diffuse;
-				t_tuple hit_pos;
+				t_material	material;
+				t_tuple		point;
+				t_tuple		eyev;
+				t_tuple		normalv;
+				t_color		_lighting;
 
-				hit_pos = position(ray, _hit->t);
-				ambient = ambient_lighting(ambient_light, sphere.color);
-				diffuse = diffuse_lighting(light, normal_at_sphere(&sphere, hit_pos), hit_pos, sphere.color);
-				mlx_put_pixel(data->canvas, x, y, color_to_uint32(add_colors(ambient, diffuse)));
+				material.color = color(1, 0.2, 1);
+				material.ambient = 0.5;
+				material.diffuse = 0.5;
+				material.specular = 0.5;
+				material.shininess = 0.5;
+
+				eyev = negate_tuple(ray.direction);
+				point = position(ray, _hit->hit);
+				normalv = normal_at_sphere(&sphere, point);
+
+				_lighting = lighting(material, light, point, eyev, normalv);
+				mlx_put_pixel(data->canvas, x, y, color_to_uint32(_lighting));
 			}
 		}
 	}
