@@ -57,26 +57,26 @@ typedef struct s_camera
 
 typedef struct s_light
 {
-	bool	is_set;
-	t_tuple	position;
+	bool		is_set;
+	t_tuple		position;
 	t_matrix	*transform;
-	double	brightness;
-	t_color	color;
+	double		brightness;
+	t_color		color;
 }	t_light;
 
 typedef struct s_sphere
 {
-	t_tuple	position;
-	double	diameter;
-	t_color	color;
+	t_tuple			position;
+	double			diameter;
+	t_color			color;
 	struct s_sphere	*next;
 }	t_sphere;
 
 typedef struct s_plane
 {
-	t_tuple	point;
-	t_tuple	normal;
-	t_color	color;
+	t_tuple			point;
+	t_tuple			normal;
+	t_color			color;
 	struct s_plane	*next;
 }	t_plane;
 
@@ -124,15 +124,20 @@ typedef struct	s_ray
 	t_tuple	direction;
 }	t_ray;
 
+typedef struct s_world
+{
+
+}	t_world;
+
 typedef struct s_data
 {
 	mlx_t		*mlx;
 	mlx_image_t	*canvas;
 	t_camera	*cam;
 	t_light		*light;
+	t_world		*world;
 	int			width;
 	int			height;
 }	t_data;
 
 #endif
-

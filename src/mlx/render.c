@@ -30,13 +30,14 @@ void	render_sphere(t_data *data)
 	sphere.diameter = 2;
 	sphere.position = point(0, 0, 0);
 	sphere.transform = identity(4);
-	sphere.color = color(.2, .3, 1.0);
+	sphere.color = color(1.0, .3, 0.0);
 
 	ambient_light.color = color(.9, 1.0, .7);
-	ambient_light.brightness = 0.2;
+	ambient_light.brightness = 0.4;
+	
 	light.position = point(10, 10, -10);
 	light.color = color(.8, .5, .8);
-	light.brightness = 1.0;
+	light.brightness = 0.8;
 
 	ray_origin = point(0, 0, -5);
 	
