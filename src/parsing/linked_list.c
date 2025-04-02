@@ -21,9 +21,9 @@ t_object	*create_object(void)
 		return (NULL);
 	ptr->diameter = 0;
 	ptr->height = 0;
-	ptr->color.b = 0;
-	ptr->color.g = 0;
-	ptr->color.r = 0;
+	ptr->material.color.b = 0;
+	ptr->material.color.g = 0;
+	ptr->material.color.r = 0;
 	ptr->position = point(0, 0, 0);
 	ptr->direction = vector(0, 0, 0);
 	ptr->transform = NULL;

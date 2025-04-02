@@ -64,32 +64,6 @@ typedef struct s_light
 	t_color		color;
 }	t_light;
 
-typedef struct s_sphere
-{
-	t_tuple			position;
-	double			diameter;
-	t_color			color;
-	struct s_sphere	*next;
-}	t_sphere;
-
-typedef struct s_plane
-{
-	t_tuple			point;
-	t_tuple			normal;
-	t_color			color;
-	struct s_plane	*next;
-}	t_plane;
-
-typedef struct s_cylinder
-{
-	t_tuple				position;
-	t_tuple				axis;
-	double				diameter;
-	double				height;
-	t_color				color;
-	struct s_cylinder	*next;
-}	t_cylinder;
-
 typedef struct s_material
 {
 	t_color	color;
@@ -105,7 +79,6 @@ typedef struct s_object
 	t_tuple			position;
 	t_tuple			direction;
 	t_matrix		*transform;
-	t_color			color;
 	t_material		material;
 	double			diameter;
 	double			height;
@@ -134,10 +107,18 @@ typedef struct	s_ray
 	t_tuple	direction;
 }	t_ray;
 
-typedef struct s_world
+typedef struct s_computations
 {
-	t_object *objects;
-}	t_world;
+	t_object	*object;
+	t_x			x;
+	t_tuple		x_point;
+	t_tuple		eyev;
+	t_tuple		normalv;
+	bool		inside;
+	t_tuple		over_point;
+	t_tuple		reflectv;
+}	t_comps;
+
 
 typedef struct s_data
 {
@@ -145,7 +126,7 @@ typedef struct s_data
 	mlx_image_t	*canvas;
 	t_camera	*cam;
 	t_light		*light;
-	t_world		*world;
+	t_scene		*scene;
 	int			width;
 	int			height;
 }	t_data;
