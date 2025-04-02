@@ -10,13 +10,6 @@ typedef struct s_render_params
 	t_tuple ray_origin;
 }	t_render_params;
 
-// Structure to hold temporary scene data for this test function
-typedef struct s_scene_data
-{
-	t_object sphere;
-	t_light light;
-	t_ambient_light ambient_light;
-}	t_scene_data;
 
 // Initializes rendering parameters based on canvas size and view setup
 static void init_render_params(t_render_params *params, int width, int height)
@@ -34,12 +27,19 @@ static void init_render_params(t_render_params *params, int width, int height)
 }
 
 // Sets up the hardcoded scene elements for the test render
-static void setup_scene_data(t_scene_data *scene)
+static void setup_scene_data(t_scene *scene)
 {
 	// Define the sphere properties
-	scene->sphere.type = SPHERE;
-	scene->sphere.position = point(0, 0, 0); // Position used by normal_at, etc.
-	scene->sphere.transform = identity(4);	 // Start with identity transform
+	if (!scene->objects)
+		scene->objects = malloc(sizeof(t_object)); // Allocate memory for the object
+	if (!scene->objects)
+	{
+		perror("Failed to allocate memory for scene objects");
+		exit(EXIT_FAILURE);
+	}
+	scene->objects->type = SPHERE;
+	scene->objects->position = point(0, 0, 0); // Position used by normal_at, etc.
+	scene->objects->transform = identity(4);	 // Start with identity transform
 											 // Apply transformations if needed, e.g., scaling
 	// t_matrix *scaling_matrix = scaling(1, 1, 1); // Example diameter 2
 	// set_transform(&scene->sphere, scaling_matrix); // Set transform properly
@@ -49,11 +49,11 @@ static void setup_scene_data(t_scene_data *scene)
 	// For now, assume unit sphere at origin.
 
 	// Define the sphere's material
-	scene->sphere.material.color = color(1.0, 0.2, 1.0); // Base color
-	scene->sphere.material.ambient = 0.1;				 // Lower ambient reflection
-	scene->sphere.material.diffuse = 0.9;				 // High diffuse reflection
-	scene->sphere.material.specular = 0.9;				 // High specular reflection
-	scene->sphere.material.shininess = 200.0;			 // Sharp highlight
+	scene->objects->material.color = color(1.0, 0.2, 1.0); // Base color
+	scene->objects->material.ambient = 0.1;				 // Lower ambient reflection
+	scene->objects->material.diffuse = 0.9;				 // High diffuse reflection
+	scene->objects->material.specular = 0.9;				 // High specular reflection
+	scene->objects->material.shininess = 200.0;			 // Sharp highlight
 
 	// Define the scene's ambient light
 	scene->ambient_light.color = color(1.0, 1.0, 1.0); // White ambient light
@@ -66,7 +66,7 @@ static void setup_scene_data(t_scene_data *scene)
 }
 
 // Calculates the color for a single pixel based on ray intersection and lighting
-static t_color compute_pixel_color(int x, int y, t_render_params *params, t_scene_data *scene)
+static t_color compute_pixel_color(int x, int y, t_render_params *params, t_scene *scene)
 {
 	t_tuple	world_pos;
 	t_tuple	ray_direction;
@@ -86,7 +86,7 @@ static t_color compute_pixel_color(int x, int y, t_render_params *params, t_scen
 	ray = create_ray(params->ray_origin, ray_direction);
 
 	// Find intersections with the sphere
-	xs = intersect(&ray, &scene->sphere);
+	xs = intersect(&ray, scene->objects);
 	_hit = hit(xs); // Find the closest hit
 
 	if (_hit && _hit->hit) // Check if hit is valid
@@ -98,9 +98,9 @@ static t_color compute_pixel_color(int x, int y, t_render_params *params, t_scen
 		// Calculate intersection point, eye vector, and normal vector
 		point = position(ray, _hit->t); // Use _hit->t (corrected from _hit->hit)
 		eyev = negate_tuple(ray.direction);
-		normalv = normal_at_sphere(&scene->sphere, point); // Pass sphere object
+		normalv = normal_at_sphere(scene->objects, point); // Pass sphere object
 
-		final_color = lighting(scene->sphere.material, scene->light, point, eyev, normalv, scene->ambient_light, false);
+		final_color = lighting(scene->objects->material, scene->light, point, eyev, normalv, scene->ambient_light, false);
 
 		// TODO: Loop here if you have multiple lights in the future
 	}
@@ -117,11 +117,11 @@ static t_color compute_pixel_color(int x, int y, t_render_params *params, t_scen
 // Main rendering function for the sphere test scene
 void render_sphere(t_data *data)
 {
-	t_render_params params;
-	t_scene_data scene; // Holds sphere, lights for this test
-	int x;
-	int y;
-	t_color pixel_color;
+	t_render_params		params;
+	t_scene 			scene; // Holds sphere, lights for this test
+	int					x;
+	int					y;
+	t_color 			pixel_color;
 
 	// Setup rendering constants and scene objects
 	init_render_params(&params, data->width, data->height);
@@ -146,5 +146,5 @@ void render_sphere(t_data *data)
 	// Note: The setup_scene_data creates temporary objects. In a real scene,
 	// these would come from data->world or a similar structure populated by parsing.
 	// Remember to free any allocated memory (like transforms) when done.
-	free_matrix(&scene.sphere.transform); // Free identity matrix created
+	// free_matrix(&scene->objects->transform); // Free identity matrix created
 }
