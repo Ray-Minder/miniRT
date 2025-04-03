@@ -89,7 +89,7 @@ typedef struct s_intersection
 {
 	t_object	*object;
 	double		t;
-	bool		hit;
+	bool		is_hit;
 	t_x			*next;
 }	t_x;
 
@@ -109,14 +109,15 @@ typedef struct	s_ray
 
 typedef struct s_computations
 {
-	t_object	*object;
-	t_x			x;
-	t_tuple		x_point;
-	t_tuple		eyev;
-	t_tuple		normalv;
-	bool		inside;
-	t_tuple		over_point;
-	t_tuple		reflectv;
+	t_x			*hit;		// The hit pointer, instead of the below variable which is the value at the intersection
+	// double		t;			// The t-value of the intersection
+	t_object	*object;	// The object intersected
+	t_tuple		point;		// The intersection point, in world space
+	t_tuple		eyev;		// The vector pointing from the point to the eye/camera
+	t_tuple		normalv;	// The normal vector at the intersection point (in world space)
+	bool		inside;		// A boolean to check if the ray was originating from inside the object 
+	t_tuple		over_point;	// Point slightly offset above the surface (for shadows)
+	t_tuple		reflectv;	// The reflection vector
 }	t_comps;
 
 

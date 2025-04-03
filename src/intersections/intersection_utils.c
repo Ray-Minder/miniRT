@@ -12,7 +12,7 @@ t_x	*new_intersection_node(void)
 	}
 	new_node->object = NULL;
 	new_node->t = 0;
-	new_node->hit = false;
+	new_node->is_hit = false;
 	new_node->next = NULL;
 	return (new_node);
 }

@@ -89,9 +89,9 @@ t_x	*sphere_intersect(t_ray *ray, t_object *sphere)
 	b = 2 * dot_product(ray->direction, sphere_to_ray);
 	xs->t = (-b - sqrt(discriminant)) / (2 * a);
 	xs->next->t = (-b + sqrt(discriminant)) / (2 * a);
-	xs->hit = true;
+	xs->is_hit = true;
 	if (xs->next)
-		xs->next->hit = true;
+		xs->next->is_hit = true;
 	// printf("Returned intersection: %f\n", xs->t);
 	return (xs);
 }
