@@ -47,7 +47,7 @@ void	add_intersection_node(t_x **xs_list, t_x *current)
 {
 	t_x	*iterator;
 
-	if ((!xs_list || !*xs_list) && !current)
+	if ((!xs_list) && !current)
 	{
 		printf("There's no xs list, and no intersection to add either.\n");
 		return ;
@@ -93,8 +93,13 @@ t_x	*sphere_intersect(t_ray *ray, t_object *sphere)
 	xs->t = (-b - sqrt(discriminant)) / (2 * a);
 	xs->next->t = (-b + sqrt(discriminant)) / (2 * a);
 	xs->hit = true;
+	xs->object = sphere;
 	if (xs->next)
+	{
 		xs->next->hit = true;
+		xs->next->object = sphere;
+		xs->next->next = NULL;
+	}
 	// printf("Returned intersection: %f\n", xs->t);
 	return (xs);
 }

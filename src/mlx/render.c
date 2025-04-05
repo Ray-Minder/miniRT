@@ -117,7 +117,7 @@ void render_scene(t_scene *scene)
 	{
 		world_y = half - pixel_size * y;
 		x = 0;
-		// printf("y: %d\n", y);
+		printf("y: %d\n", y);
 		while (x < data.width)
 		{
 			xs = NULL;
@@ -126,34 +126,34 @@ void render_scene(t_scene *scene)
 			r_position = point(world_x, world_y, wall_z);
 			ray_direction = normalize_tuple(subtract_tuples(r_position, ray_origin));
 			ray = create_ray(ray_origin, ray_direction);
-			printf("y: %d, x: %d\n", y, x);
+			// printf("y: %d, x: %d\n", y, x);
 			while(sphere)
 			{
 				xs = intersect(&ray, sphere);
 				add_intersection_node(&xs_list, xs);
-				if (!xs)
-					continue ;
-				_hit = hit(xs);
-				if (_hit && _hit->hit)
-				{
-					t_color ambient;
-					t_color diffuse;
-					t_tuple hit_pos;
-
-					hit_pos = position(ray, _hit->t);
-					// printf("hit_pos: %f, %f, %f\n", hit_pos.x, hit_pos.y, hit_pos.z);
-					// printf("normal: %f, %f, %f\n", normal_at_sphere(sphere, hit_pos).x, normal_at_sphere(sphere, hit_pos).y, normal_at_sphere(sphere, hit_pos).z);
-					ambient = ambient_lighting(scene->ambient_light, sphere->color);
-					diffuse = diffuse_lighting(scene->light, normal_at_sphere(sphere, hit_pos), hit_pos, sphere->color);
-					// printf("diffuse: %f, %f, %f\n", diffuse.r, diffuse.g, diffuse.b);
-					mlx_put_pixel(data.canvas, x, y, color_to_uint32(add_colors(ambient, diffuse)));
-				}
+				
 				sphere = sphere->next;
 			}
-				
+			_hit = hit(xs);
+			if (_hit && _hit->hit)
+			{
+				t_color ambient;
+				t_color diffuse;
+				t_tuple hit_pos;
+
+				hit_pos = position(ray, _hit->t);
+				// printf("hit_pos: %f, %f, %f\n", hit_pos.x, hit_pos.y, hit_pos.z);
+				// printf("normal: %f, %f, %f\n", normal_at_sphere(sphere, hit_pos).x, normal_at_sphere(sphere, hit_pos).y, normal_at_sphere(sphere, hit_pos).z);
+				ambient = ambient_lighting(scene->ambient_light, _hit->object->color);
+				diffuse = diffuse_lighting(scene->light, normal_at_sphere(_hit->object, hit_pos), hit_pos, _hit->object->color);
+				// printf("diffuse: %f, %f, %f\n", diffuse.r, diffuse.g, diffuse.b);
+				mlx_put_pixel(data.canvas, x, y, color_to_uint32(add_colors(ambient, diffuse)));
+			}
+
 			sphere = scene->objects;
 			x++;
 		}
+		free_intersections_list(&xs_list);
 		y++;
 	}
 
