@@ -128,7 +128,7 @@ typedef struct s_computations
 	t_tuple		normalv;	// The normal vector at the intersection point (in world space)
 	bool		inside;		// A boolean to check if the ray was originating from inside the object 
 	t_tuple		over_point;	// Point slightly offset above the surface (for shadows)
-	t_tuple		reflectv;	// The reflection vector
+	bool		in_shadow;	
 }	t_comps;
 
 typedef struct s_data

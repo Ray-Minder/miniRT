@@ -5,8 +5,6 @@ t_color compute_pixel_color(int x, int y, t_render_params *params, t_scene *scen
 {
 	t_comps	computations;
 	t_x		*xs;
-	
-	
 	t_color	final_color;
 
 	// Calculate world coordinates for the pixel
@@ -28,16 +26,13 @@ t_color compute_pixel_color(int x, int y, t_render_params *params, t_scene *scen
 		computations.eyev = negate_tuple(params->ray.direction);
 		computations.normalv = normal_at_sphere(scene->objects, computations.point); // Pass sphere object
 
-		final_color = lighting(scene->objects->material, scene->light, computations.point, computations.eyev, computations.normalv, scene->ambient_light, false);
-
-		// TODO: Loop here if you have multiple lights in the future
+		final_color = lighting(scene, &computations);
 	}
 	else
 	{
 		// Background color if no hit
 		final_color = color(0.5, 0.5, 0.5); // Grey background
 	}
-
 	free_intersections_list(&xs); // Clean up intersection list
 	return (final_color);
 }

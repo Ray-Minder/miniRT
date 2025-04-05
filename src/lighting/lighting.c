@@ -49,7 +49,7 @@ t_color calculate_ambient_lighting(t_ambient_light ambient_light, t_material mat
 	// 3. Combine them using Hadamard product
 	return (hadamard_product(effective_ambient_light,
 			material_ambient_response));
-	// Alternative approach from the book (often Chapter 6):
+	// Alternative approach from the book:
 	// return multiply_color_by_scalar(material.color, material.ambient);
 	// This simpler version assumes ambient light is white (1,1,1) and its
 	// intensity is folded into material.ambient. MiniRT requires ambient light
@@ -88,106 +88,53 @@ t_color	calculate_specular_lighting(t_light light, t_material material,	double r
 	return (specular_color);
 }
 
-t_color lighting(t_material material, t_light light, t_tuple point,
-				 t_tuple eyev, t_tuple normalv,
-				 t_ambient_light ambient_light, bool in_shadow)
+t_color	lighting(t_scene *scene, t_comps *comps)
 {
-	t_color effective_color; // Combination of material and light colors
-	t_tuple lightv;			 // Vector from point to light source
-	double light_dot_normal;
-	t_color ambient_c;
-	t_color diffuse_c;
-	t_color specular_c;
-	t_color final_color;
+	t_color	effective_color; // Combination of material and light colors
+	t_tuple	lightv;			 // Vector from point to light source
+	double	light_dot_normal;
+	t_color	ambient_c;
+	t_color	diffuse_c;
+	t_color	specular_c;
+	t_color	final_color;
+	t_tuple	reflectv;			//Specular variables
+	double	reflect_dot_eye;	//Specular variables
 
 	// 1. Calculate ambient contribution (always present, regardless of shadow)
-	ambient_c = calculate_ambient_lighting(ambient_light, material);
+	ambient_c = calculate_ambient_lighting(scene->ambient_light, comps->object->material);
 
 	// Combine material color and light color ONCE
 	// (used for both diffuse and potentially specular if not handled inside)
-	effective_color = hadamard_product(material.color, light.color);
+	effective_color = hadamard_product(comps->object->material.color, scene->light.color);
 
 	// Calculate the direction vector from the point to the light source
-	lightv = normalize_tuple(subtract_tuples(light.position, point));
+	lightv = normalize_tuple(subtract_tuples(scene->light.position, comps->point));
 
 	// Calculate the cosine of the angle between the light vector and the normal vector.
-	light_dot_normal = dot_product(lightv, normalv);
+	light_dot_normal = dot_product(lightv, comps->normalv);
 
 	// Initialize diffuse and specular to black
 	diffuse_c = color(0, 0, 0);
 	specular_c = color(0, 0, 0);
 
 	// Check if the point is in shadow OR if the light strikes the back side
-	if (in_shadow == false && light_dot_normal >= 0)
+	if (comps->in_shadow == false && light_dot_normal >= 0)
 	{
 		// 2. Calculate diffuse contribution
-		diffuse_c = calculate_diffuse_lighting(light, material,
-												   effective_color, light_dot_normal);
+		diffuse_c = calculate_diffuse_lighting(scene->light, comps->object->material, effective_color, light_dot_normal);
 
 		// 3. Calculate specular contribution
-		t_tuple reflectv;
-		double reflect_dot_eye;
-
 		// Find the reflection of the light vector around the normal
-		reflectv = reflect(negate_tuple(lightv), normalv);
+		reflectv = reflect(negate_tuple(lightv), comps->normalv);
 		// Calculate the cosine of the angle between the reflection vector and the eye vector.
-		reflect_dot_eye = dot_product(reflectv, eyev);
-
+		reflect_dot_eye = dot_product(reflectv, comps->eyev);
 		if (reflect_dot_eye > 0) // Specular highlight is visible
 		{
-			specular_c = calculate_specular_lighting(light, material,
-														 reflect_dot_eye);
+			specular_c = calculate_specular_lighting(scene->light, comps->object->material, reflect_dot_eye);
 		}
 	}
-
 	// 4. Add all contributions
 	final_color = add_colors(ambient_c, diffuse_c);
 	final_color = add_colors(final_color, specular_c);
-
 	return (final_color);
 }
-
-// t_color	lighting(t_material material, t_light light, t_tuple point, t_tuple eyev, t_tuple normalv)
-// {
-// 	t_color	effective_color;
-// 	t_tuple	lightv;
-// 	double	light_dot_normal;
-// 	t_color	diffuse = color(0, 0, 0);
-// 	t_color	specular = color(0, 0, 0);
-// 	t_tuple	reflectv;
-// 	double	reflect_dot_eye;
-// 	double	factor;
-
-// 	effective_color = hadamard_product(material.color, light.color);
-
-// 	lightv = normalize_tuple(subtract_tuples(light.position, point));
-// 	light_dot_normal = dot_product(lightv, normalv);
-	
-// 	if (light_dot_normal < 0)
-// 	{
-// 		diffuse = color(0, 0, 0);
-// 		specular = color(0, 0, 0);
-// 	}
-// 	else
-// 	{
-// 		diffuse = multiply_color_by_scalar(effective_color, material.diffuse);
-// 		diffuse = multiply_color_by_scalar(diffuse, light_dot_normal);
-// 		diffuse = multiply_color_by_scalar(diffuse, light.brightness);
-
-// 		reflectv = reflect(negate_tuple(lightv), normalv);
-// 		reflect_dot_eye = dot_product(reflectv, eyev);
-// 		if (reflect_dot_eye <= 0)
-// 		{
-// 			specular = color(0, 0, 0);
-// 		}
-// 		else
-// 		{
-// 			factor = pow(reflect_dot_eye, material.shininess);
-
-// 			specular = multiply_color_by_scalar(specular, material.specular);
-// 			specular = multiply_color_by_scalar(specular, factor);
-// 		}
-// 	}
-
-// 	return (add_colors(diffuse, specular));
-// }

@@ -121,7 +121,7 @@ void 	render_sphere(t_data *data);
 
 t_color	ambient_lighting(t_ambient_light ambient_light, t_color object_color);
 t_color	diffuse_lighting(t_light light, t_tuple normal, t_tuple position, t_color object_color);
-t_color lighting(t_material material, t_light light, t_tuple point, t_tuple eyev, t_tuple normalv, t_ambient_light ambient_light, bool in_shadow);
+t_color	lighting(t_scene *scene, t_comps *comps);
 t_color calculate_ambient_contribution(t_ambient_light ambient_light_source, t_material material);
 
 //	normals.c
