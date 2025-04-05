@@ -31,11 +31,17 @@ t_matrix *get_light_matrix(t_light light)
 	t_tuple forward;
 	t_tuple up;
 	t_matrix *transform;
+	t_matrix *translated;
 
 	right = normalize_tuple(vector(1, 0, 0));
 	forward = normalize_tuple(vector(0, 0, 1));
 	up = normalize_tuple(vector(0, 1, 0));
 	transform = tuples_to_matrix(up, right, forward, light.position);
+	transform = identity(4);
+	translated = translate_from_tuple(light.position);
+	if (!translated)
+		return (NULL);
+	
 	return (transform);
 }
 
@@ -46,7 +52,7 @@ int set_transforms(t_scene *scene)
 	scene->camera.transform = get_camera_matrix(scene->camera);
 	if (!scene->camera.transform)
 		return (MALLOC_FAIL);
-	scene->light.transform = get_light_matrix(scene->light);
+	scene->light.transform = translate_from_tuple(scene->light.position);
 	if (!scene->light.transform)	
 		return (MALLOC_FAIL);
 	return (SUCCESS);

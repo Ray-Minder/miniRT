@@ -3,6 +3,7 @@
 t_x	*intersect(t_ray *ray, t_object *object)
 {
 	t_ray	transformed_ray;
+	t_matrix	*inverse_transform;
 
 	if (!ray || !object)
 	{
@@ -11,7 +12,9 @@ t_x	*intersect(t_ray *ray, t_object *object)
 	}
 	if (!object->transform)
 		object->transform = identity(4); //LATER REMOVE, IT SHOULD be INIT already. 
-	transformed_ray = transform(ray, invert_matrix(object->transform));
+	inverse_transform = invert_matrix(object->transform);
+	transformed_ray = transform(ray, inverse_transform);
+	free_matrix(&inverse_transform);
 	if (object->type == SPHERE)
 		return (sphere_intersect(&transformed_ray, object));
 	printf("Returning intersect because the object type wasn't SPHERE\n");

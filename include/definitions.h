@@ -78,6 +78,7 @@ void 	print_matrix(t_matrix* matrix);
 
 void	key_hooks(mlx_key_data_t keydata, void *param);
 void 	render_sphere(t_data *data);
+void	render_scene(t_scene *scene);
 
 //	===== RAYS =====
 

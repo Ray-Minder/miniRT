@@ -18,6 +18,10 @@ typedef struct s_matrix {
 	double	**values;
 }	t_matrix;
 
+typedef struct s_4x4_matrix {
+	double values[4][4];
+}	t_4x4_matrix;
+
 typedef enum e_object_type
 {
 	SPHERE,

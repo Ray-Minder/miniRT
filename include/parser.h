@@ -52,5 +52,6 @@ t_matrix *get_transform(t_tuple tuple, t_tuple position);
 t_matrix *tuples_to_matrix(t_tuple up, t_tuple right, t_tuple forward, t_tuple position);
 t_matrix *get_camera_matrix(t_camera camera);
 int			set_transforms(t_scene *scene);
+void	print_light(t_light *light);
 
 #endif

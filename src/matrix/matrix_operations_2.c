@@ -105,6 +105,7 @@ double	cofactor(t_matrix *m, int row, int col)
 	}
 	s_matrix = submatrix(m, row, col);
 	minor = determinant(s_matrix);
+	free_matrix(&s_matrix);
 	if ((row + col) % 2 == 0)
 		sign = 1;
 	else
@@ -145,3 +146,8 @@ t_matrix	*invert_matrix(t_matrix *m)
 	}
 	return(inverse);
 }
+
+// t_matrix invert_matrix(t_matrix *m)
+// {
+// 	t_matrix  inverse;
+// }

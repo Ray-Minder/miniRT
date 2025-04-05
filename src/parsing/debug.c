@@ -1,6 +1,16 @@
 #include "../../include/parser.h"
 # include "../../include/minirt.h"
 
+void	print_light(t_light *light)
+{
+	if (!light)
+		return ;
+	printf("Light position: %f, %f, %f\n", light->position.x, light->position.y, light->position.z);
+	printf("Light color: %f, %f, %f\n", light->color.r, light->color.g, light->color.b);
+	printf("Light brightness: %f\n", light->brightness);
+	print_matrix(light->transform);
+}
+
 void	print_objects(t_object *object_list)
 {
 	while (object_list)

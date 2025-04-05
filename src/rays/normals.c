@@ -13,7 +13,8 @@ t_tuple normal_at_sphere(t_object *object, t_tuple world_point)
 		exit(EXIT_FAILURE);
 	}
 	object_point = multiply_matrix_by_tuple(invert_matrix(object->transform), world_point);
-	object_normal = subtract_tuples(object_point, point(0, 0, 0));
+	// object_point = multiply_matrix_by_tuple(invert_matrix(identity(4)), world_point);
+	object_normal = subtract_tuples(object_point, object->position);
 	world_normal = multiply_matrix_by_tuple(transpose_matrix(invert_matrix(object->transform)), object_normal);
 	world_normal.w = 0;
 	return (normalize_tuple(world_normal));
@@ -46,6 +47,7 @@ t_color diffuse_lighting(t_light light, t_tuple normal, t_tuple position, t_colo
 	
 	light_direction = normalize_tuple(subtract_tuples(light.position, position));
 	light_dot_normal = dot_product(normal, light_direction);
+	// printf("light_dot_normal: %f\n", light_dot_normal);
 	if (light_dot_normal < 0)
 		diffuse = color(0, 0, 0);
 	else

@@ -54,11 +54,24 @@ t_matrix *get_transform(t_tuple tuple, t_tuple position)
 
 int set_object_transforms(t_object *objects)
 {
+	t_matrix	*translate;
+	t_matrix	*scaled;
+
 	while (objects)
 	{
 		if (objects->type == SPHERE)
 			objects->direction = vector(0, 1, 0);
-		objects->transform = get_transform(objects->direction, objects->position);
+		objects->transform = identity(4);
+		if (!objects->transform)
+			return (MALLOC_FAIL);
+		translate = translate_from_tuple(objects->position);
+		if (!translate)
+			return (MALLOC_FAIL);
+		scaled = scaling(objects->diameter / 2, objects->diameter / 2, objects->diameter / 2);
+		if (!scaled)
+			return (MALLOC_FAIL);
+		objects->transform = multiply_matrices(translate, scaled);
+		// objects->transform = scaling(objects->diameter / 2, objects->diameter / 2, objects->diameter / 2);
 		if (!objects->transform)
 			return (MALLOC_FAIL);
 		objects = objects->next;
