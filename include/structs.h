@@ -107,6 +107,17 @@ typedef struct	s_ray
 	t_tuple	direction;
 }	t_ray;
 
+// Structure to hold rendering parameters (temporary structure)
+typedef struct s_render_params
+{
+	double	wall_z;
+	double	wall_size;
+	double	pixel_size;
+	double	half_wall;
+	t_tuple	world_position;
+	t_ray	ray;
+}	t_render_params;
+
 typedef struct s_computations
 {
 	t_x			*hit;		// The hit pointer, instead of the below variable which is the value at the intersection
@@ -119,7 +130,6 @@ typedef struct s_computations
 	t_tuple		over_point;	// Point slightly offset above the surface (for shadows)
 	t_tuple		reflectv;	// The reflection vector
 }	t_comps;
-
 
 typedef struct s_data
 {

@@ -1,6 +1,6 @@
 #include "../../include/minirt.h"
 
-t_x	*intersect_scene(t_scene *scene, t_ray *ray)
+t_x	*intersect_scene(t_ray *ray, t_scene *scene)
 {
 	t_object	*current;
 	t_x			*head;

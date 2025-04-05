@@ -15,6 +15,12 @@
 
 //	===== FUNCTIONS =====
 
+//	===== CAMERA =====
+
+//	camera_init.c
+
+//	view_transform.c
+
 //	===== COLORS =====
 
 t_color	color(double r, double g, double b);
@@ -41,6 +47,36 @@ void	print_errno(char *function_name);
 
 void	init_data(t_data *data);
 void	init_mlx(t_data	*data);
+
+//	===== INTERSECTIONS ======
+
+//	intersect_cylinder.c
+
+t_x	*cylinder_intersect(t_ray *ray, t_object *cylinder);
+
+//	intersect_plane.c
+
+t_x	*plane_intersect(t_ray *ray, t_object *plane);
+
+//	intersect_scene.c
+
+t_x	*intersect_scene(t_ray *ray, t_scene *scene);
+
+//	intersect_sphere.c
+
+//	intersection_utils.c
+
+t_x		*new_intersection_node(void);
+void	free_intersections_list(t_x **xs_list);
+void	free_intersection_node(t_x **node_ptr);
+
+//	intersections.c
+
+t_x		*intersect(t_ray *ray, t_object *object);
+t_x		*hit(t_x *xs_list);
+void	add_intersection_node(t_x **xs_list, t_x *current);
+t_x		*sphere_intersect(t_ray *ray, t_object *sphere);
+double	calculate_discriminant(t_ray *ray);
 
 //	===== MATRICES ======
 
@@ -81,20 +117,6 @@ void 	render_sphere(t_data *data);
 
 //	===== RAYS =====
 
-//	intersection_utils.c
-
-t_x		*new_intersection_node(void);
-void	free_intersections_list(t_x **xs_list);
-void	free_intersection_node(t_x **node_ptr);
-
-//	intersections.c
-
-t_x		*intersect(t_ray *ray, t_object *object);
-t_x		*hit(t_x *xs_list);
-void	add_intersection_node(t_x **xs_list, t_x *current);
-t_x		*sphere_intersect(t_ray *ray, t_object *sphere);
-double	calculate_discriminant(t_ray *ray);
-
 //	lighting.c
 
 t_color	ambient_lighting(t_ambient_light ambient_light, t_color object_color);
@@ -112,12 +134,16 @@ t_tuple	reflect(t_tuple in, t_tuple normal);
 t_ray	create_ray(t_tuple origin, t_tuple direction);
 t_tuple	position(t_ray ray, double t);
 
-
-
 //	transform.c
 
 t_ray	transform(t_ray *ray, t_matrix *matrix);
 void	set_transform(t_object *object, t_matrix *transformation);
+
+//	===== RENDERING =====
+
+//	computations.c
+
+t_color compute_pixel_color(int x, int y, t_render_params *params, t_scene *scene);
 
 //	===== TRANSFORMATIONS =====
 
