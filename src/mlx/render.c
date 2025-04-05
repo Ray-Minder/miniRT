@@ -126,15 +126,16 @@ void render_scene(t_scene *scene)
 			r_position = point(world_x, world_y, wall_z);
 			ray_direction = normalize_tuple(subtract_tuples(r_position, ray_origin));
 			ray = create_ray(ray_origin, ray_direction);
-			// printf("y: %d, x: %d\n", y, x);
+			printf("y: %d, x: %d\n", y, x);
 			while(sphere)
 			{
 				xs = intersect(&ray, sphere);
-				add_intersection_node(&xs_list, xs);
-				
+				if (xs)
+					add_intersection_node(&xs_list, xs);				
 				sphere = sphere->next;
 			}
-			_hit = hit(xs);
+			// printf("xs: %p\n", xs);
+			_hit = hit(xs_list);
 			if (_hit && _hit->hit)
 			{
 				t_color ambient;
@@ -149,11 +150,12 @@ void render_scene(t_scene *scene)
 				// printf("diffuse: %f, %f, %f\n", diffuse.r, diffuse.g, diffuse.b);
 				mlx_put_pixel(data.canvas, x, y, color_to_uint32(add_colors(ambient, diffuse)));
 			}
-
+			free_intersections_list(&xs_list);
 			sphere = scene->objects;
 			x++;
 		}
-		free_intersections_list(&xs_list);
+		// print_intersection_list(xs_list);
+		
 		y++;
 	}
 

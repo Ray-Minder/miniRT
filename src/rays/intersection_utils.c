@@ -33,6 +33,7 @@ void	free_intersections_list(t_x **xs_list)
 		if (current != NULL)
 			next = current->next;
 	}
+	*xs_list = NULL;
 }
 
 void	free_intersection_node(t_x **node_ptr)
@@ -42,4 +43,21 @@ void	free_intersection_node(t_x **node_ptr)
 	free (*node_ptr);
 	*node_ptr = NULL;
 	return ;
+}
+
+void print_intersection_list(t_x *xs_list)
+{
+	t_x	*current;
+
+	if (!xs_list)
+	{
+		printf("Intersection list is NULL.\n");
+		return ;
+	}
+	current = xs_list;
+	while (current != NULL)
+	{
+		printf("t: %f, hit: %d\n", current->t, current->hit);
+		current = current->next;
+	}
 }

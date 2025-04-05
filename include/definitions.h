@@ -87,6 +87,7 @@ void	render_scene(t_scene *scene);
 t_x		*new_intersection_node(void);
 void	free_intersections_list(t_x **xs_list);
 void	free_intersection_node(t_x **node_ptr);
+void print_intersection_list(t_x *xs_list);
 
 //	intersections.c
 
