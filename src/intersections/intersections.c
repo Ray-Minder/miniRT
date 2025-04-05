@@ -9,8 +9,8 @@ t_x	*intersect(t_ray *ray, t_object *object)
 		printf("Returning intersect because there's no ray or object\n");
 		return (NULL);
 	}
-	if (!object->transform)
-		object->transform = identity(4); //LATER REMOVE, IT SHOULD be INIT already. 
+	// if (!object->transform)
+	// 	object->transform = identity(4); //LATER REMOVE, IT SHOULD be INIT already. 
 	transformed_ray = transform(ray, invert_matrix(object->transform));
 	if (object->type == SPHERE)
 		return (sphere_intersect(&transformed_ray, object));
@@ -59,8 +59,6 @@ void	add_intersection_node(t_x **xs_list, t_x *current)
 		iterator = iterator->next;
 	iterator->next = current;
 }
-
-
 
 double	calculate_discriminant(t_ray *ray)
 {

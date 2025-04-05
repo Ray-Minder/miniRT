@@ -27,30 +27,28 @@ static void setup_default_scene(t_scene *scene)
 		exit(EXIT_FAILURE);
 	}
 	scene->objects->type = SPHERE;
-	scene->objects->position = point(0, 0, 0); // Position used by normal_at, etc.
-	scene->objects->transform = identity(4);	 // Start with identity transform
-											 // Apply transformations if needed, e.g., scaling
-	// t_matrix *scaling_matrix = scaling(1, 1, 1); // Example diameter 2
-	// set_transform(&scene->sphere, scaling_matrix); // Set transform properly
+	scene->objects->position = point(0, 0, 0);		// Position used by normal_at, etc.
+	scene->objects->transform = identity(4);		// Start with identity transform
+	// Apply transformations if needed, e.g., scaling
+	// t_matrix *scaling_matrix = scaling(1, 1, 1);		// Example diameter 2
+	// set_transform(scene->objects, scaling_matrix);	// Set transform properly
 
 	// Define the sphere's material
-	scene->objects->material.color = color(1.0, 0.2, 1.0); // Base color
-	scene->objects->material.ambient = 0.1;				 // Lower ambient reflection
-	scene->objects->material.diffuse = 0.9;				 // High diffuse reflection
-	scene->objects->material.specular = 0.9;				 // High specular reflection
-	scene->objects->material.shininess = 200.0;			 // Sharp highlight
+	scene->objects->material.color = color(1.0, 0.2, 1.0);	// Base color
+	scene->objects->material.ambient = 0.1;				 	// Lower ambient reflection
+	scene->objects->material.diffuse = 0.9;					// High diffuse reflection
+	scene->objects->material.specular = 0.9;				// High specular reflection
+	scene->objects->material.shininess = 200.0;			 	// Sharp highlight
 
 	// Define the scene's ambient light
-	scene->ambient_light.color = color(1.0, 1.0, 1.0); // White ambient light
-	scene->ambient_light.brightness = 0.1;			   // Low ambient intensity
+	scene->ambient_light.color = color(1.0, 1.0, 1.0);	// White ambient light
+	scene->ambient_light.brightness = 0.1;				// Low ambient intensity
 
 	// Define the point light source
-	scene->light.position = point(-10, 10, -10); // Light position
-	scene->light.color = color(1, 1, 1);		 // White light
-	scene->light.brightness = 1;				 // Full brightness
+	scene->light.position = point(-10, 10, -10);	// Light position
+	scene->light.color = color(1, 1, 1);			// White light
+	scene->light.brightness = 1;					// Full brightness
 }
-
-
 
 // Main rendering function for the sphere test scene
 void render_sphere(t_data *data)
@@ -66,20 +64,18 @@ void render_sphere(t_data *data)
 	setup_default_scene(&scene); // Setup sphere, lights, material
 
 	// Loop through each pixel on the canvas
-	y = 0; // Norminette prefers initialization before loop
-	while (y < data->height)
+	y = -1;
+	while (++y < data->height)
 	{
-		x = 0;
-		while (x < data->width)
+		x = -1;
+		while (++x < data->width)
 		{
 			// Calculate the color for the current pixel
 			pixel_color = compute_pixel_color(x, y, &params, &scene);
 
 			// Put the calculated color onto the canvas
 			mlx_put_pixel(data->canvas, x, y, color_to_uint32(pixel_color));
-			x++;
 		}
-		y++;
 	}
 	// Remember to free any allocated memory (like transforms) when done.
 	// free_matrix(&scene->objects->transform); // Free identity matrix created

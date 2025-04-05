@@ -21,10 +21,16 @@ t_x	*sphere_intersect(t_ray *ray, t_object *sphere)
 		xs->t = 0;
 		return (xs);
 	}
-	xs->next = new_intersection_node();
-	if (!xs->next)
-		return (free_intersections_list(&xs), NULL);
+	else if (discriminant > 0)
+	{
+		xs->next = new_intersection_node();
+		if (!xs->next)
+			return (free_intersections_list(&xs), NULL);
+	}
+	
 	sphere_to_ray = subtract_tuples(ray->origin, sphere->position);
+
+
 	a = dot_product(ray->direction, ray->direction);
 	b = 2 * dot_product(ray->direction, sphere_to_ray);
 	xs->t = (-b - sqrt(discriminant)) / (2 * a);
@@ -35,3 +41,4 @@ t_x	*sphere_intersect(t_ray *ray, t_object *sphere)
 	// printf("Returned intersection: %f\n", xs->t);
 	return (xs);
 }
+
