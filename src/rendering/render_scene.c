@@ -1,7 +1,5 @@
 #include "../../include/minirt.h"
 
-
-
 void render_scene(t_scene *scene)
 {
 	t_data			data;
@@ -9,7 +7,9 @@ void render_scene(t_scene *scene)
 	t_x				*xs_list;
 	t_x				*xs;
 	t_x				*_hit;
+	
 	t_render_params params;
+	t_comps			comps;
 
 	t_object *sphere;
 
@@ -50,22 +50,16 @@ void render_scene(t_scene *scene)
 				sphere = sphere->next;
 			}
 
-			// printf("xs: %p\n", xs);
-			// _hit = hit(xs_list);
-			// if (_hit && _hit->hit)
-			// {
-			// 	t_color ambient;
-			// 	t_color diffuse;
-			// 	t_tuple hit_pos;
+			printf("xs: %p\n", xs);
+			_hit = hit(xs_list);
+			if (_hit && _hit->hit)
+			{
+				t_color final_color;
 
-			// 	hit_pos = position(params.ray, _hit->t);
-			// 	// printf("hit_pos: %f, %f, %f\n", hit_pos.x, hit_pos.y, hit_pos.z);
-			// 	// printf("normal: %f, %f, %f\n", normal_at_sphere(sphere, hit_pos).x, normal_at_sphere(sphere, hit_pos).y, normal_at_sphere(sphere, hit_pos).z);
-			// 	ambient = ambient_lighting(scene->ambient_light, _hit->object->material.color);
-			// 	diffuse = diffuse_lighting(scene->light, normal_at_sphere(_hit->object, hit_pos), hit_pos, _hit->object->material.color);
-			// 	// printf("diffuse: %f, %f, %f\n", diffuse.r, diffuse.g, diffuse.b);
-			// 	mlx_put_pixel(data.canvas, x, y, color_to_uint32(add_colors(ambient, diffuse)));
-			// }
+				prepare_computations(&comps, _hit, &params.ray);
+				final_color = lighting(scene, &comps);
+				mlx_put_pixel(data.canvas, x, y, color_to_uint32(final_color));
+			}
 
 			free_intersections_list(&xs_list);
 			if (scene->objects)

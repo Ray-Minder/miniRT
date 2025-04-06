@@ -41,12 +41,7 @@ void	render_sphere(t_data *data)
 			if (_hit && _hit->hit)
 			{
 				prepare_computations(&comps, _hit, &params.ray);
-				t_tuple hit_pos;
-
-				hit_pos = position(params.ray, _hit->t);
 				final_color = lighting(&scene, &comps);
-				// ambient = ambient_lighting(scene.ambient_light, scene.objects->material.color);
-				// diffuse = diffuse_lighting(scene.light, normal_at_sphere(scene.objects, hit_pos), hit_pos, scene.objects->material.color);
 				mlx_put_pixel(data->canvas, x, y, color_to_uint32(final_color));
 			}
 		}
