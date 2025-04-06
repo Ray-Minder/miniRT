@@ -133,6 +133,8 @@ void	set_transform(t_object *object, t_matrix *transformation);
 //	===== RENDERING =====
 
 void init_render_params(t_render_params *params, int width, int height);
+void setup_default_scene(t_scene *scene);
+void	prepare_computations(t_comps *comps, t_x *hit, t_ray *ray);
 
 //	===== TRANSFORMATIONS =====
 

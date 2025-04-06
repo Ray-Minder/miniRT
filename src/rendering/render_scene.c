@@ -1,15 +1,6 @@
 #include "../../include/minirt.h"
 
-void init_render_params(t_render_params *params, int width, int height)
-{
-	(void) width;
-	params->wall_z = 10.0;
-	params->wall_size = 7.0;
-	params->half_wall = params->wall_size / 2;
-	params->pixel_size = params->wall_size / height;
-	// params->world_position = point(0, 0, 0);
-	params->ray.origin = point(0, 0, -5);
-}
+
 
 void render_scene(t_scene *scene)
 {
