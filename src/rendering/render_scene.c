@@ -11,16 +11,6 @@ void init_render_params(t_render_params *params, int width, int height)
 	params->ray.origin = point(0, 0, -5);
 }
 
-// static void setup_default_scene(t_scene *scene)
-// {
-// 	scene->ambient_light.color = color(1, 1, 1);
-// 	scene->ambient_light.brightness = 0.2;
-// 	scene->light.position = point(-10, 10, -10);
-// 	scene->light.color = color(1, 1, 1);
-// 	scene->light.brightness = 0.8;
-// 	scene->objects = NULL;
-// }
-
 void render_scene(t_scene *scene)
 {
 	t_data			data;
