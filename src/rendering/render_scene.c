@@ -28,13 +28,11 @@ void render_scene(t_scene *scene)
 	_hit = NULL;
 
 	head = scene->objects;
-	sphere = head;
 	current = head;
 	
 	// print_objects(sphere);
-	while (current)
-	{
-
+	// while (current)
+	// {
 		y = -1;
 		while (++y < data.height)
 		{
@@ -58,6 +56,7 @@ void render_scene(t_scene *scene)
 						add_intersection_node(&xs_list, xs);
 					sphere = sphere->next;
 				}
+
 				_hit = hit(xs_list);
 				if (_hit && _hit->hit)
 				{
@@ -67,13 +66,14 @@ void render_scene(t_scene *scene)
 					final_color = lighting(scene, &comps);
 					mlx_put_pixel(data.canvas, x, y, color_to_uint32(final_color));
 				}
-
 				free_intersections_list(&xs_list);
 			}
+			
 			// print_intersection_list(xs_list);
 		}
-		current = current->next;
-	}
+		// current = current->next;
+	// }
+
 	if (mlx_image_to_window(data.mlx, data.canvas, 0, 0) < 0)
 	{
 		printf("Failure to put image to window\n");

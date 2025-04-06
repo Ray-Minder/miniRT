@@ -32,10 +32,10 @@ t_x	*hit(t_x *xs_list)
 		return (NULL);
 	}
 	current = xs_list;
-	lowest_hit = current;
+	lowest_hit = NULL;
 	while (current != NULL)
 	{
-		if (current->t > 0 && current->t < lowest_hit->t)
+		if (current->t > 0 && (!lowest_hit || current->t < lowest_hit->t))
 			lowest_hit = current;
 		current = current->next;
 	}
