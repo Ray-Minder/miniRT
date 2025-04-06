@@ -2,7 +2,7 @@
 
 t_x	*intersect(t_ray *ray, t_object *object)
 {
-	t_ray	transformed_ray;
+	t_ray		transformed_ray;
 	t_matrix	*inverse_transform;
 
 	if (!ray || !object)

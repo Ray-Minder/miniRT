@@ -36,7 +36,7 @@ void	render_sphere(t_data *data)
 	sphere.diameter = 2;
 	sphere.position = point(0, 0, 0);
 	sphere.transform = identity(4);
-	sphere.color = color(1, 1, 1);
+	sphere.material.color = color(1, 0, 0);
 
 	ambient_light.color = color(0.4, 0.2, .7);
 	ambient_light.brightness = 0.2;
@@ -73,8 +73,8 @@ void	render_sphere(t_data *data)
 				t_tuple hit_pos;
 
 				hit_pos = position(ray, _hit->t);
-				ambient = ambient_lighting(ambient_light, sphere.color);
-				diffuse = diffuse_lighting(light, normal_at_sphere(&sphere, hit_pos), hit_pos, sphere.color);
+				ambient = ambient_lighting(ambient_light, sphere.material.color);
+				diffuse = diffuse_lighting(light, normal_at_sphere(&sphere, hit_pos), hit_pos, sphere.material.color);
 				mlx_put_pixel(data->canvas, x, y, color_to_uint32(add_colors(ambient, diffuse)));
 			}
 		}

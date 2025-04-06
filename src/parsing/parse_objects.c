@@ -18,7 +18,7 @@ int	parse_sphere(char **line, t_scene *scene)
 	error = parse_double(line[2], &new_object->diameter);
 	if (error != SUCCESS)
 		return (error);
-	error = parse_color(line[3], &new_object->color);
+	error = parse_color(line[3], &new_object->material.color);
 	if (error != SUCCESS)
 		return (error);
 	return (SUCCESS);
@@ -41,7 +41,7 @@ int	parse_plane(char **line, t_scene *scene)
 	error = parse_tuple(line[2], &new_object->direction);
 	if (error != SUCCESS)
 		return (error);
-	error = parse_color(line[3], &new_object->color);
+	error = parse_color(line[3], &new_object->material.color);
 	if (error != SUCCESS)
 		return (error);
 	return (SUCCESS);
@@ -70,7 +70,7 @@ int	parse_cylinder(char **line, t_scene *scene)
 	error = parse_double(line[4], &new_object->height);
 	if (error != SUCCESS)
 		return (error);
-	error = parse_color(line[5], &new_object->color);
+	error = parse_color(line[5], &new_object->material.color);
 	if (error != SUCCESS)
 		return (error);
 	return (SUCCESS);
