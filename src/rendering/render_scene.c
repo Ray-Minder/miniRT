@@ -1,6 +1,6 @@
 #include "../../include/minirt.h"
 
-static void init_render_params(t_render_params *params, int width, int height)
+void init_render_params(t_render_params *params, int width, int height)
 {
 	(void) width;
 	params->wall_z = 10.0;

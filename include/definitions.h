@@ -130,6 +130,10 @@ t_tuple normal_at_sphere(t_object *object, t_tuple world_point);
 t_ray	transform(t_ray *ray, t_matrix *matrix);
 void	set_transform(t_object *object, t_matrix *transformation);
 
+//	===== RENDERING =====
+
+void init_render_params(t_render_params *params, int width, int height);
+
 //	===== TRANSFORMATIONS =====
 
 t_matrix	*translation(double x, double y, double z);
