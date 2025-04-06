@@ -78,7 +78,7 @@ void	render_sphere(t_data *data)
 
 void render_scene(t_scene *scene)
 {
-	t_data data;
+	t_data		data;
 	t_ray		ray;
 	t_tuple		r_position;
 	t_tuple		ray_origin;
@@ -109,16 +109,17 @@ void render_scene(t_scene *scene)
 	xs = NULL;
 	_hit = NULL;
 
-	x = 0;
-	y = 0;
+	
 	t_object *sphere = scene->objects;
+	t_object *current = scene->objects;
 	// print_objects(sphere);
-	while (y < data.height)
+	y = -1;
+	while (++y < data.height)
 	{
 		world_y = half - pixel_size * y;
-		x = 0;
-		printf("y: %d\n", y);
-		while (x < data.width)
+		x = -1;
+		// printf("y: %d\n", y);
+		while (++x < data.width)
 		{
 			xs = NULL;
 			_hit = NULL;
@@ -151,12 +152,11 @@ void render_scene(t_scene *scene)
 				mlx_put_pixel(data.canvas, x, y, color_to_uint32(add_colors(ambient, diffuse)));
 			}
 			free_intersections_list(&xs_list);
-			sphere = scene->objects;
-			x++;
+			if (current)
+				current = current->next;
+			sphere = scene->objects->next;
 		}
 		// print_intersection_list(xs_list);
-		
-		y++;
 	}
 
 	if (mlx_image_to_window(data.mlx, data.canvas, 0, 0) < 0)
@@ -169,4 +169,3 @@ void render_scene(t_scene *scene)
 	mlx_loop(data.mlx);
 	mlx_terminate(data.mlx);
 }
-// void minirt(void)

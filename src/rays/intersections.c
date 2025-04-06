@@ -47,7 +47,7 @@ void	add_intersection_node(t_x **xs_list, t_x *current)
 {
 	t_x	*iterator;
 
-	if ((!xs_list) && !current)
+	if (!xs_list && !current)
 	{
 		printf("There's no xs list, and no intersection to add either.\n");
 		return ;
