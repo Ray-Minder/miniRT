@@ -64,6 +64,7 @@ clean:
 
 fclean: clean
 	@rm -f $(NAME)
+	@make -C $(LIBFT_DIR) fclean >/dev/null
 	@if [ -d $(MLX42_DIR)/build ]; then \
 		$(RM) -r $(MLX42_DIR)/build; \
 		echo $(WHITE)"Cleaned MLX42 library."$(RESET); \
