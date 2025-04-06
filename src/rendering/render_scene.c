@@ -13,7 +13,6 @@ void render_scene(t_scene *scene)
 
 	t_object *sphere;
 	t_object *head;
-	t_object *current;
 
 	int			y;
 	int			x;
@@ -28,51 +27,50 @@ void render_scene(t_scene *scene)
 	_hit = NULL;
 
 	head = scene->objects;
-	current = head;
 	
 	// print_objects(sphere);
-	// while (current)
-	// {
-		y = -1;
-		while (++y < data.height)
+	y = -1;
+	while (++y < data.height)
+	{
+		world_y = params.half_wall - params.pixel_size * y;
+		x = -1;
+		// printf("y: %d\n", y);
+		while (++x < data.width)
 		{
-			world_y = params.half_wall - params.pixel_size * y;
-			x = -1;
-			// printf("y: %d\n", y);
-			while (++x < data.width)
+			sphere = head;
+			xs = NULL;
+			_hit = NULL;
+			world_x = -params.half_wall + params.pixel_size * x;
+			r_position = point(world_x, world_y, params.wall_z);
+			params.ray.direction = normalize_tuple(subtract_tuples(r_position, params.ray.origin));
+			printf("y: %d, x: %d\n", y, x);
+
+			while (sphere)
 			{
-				sphere = current;
-				xs = NULL;
-				_hit = NULL;
-				world_x = -params.half_wall + params.pixel_size * x;
-				r_position = point(world_x, world_y, params.wall_z);
-				params.ray.direction = normalize_tuple(subtract_tuples(r_position, params.ray.origin));
-				printf("y: %d, x: %d\n", y, x);
-
-				while (sphere)
+				xs = intersect(&params.ray, sphere);
+				if (xs && !compare_doubles(xs->t, 0))
 				{
-					xs = intersect(&params.ray, sphere);
-					if (xs)
-						add_intersection_node(&xs_list, xs);
-					sphere = sphere->next;
+					// printf("Intersection at t: %f for sphere at (%f, %f, %f)\n", xs->t, sphere->position.x, sphere->position.y, sphere->position.z);
+					add_intersection_node(&xs_list, xs);
 				}
-
-				_hit = hit(xs_list);
-				if (_hit && _hit->hit)
-				{
-					t_color final_color;
-
-					prepare_computations(&comps, _hit, &params.ray);
-					final_color = lighting(scene, &comps);
-					mlx_put_pixel(data.canvas, x, y, color_to_uint32(final_color));
-				}
-				free_intersections_list(&xs_list);
+				sphere = sphere->next;
 			}
-			
-			// print_intersection_list(xs_list);
+
+			_hit = hit(xs_list);
+			if (_hit && _hit->hit)
+			{
+				t_color final_color;
+
+				printf("Closest hit at t: %f for sphere at (%f, %f, %f)\n", _hit->t, _hit->object->position.x, _hit->object->position.y, _hit->object->position.z);
+				prepare_computations(&comps, _hit, &params.ray);
+				final_color = lighting(scene, &comps);
+				mlx_put_pixel(data.canvas, x, y, color_to_uint32(final_color));
+			}
+			free_intersections_list(&xs_list);
 		}
-		// current = current->next;
-	// }
+
+		// print_intersection_list(xs_list);
+	}
 
 	if (mlx_image_to_window(data.mlx, data.canvas, 0, 0) < 0)
 	{
