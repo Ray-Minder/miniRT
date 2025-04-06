@@ -16,6 +16,7 @@
 		"string_view": "c",
 		"initializer_list": "c",
 		"span": "c",
-		"utility": "c"
+		"utility": "c",
+		"minirt.h": "c"
 	}
 }

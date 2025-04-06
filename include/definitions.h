@@ -42,6 +42,25 @@ void	print_errno(char *function_name);
 void	init_data(t_data *data);
 void	init_mlx(t_data	*data);
 
+//	===== LIGHTING =====
+
+//	ambient_lighting.c
+
+t_color ambient_lighting(t_ambient_light ambient_light, t_color object_color);
+
+//	diffuse_lighting.c
+
+t_color diffuse_lighting(t_light light, t_tuple normal, t_tuple position, t_color object_color);
+
+//	lighting.c
+
+t_color	lighting(t_scene *scene, t_comps *comps);
+
+//	specular_lighting.c
+
+t_color	specular_lighting(t_light light, t_material material, double reflect_dot_eye);
+
+
 //	===== MATRICES ======
 
 // matrices.c
@@ -97,13 +116,14 @@ void	add_intersection_node(t_x **xs_list, t_x *current);
 t_x		*sphere_intersect(t_ray *ray, t_object *sphere);
 double	calculate_discriminant(t_ray *ray);
 
+//	normals.c
+t_tuple reflect(t_tuple in, t_tuple normal);
+
 //	ray.c
 
 t_ray	create_ray(t_tuple origin, t_tuple direction);
 t_tuple	position(t_ray ray, double t);
 t_tuple normal_at_sphere(t_object *object, t_tuple world_point);
-t_color ambient_lighting(t_ambient_light ambient_light, t_color object_color);
-t_color diffuse_lighting(t_light light, t_tuple normal, t_tuple position, t_color object_color);
 
 //	transform.c
 

@@ -68,31 +68,41 @@ typedef struct s_light
 	t_color	color;
 }	t_light;
 
-typedef struct s_sphere
-{
-	t_tuple	position;
-	double	diameter;
-	t_color	color;
-	struct s_sphere	*next;
-}	t_sphere;
+// typedef struct s_sphere
+// {
+// 	t_tuple	position;
+// 	double	diameter;
+// 	t_color	color;
+// 	struct s_sphere	*next;
+// }	t_sphere;
 
-typedef struct s_plane
-{
-	t_tuple	point;
-	t_tuple	normal;
-	t_color	color;
-	struct s_plane	*next;
-}	t_plane;
+// typedef struct s_plane
+// {
+// 	t_tuple	point;
+// 	t_tuple	normal;
+// 	t_color	color;
+// 	struct s_plane	*next;
+// }	t_plane;
 
-typedef struct s_cylinder
+// typedef struct s_cylinder
+// {
+// 	t_tuple	position;
+// 	t_tuple	axis;
+// 	double	diameter;
+// 	double	height;
+// 	t_color	color;
+// 	struct s_cylinder	*next;
+// }	t_cylinder;
+
+typedef struct s_material
 {
-	t_tuple	position;
-	t_tuple	axis;
-	double	diameter;
-	double	height;
 	t_color	color;
-	struct s_cylinder	*next;
-}	t_cylinder;
+	double	ambient;	//How much ambient light it reflects.		[0, 1]
+	double	diffuse;	//How much diffuse light it reflects.		[0, 1]
+	double	specular;	//How much specular light it reflects.		[0, 1]
+	double	shininess;	//Controls the size of specular highlight.	[10, ~]
+}	t_material;
+
 
 typedef struct s_object
 {
@@ -100,7 +110,7 @@ typedef struct s_object
 	t_tuple			position;
 	t_tuple			direction;
 	t_matrix		*transform;
-	t_color			color;
+	t_material		material;
 	double			diameter;
 	double			height;
 	struct s_object	*next;
@@ -113,6 +123,16 @@ typedef struct s_intersection
 	bool		hit;
 	t_x			*next;
 }	t_x;
+
+typedef struct s_comps
+{
+	t_x			*hit;		//The hit pointer.
+	t_object	*object;	//The intersected object.
+	t_tuple		point;		//The intersection point, in world space.
+	t_tuple		eyev;		//The vector pointing from the point to the eye/camera.
+	t_tuple		normalv;	//The normal vector at the intersection point (in world space).
+	bool		inside;		//A boolean to check if the ray was originating from inside the object.
+}	t_comps;
 
 typedef struct s_scene
 {
@@ -127,6 +147,17 @@ typedef struct	s_ray
 	t_tuple	origin;
 	t_tuple	direction;
 }	t_ray;
+
+typedef	struct s_render_params
+{
+	double	wall_z;			//Defines the fixed distance of the projection plane from the camera origin.
+	double	wall_size;		//Defines the fixed world-space dimensions of the projection wall (which is a square).
+	double	half_wall;		//Is half the size of the projection plane
+	double	pixel_size;		//Calculates the size of one pixel on the fixed projection plane
+	t_tuple	world_position;	//Stores the calculated world-space coordinates on the projection plane (wall) corresponding to the current pixel
+	t_ray	ray;			//Stores the final ray directed from the origin towards the world position
+}	t_render_params;
+
 
 typedef struct s_data
 {
