@@ -7,8 +7,10 @@ t_camera *camera(double hsize, double vsize, double field_of_view)
 	cam = ft_calloc(1, sizeof(t_camera));
 	if (!cam)
 		return (NULL);
+	cam->hsize = hsize;
+	cam->vsize = vsize;
 	cam->fov = field_of_view;
-	cam->transform = identity_matrix(4);
+	cam->transform = identity(4);
 	if (!cam->transform)
 		return (free(cam), NULL);
 	cam->half_view = tan(field_of_view / 2);

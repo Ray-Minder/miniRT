@@ -4,6 +4,8 @@
 
 void 	print_tuple(t_tuple tuple);
 bool	compare_tuples(t_tuple a, t_tuple b);
+t_color	tuple_to_color(t_tuple tuple);
+t_tuple	color_to_tuple(t_color color);
 
 //	=== Function Definitions ===
 
@@ -50,4 +52,48 @@ bool	compare_tuples(t_tuple a, t_tuple b)
 		|| a.w != b.w)
 		return (false);
 	return (true);
+}
+
+/**
+ * @brief Converts a tuple to a color.
+ *
+ * This function converts a tuple to a color by extracting the
+ * red, green, and blue components from the tuple. The w component
+ * is ignored in this conversion.
+ *
+ * @param tuple The tuple to be converted.
+ *
+ * @return The resulting color.
+ */
+t_color	tuple_to_color(t_tuple tuple)
+{
+	t_color	color;
+
+	color.r = tuple.x;
+	color.g = tuple.y;
+	color.b = tuple.z;
+	return (color);
+}
+
+/**
+ * @brief Converts a color to a tuple.
+ *
+ * This function converts a color to a tuple by setting the x, y,
+ * and z components of the tuple to the red, green, and blue
+ * components of the color, respectively. The w component is set
+ * to 0.0.
+ *
+ * @param color The color to be converted.
+ *
+ * @return The resulting tuple.
+ */
+t_tuple	color_to_tuple(t_color color)
+{
+	t_tuple	tuple;
+
+	tuple.x = color.r;
+	tuple.y = color.g;
+	tuple.z = color.b;
+	tuple.w = 0.0;
+	return (tuple);
 }

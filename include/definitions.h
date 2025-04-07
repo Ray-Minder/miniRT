@@ -17,9 +17,17 @@
 
 //	===== CAMERA =====
 
+//	camera.c
+
+t_camera *camera(double hsize, double vsize, double field_of_view);
+
 //	view_transform.c
 
 t_matrix	*view_transform(t_tuple from, t_tuple to, t_tuple up);
+
+//	ray_for_pixel.c
+
+t_ray	ray_for_pixel(t_camera *camera, int x, int y);
 
 //	===== COLORS =====
 
@@ -129,7 +137,7 @@ t_tuple reflect(t_tuple in, t_tuple normal);
 t_x		*new_intersection_node(void);
 void	free_intersections_list(t_x **xs_list);
 void	free_intersection_node(t_x **node_ptr);
-void print_intersection_list(t_x *xs_list);
+void	print_intersection_list(t_x *xs_list);
 
 //	intersections.c
 
@@ -155,6 +163,10 @@ void	set_transform(t_object *object, t_matrix *transformation);
 void	init_render_params(t_render_params *params, int width, int height);
 void	setup_default_scene(t_scene *scene);
 t_comps	*prepare_computations(t_x *hit, t_ray *ray);
+
+//	render.c
+
+void	render(t_data *data, t_camera *cam, t_scene *scene);
 
 //	===== TRANSFORMATIONS =====
 
@@ -186,6 +198,11 @@ double  dot_product(t_tuple a, t_tuple b);
 t_tuple cross_product(t_tuple a, t_tuple b);
 void	print_tuple(t_tuple tuple);
 bool	compare_tuples(t_tuple a, t_tuple b);
+
+//	tuple_utils.c
+
+t_color	tuple_to_color(t_tuple tuple);
+t_tuple	color_to_tuple(t_color color);
 
 //	===== UTILITIES =====
 

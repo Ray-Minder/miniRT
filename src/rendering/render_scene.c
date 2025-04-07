@@ -3,38 +3,41 @@
 void render_scene(t_scene *scene)
 {
 	t_data			data;
-	t_tuple			r_position;
-	t_color 		final_color;
+	// t_tuple			r_position;
+	// t_color 		final_color;
 	t_render_params params;
 
-	int			y;
-	int			x;
-	double		world_y;
-	double		world_x;
+	// int			y;
+	// int			x;
+	// double		world_y;
+	// double		world_x;
 
 	init_data(&data);
 	init_render_params(&params, data.width, data.height);
 	
 	// print_objects(sphere);
-	y = -1;
-	while (++y < data.height)
-	{
-		world_y = params.half_wall - params.pixel_size * y;
-		x = -1;
-		// printf("y: %d\n", y);
-		while (++x < data.width)
-		{
-			world_x = -params.half_wall + params.pixel_size * x;
-			r_position = point(world_x, world_y, params.wall_z);
-			params.ray.direction = normalize_tuple(subtract_tuples(r_position, params.ray.origin));
-			printf("y: %d, x: %d\n", y, x);
+	// y = -1;
+	// while (++y < data.height)
+	// {
+	// 	world_y = params.half_wall - params.pixel_size * y;
+	// 	x = -1;
+	// 	// printf("y: %d\n", y);
+	// 	while (++x < data.width)
+	// 	{
+	// 		world_x = -params.half_wall + params.pixel_size * x;
+	// 		r_position = point(world_x, world_y, params.wall_z);
+	// 		params.ray.direction = normalize_tuple(subtract_tuples(r_position, params.ray.origin));
+	// 		printf("y: %d, x: %d\n", y, x);
 
-			final_color = color_at(scene, &params.ray);
-			mlx_put_pixel(data.canvas, x, y, color_to_uint32(final_color));
-		}
+	// 		final_color = color_at(scene, &params.ray);
+	// 		mlx_put_pixel(data.canvas, x, y, color_to_uint32(final_color));
+	// 	}
 
-		// print_intersection_list(xs_list);
-	}
+	// 	// print_intersection_list(xs_list);
+	// }
+	data.cam = camera(400, 400, M_PI / 2);
+	data.cam->transform = view_transform(point(0, 0, -5), point(0, 0, 0), vector(0, 1, 0));
+	render(&data, data.cam, scene);
 
 	if (mlx_image_to_window(data.mlx, data.canvas, 0, 0) < 0)
 	{

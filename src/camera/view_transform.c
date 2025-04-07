@@ -11,7 +11,7 @@ t_matrix	*view_transform(t_tuple from, t_tuple to, t_tuple up)
 	forward = normalize_tuple(subtract_tuples(to, from));
 	left = normalize_tuple(cross_product(forward, up));
 	true_up = cross_product(left, forward);
-	orientation = identity_matrix(4);
+	orientation = identity(4);
 	if (!orientation)
 		return (NULL);
 	orientation->values[0][0] = left.x;
@@ -24,6 +24,6 @@ t_matrix	*view_transform(t_tuple from, t_tuple to, t_tuple up)
 	orientation->values[2][1] = -forward.y;
 	orientation->values[2][2] = -forward.z;
 	_view_transform = multiply_matrices(orientation, translation(-from.x, -from.y, -from.z));
-	free_matrix(orientation);
+	free_matrix(&orientation);
 	return (_view_transform);
 }
