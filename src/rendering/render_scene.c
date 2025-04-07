@@ -8,7 +8,7 @@ void render_scene(t_scene *scene)
 	t_x				*_hit;
 
 	t_render_params params;
-	t_comps			comps;
+	t_comps			*comps;
 
 	int			y;
 	int			x;
@@ -44,9 +44,10 @@ void render_scene(t_scene *scene)
 				t_color final_color;
 
 				printf("Closest hit at t: %f for sphere at (%f, %f, %f)\n", _hit->t, _hit->object->position.x, _hit->object->position.y, _hit->object->position.z);
-				prepare_computations(&comps, _hit, &params.ray);
-				final_color = lighting(scene, &comps);
+				comps = prepare_computations(_hit, &params.ray);
+				final_color = lighting(scene, comps);
 				mlx_put_pixel(data.canvas, x, y, color_to_uint32(final_color));
+				ft_free((void **) &comps);
 			}
 			free_intersections_list(&xs_list);
 		}

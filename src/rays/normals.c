@@ -1,5 +1,49 @@
 #include "../../include/minirt.h"
 
+t_tuple	normal_at(t_object *object, t_tuple world_point)
+{
+	if (object->type == SPHERE)
+		return (normal_at_sphere(object, world_point));
+	else if (object->type == PLANE)
+		return (normal_at_plane(object, world_point));
+	else if (object->type == CYLINDER)
+		return (normal_at_cylinder(object, world_point));
+	else
+	{
+		ft_putstr_fd("Error: normal_at called on unknown object type\n", 2);
+		exit(EXIT_FAILURE);
+	}
+}
+
+t_tuple	normal_at_plane(t_object *object, t_tuple world_point)
+{
+	t_tuple object_normal;
+
+	if (object->type != PLANE)
+	{
+		ft_putstr_fd("Error: normal_at_plane\n", 2);
+		exit(EXIT_FAILURE);
+	}
+	(void) world_point;
+	object_normal = vector(0, 1, 0);
+	return (multiply_matrix_by_tuple(transpose_matrix(invert_matrix(object->transform)), object_normal));
+}
+
+t_tuple normal_at_cylinder(t_object *object, t_tuple world_point)
+{
+	t_tuple object_normal;
+	t_tuple object_point;
+
+	if (object->type != CYLINDER)
+	{
+		ft_putstr_fd("Error: normal_at_cylinder\n", 2);
+		exit(EXIT_FAILURE);
+	}
+	object_point = multiply_matrix_by_tuple(invert_matrix(object->transform), world_point);
+	object_normal = vector(object_point.x, 0, object_point.z);
+	return (multiply_matrix_by_tuple(transpose_matrix(invert_matrix(object->transform)), object_normal));
+}
+
 t_tuple normal_at_sphere(t_object *object, t_tuple world_point)
 {
 	t_tuple object_point;
@@ -9,7 +53,7 @@ t_tuple normal_at_sphere(t_object *object, t_tuple world_point)
 
 	if (object->type != SPHERE)
 	{
-		ft_putstr_fd("Error: normal_at_sphere() called on non-sphere object\n", 2);
+		ft_putstr_fd("Error: normal_at_sphere\n", 2);
 		exit(EXIT_FAILURE);
 	}
 	object_point = multiply_matrix_by_tuple(invert_matrix(object->transform), world_point);
@@ -27,28 +71,3 @@ t_tuple reflect(t_tuple in, t_tuple normal)
 	reflected = subtract_tuples(in, multiply_tuple_by_scalar(normal, 2 * dot_product(in, normal)));
 	return (reflected);
 }
-
-
-
-
-
-// t_color lighting(t_light light, t_tuple normal, t_tuple light_position, t_color object_color) {
-//     t_color ambient;
-//     t_color diffuse;
-//     t_tuple light_direction;
-//     double light_dot_normal;
-
-//     // Ambient lighting
-//     ambient = multiply_color_by_scalar(object_color, );
-
-//     // Diffuse lighting
-//     light_direction = normalize_tuple(subtract_tuples(light_position, light.position));
-//     light_dot_normal = dot_product(normal, light_direction);
-//     if (light_dot_normal < 0)
-//         diffuse = color(0, 0, 0);
-// 	else
-//     	diffuse = multiply_color_by_scalar(object_color, light.brightness * light_dot_normal);
-
-//     // Combine ambient and diffuse
-//     return add_colors(ambient, diffuse);
-// }

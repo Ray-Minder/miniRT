@@ -107,6 +107,14 @@ void	render_scene(t_scene *scene);
 
 //	===== RAYS =====
 
+//	normals.c
+
+t_tuple	normal_at(t_object *object, t_tuple world_point);
+t_tuple	normal_at_plane(t_object *object, t_tuple world_point);
+t_tuple normal_at_cylinder(t_object *object, t_tuple world_point);
+t_tuple normal_at_sphere(t_object *object, t_tuple world_point);
+t_tuple reflect(t_tuple in, t_tuple normal);
+
 //	intersection_utils.c
 
 t_x		*new_intersection_node(void);
@@ -122,14 +130,11 @@ void	add_intersection_node(t_x **xs_list, t_x *current);
 t_x		*sphere_intersect(t_ray *ray, t_object *sphere);
 double	calculate_discriminant(t_ray *ray);
 
-//	normals.c
-t_tuple reflect(t_tuple in, t_tuple normal);
-
 //	ray.c
 
 t_ray	create_ray(t_tuple origin, t_tuple direction);
 t_tuple	position(t_ray ray, double t);
-t_tuple normal_at_sphere(t_object *object, t_tuple world_point);
+
 
 //	transform.c
 
@@ -138,9 +143,9 @@ void	set_transform(t_object *object, t_matrix *transformation);
 
 //	===== RENDERING =====
 
-void init_render_params(t_render_params *params, int width, int height);
-void setup_default_scene(t_scene *scene);
-void	prepare_computations(t_comps *comps, t_x *hit, t_ray *ray);
+void	init_render_params(t_render_params *params, int width, int height);
+void	setup_default_scene(t_scene *scene);
+t_comps	*prepare_computations(t_x *hit, t_ray *ray);
 
 //	===== TRANSFORMATIONS =====
 

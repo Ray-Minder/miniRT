@@ -35,19 +35,28 @@ void setup_default_scene(t_scene *scene)
 	scene->light.brightness = 0.8;
 }
 
-void	prepare_computations(t_comps *comps, t_x *hit, t_ray *ray)
+t_comps	*prepare_computations(t_x *hit, t_ray *ray)
 {
+	t_comps	*comps;
+
+	comps = ft_calloc(1, sizeof(t_comps));
+	if (!comps)
+	{
+		printf("Failed to allocate memory for t_comps\n");
+		return (NULL);
+	}
 	comps->hit = hit;
 	comps->object = hit->object;
 	comps->point = position(*ray, hit->t);
 	comps->eyev = negate_tuple(ray->direction);
-	comps->normalv = normal_at_sphere(comps->object, comps->point);
+	comps->normalv = normal_at(comps->object, comps->point);
 	comps->inside = false;
 	if (dot_product(comps->normalv, comps->eyev) < 0)
 	{
 		comps->inside = true;
 		comps->normalv = negate_tuple(comps->normalv);
 	}
+	return (comps);
 }
 
 
