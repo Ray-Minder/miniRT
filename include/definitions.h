@@ -15,6 +15,12 @@
 
 //	===== FUNCTIONS =====
 
+//	===== CAMERA =====
+
+//	view_transform.c
+
+t_matrix	*view_transform(t_tuple from, t_tuple to, t_tuple up);
+
 //	===== COLORS =====
 
 t_color	color(double r, double g, double b);

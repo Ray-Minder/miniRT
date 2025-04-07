@@ -40,11 +40,10 @@ void	render_sphere(t_data *data)
 			_hit = hit(xs);
 			if (_hit && _hit->hit)
 			{
-				prepare_computations(&comps, _hit, &params.ray);
+				prepare_computations(_hit, &params.ray);
 				final_color = lighting(&scene, &comps);
 				mlx_put_pixel(data->canvas, x, y, color_to_uint32(final_color));
 			}
 		}
 	}
 }
-
