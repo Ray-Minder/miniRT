@@ -42,6 +42,12 @@ void	print_errno(char *function_name);
 void	init_data(t_data *data);
 void	init_mlx(t_data	*data);
 
+//	===== INTERSECT =====
+
+// intersect_world.c
+
+t_x *intersect_world(t_scene *scene, t_ray *ray);
+
 //	===== LIGHTING =====
 
 //	ambient_lighting.c

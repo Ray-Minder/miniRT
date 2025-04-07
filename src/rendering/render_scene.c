@@ -5,14 +5,10 @@ void render_scene(t_scene *scene)
 	t_data			data;
 	t_tuple			r_position;
 	t_x				*xs_list;
-	t_x				*xs;
 	t_x				*_hit;
 
 	t_render_params params;
 	t_comps			comps;
-
-	t_object *sphere;
-	t_object *head;
 
 	int			y;
 	int			x;
@@ -23,10 +19,7 @@ void render_scene(t_scene *scene)
 	init_render_params(&params, data.width, data.height);
 
 	xs_list = NULL;
-	xs = NULL;
 	_hit = NULL;
-
-	head = scene->objects;
 	
 	// print_objects(sphere);
 	y = -1;
@@ -37,24 +30,13 @@ void render_scene(t_scene *scene)
 		// printf("y: %d\n", y);
 		while (++x < data.width)
 		{
-			sphere = head;
-			xs = NULL;
 			_hit = NULL;
 			world_x = -params.half_wall + params.pixel_size * x;
 			r_position = point(world_x, world_y, params.wall_z);
 			params.ray.direction = normalize_tuple(subtract_tuples(r_position, params.ray.origin));
 			printf("y: %d, x: %d\n", y, x);
 
-			while (sphere)
-			{
-				xs = intersect(&params.ray, sphere);
-				if (xs && !compare_doubles(xs->t, 0))
-				{
-					// printf("Intersection at t: %f for sphere at (%f, %f, %f)\n", xs->t, sphere->position.x, sphere->position.y, sphere->position.z);
-					add_intersection_node(&xs_list, xs);
-				}
-				sphere = sphere->next;
-			}
+			xs_list = intersect_world(scene, &params.ray);
 
 			_hit = hit(xs_list);
 			if (_hit && _hit->hit)
