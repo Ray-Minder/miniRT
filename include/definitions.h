@@ -44,6 +44,9 @@ void	init_mlx(t_data	*data);
 
 //	===== INTERSECT =====
 
+//	color_at.c
+t_color color_at(t_scene *scene, t_ray *ray);
+
 // intersect_world.c
 
 t_x *intersect_world(t_scene *scene, t_ray *ray);
