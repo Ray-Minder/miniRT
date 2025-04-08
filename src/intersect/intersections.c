@@ -28,7 +28,7 @@ t_x	*hit(t_x *xs_list)
 
 	if (!xs_list)
 	{
-		printf("Cannot determine the hit from a NULL xs_list.\n");
+		// printf("Cannot determine the hit from a NULL xs_list.\n");
 		return (NULL);
 	}
 	current = xs_list;

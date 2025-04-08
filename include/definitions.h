@@ -79,6 +79,11 @@ t_color diffuse_lighting(t_light light, t_tuple normal, t_tuple position, t_colo
 
 t_color	lighting(t_scene *scene, t_comps *comps);
 
+//	shading.c
+
+t_color	shade_hit(t_scene *scene, t_comps *comps);
+bool	is_shadowed(t_scene *scene, t_tuple point);
+
 //	specular_lighting.c
 
 t_color	specular_lighting(t_light light, t_material material, double reflect_dot_eye);
