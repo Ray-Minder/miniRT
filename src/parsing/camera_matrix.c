@@ -49,9 +49,9 @@ int set_transforms(t_scene *scene)
 {
 	if (set_object_transforms(scene->objects) != SUCCESS)
 		return (MALLOC_FAIL);
-	scene->camera.transform = get_camera_matrix(scene->camera);
-	if (!scene->camera.transform)
-		return (MALLOC_FAIL);
+	// scene->camera.transform = get_camera_matrix(scene->camera);
+	// if (!scene->camera.transform)
+	// 	return (MALLOC_FAIL);
 	scene->light.transform = translate_from_tuple(scene->light.position);
 	if (!scene->light.transform)	
 		return (MALLOC_FAIL);

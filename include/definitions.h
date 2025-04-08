@@ -19,11 +19,13 @@
 
 //	camera.c
 
-t_camera *camera(double hsize, double vsize, double field_of_view);
+// t_camera *camera(double hsize, double vsize, double field_of_view);
+void	camera(t_data *data, double field_of_view);
 
 //	view_transform.c
 
-t_matrix	*view_transform(t_tuple from, t_tuple to, t_tuple up);
+// t_matrix	*view_transform(t_tuple from, t_tuple to, t_tuple up);
+t_matrix	*view_transform(t_tuple forward, t_tuple point);
 
 //	ray_for_pixel.c
 
