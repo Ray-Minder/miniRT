@@ -37,13 +37,14 @@ int main(int argc, char *argv[])
 		cleanup(&scene);
 		return (EXIT_FAILURE);
 	}
-	printf("Camera forward: \n");
-	print_tuple(scene.camera.forward);
+	// printf("Camera forward: \n");
+	// print_tuple(scene.camera.forward);
 	set_transforms(&scene);
-	printf("Camera forward 2: \n");
-	print_tuple(scene.camera.forward);
+	// printf("Camera forward 2: \n");
+	// print_tuple(scene.camera.forward);
 	// print_objects(scene.objects);
 	// print_light(&scene.light);
+	
 	render_scene(&scene);
 	cleanup(&scene);
 	return (0);
