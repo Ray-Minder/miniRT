@@ -1,5 +1,17 @@
 #include "../../include/minirt.h"
 
+/**
+ * @brief	Creates a rotation matrix around the X-axis.
+ * 
+ * @param	radians	The angle in radians.
+ * @return	A pointer to the rotation matrix.
+ * 			Returns NULL if an error occurs.
+ * @note	The rotation matrix is created using the following formula:
+ * 		| 1      0           0          |
+ * 		| 0		cos(r)		-sin(r)		|
+ * 		| 0		sin(r)		cos(r)		|
+ * 		| 0      0           0          |
+ */
 t_matrix	*rotation_x(double radians)
 {
 	t_matrix	*rotation_matrix;
@@ -21,6 +33,18 @@ t_matrix	*rotation_x(double radians)
 	return (rotation_matrix);
 }
 
+/**
+ * @brief	Creates a rotation matrix around the Y-axis.
+ * 
+ * @param	radians	The angle in radians.
+ * @return	A pointer to the rotation matrix.
+ * 			Returns NULL if an error occurs.
+ * @note	The rotation matrix is created using the following formula:
+ * 		| cos(r)	0		sin(r)		0	|
+ * 		| 0			1		0			0	|
+ * 		| -sin(r)	0		cos(r)		0	|
+ * 		| 0			0		0			1	|
+ */
 t_matrix	*rotation_y(double radians)
 {
 	t_matrix	*rotation_matrix;
@@ -42,6 +66,18 @@ t_matrix	*rotation_y(double radians)
 	return (rotation_matrix);
 }
 
+/**
+ * @brief	Creates a rotation matrix around the Z-axis.
+ * 
+ * @param	radians	The angle in radians.
+ * @return	A pointer to the rotation matrix.
+ * 			Returns NULL if an error occurs.
+ * @note	The rotation matrix is created using the following formula:
+ * 		| cos(r)	-sin(r)	0		0	|
+ * 		| sin(r)	cos(r)	0		0	|
+ * 		| 0			0		1		0	|
+ * 		| 0			0		0		1	|
+ */
 t_matrix	*rotation_z(double radians)
 {
 	t_matrix	*rotation_matrix;

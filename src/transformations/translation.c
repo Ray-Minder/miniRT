@@ -1,5 +1,19 @@
 #include "../../include/minirt.h"
 
+/**
+ * @brief	Creates a translation matrix.
+ * 
+ * @param	x	The translation factor along the x-axis.
+ * @param	y	The translation factor along the y-axis.
+ * @param	z	The translation factor along the z-axis.
+ * @return	A pointer to the translation matrix.
+ * 			Returns NULL if an error occurs.
+ * @note	The translation matrix is created using the following formula:
+ * 	|	1	0	0	x |
+ * 	|	0	1	0	y |
+ * 	|	0	0	1	z |
+ * 	|	0	0	0	1 |
+ */
 t_matrix	*translation(double x, double y, double z)
 {
 	t_matrix	*translation_matrix;
@@ -16,6 +30,13 @@ t_matrix	*translation(double x, double y, double z)
 	return (translation_matrix);
 }
 
+/**
+ * @brief	Creates a translation matrix from a tuple.
+ * 
+ * @param	tuple	The tuple representing the translation factors.
+ * @return	A pointer to the translation matrix.
+ * 			Returns NULL if an error occurs.
+ */
 t_matrix	*translate_from_tuple(t_tuple tuple)
 {
 	t_matrix	*translation_matrix;
