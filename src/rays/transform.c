@@ -4,6 +4,12 @@ t_ray	transform(t_ray *ray, t_matrix *matrix)
 {
 	t_ray	transformed_ray;
 
+	if (!is_matrix_initialized(matrix) || matrix->rows != 4)
+	{
+		return (*ray);//(print_error_msg("Error multiplying a matrix by a tuple"),
+			// tuple(-1, -1, -1, -1));
+	}
+
 	transformed_ray.origin = multiply_matrix_by_tuple(matrix, ray->origin);
 	transformed_ray.direction = multiply_matrix_by_tuple(matrix, ray->direction);
 	return (transformed_ray);

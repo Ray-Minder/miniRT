@@ -169,11 +169,13 @@ typedef	struct s_render_params
 typedef struct s_data
 {
 	mlx_t		*mlx;
+	t_scene		*scene;
 	mlx_image_t	*canvas;
 	t_camera	*cam;
 	t_light		*light;
 	int			width;
 	int			height;
+	int			current_row;
 }	t_data;
 
 #endif

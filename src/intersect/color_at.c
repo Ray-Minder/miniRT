@@ -17,7 +17,7 @@ t_color color_at(t_scene *scene, t_ray *ray)
 	else
 	{
 		free_intersections_list(&xs_list);
-		return (color(0.5, 0.5, 0.5));
+		return (scene->ambient_light.color);
 	}
 	// final_color = lighting(scene, comps); // Replace by shade_hit
 	final_color = shade_hit(scene, comps);

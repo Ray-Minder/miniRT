@@ -1,21 +1,46 @@
 #include "../../include/minirt.h"
 
+void	render_row(mlx_key_data_t keydata, void *param)
+{
+	t_data	*data;
+	int		x;
+	t_ray	ray;
+	t_color	color;
+
+	(void) keydata;
+	data = (t_data *)param;
+	if (data->current_row >= data->height)
+	{
+		return ;
+	}
+	x = -1;
+	while (++x < data->width)
+	{
+		printf("y: %d, x: %d\n", data->current_row, x);
+		ray = ray_for_pixel(data->cam, x, data->current_row);
+		color = color_at(data->scene, &ray);
+		mlx_put_pixel(data->canvas, x, data->current_row, color_to_uint32(color));
+	}
+	data->current_row++;
+}
+
 void render_scene(t_scene *scene)
 {
 	t_data			data;
 
 	init_data(&data);
+	data.scene = scene;
 	data.cam = &scene->camera;
 	camera(&data, radians(data.cam->fov));
 	data.cam->transform = view_transform(data.cam->forward, data.cam->position);
-	render(&data, data.cam, scene);
-
+	data.current_row = 0;
 	if (mlx_image_to_window(data.mlx, data.canvas, 0, 0) < 0)
 	{
 		printf("Failure to put image to window\n");
 		return;
 	}
-	
+	render(&data, data.cam, scene);
+	// mlx_key_hook(data.mlx, &render_row, (void *) &data);
 	mlx_key_hook(data.mlx, &key_hooks, (void *) &data);
 	mlx_loop(data.mlx);
 	mlx_terminate(data.mlx);

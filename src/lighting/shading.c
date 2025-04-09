@@ -8,7 +8,6 @@ t_color shade_hit(t_scene *scene, t_comps *comps)
 		final_color = scene->ambient_light.color;
 	else
 		final_color = lighting(scene, comps);
-
 	return (final_color);
 }
 
@@ -29,20 +28,3 @@ bool is_shadowed(t_scene *scene, t_tuple point)
 		return (true);
 	return (false);
 }
-
-// bool is_shadowed(t_scene *scene, t_tuple point)
-// {
-// 	t_ray	shadow_ray;
-// 	t_x		*xs_list;
-// 	t_x		*_hit;
-
-// 	shadow_ray.origin = point;
-// 	shadow_ray.direction = normalize_tuple(subtract_tuples(scene->light.position, point));
-// 	xs_list = intersect_world(scene, &shadow_ray);
-// 	_hit = hit(xs_list);
-// 	free_intersections_list(&xs_list);
-
-// 	if (_hit && _hit->hit)
-// 		return (true);
-// 	return (false);
-// }
