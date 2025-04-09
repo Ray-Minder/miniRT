@@ -15,7 +15,7 @@ void	render(t_data *data, t_camera *cam, t_scene *scene)
 		x = -1;
 		while (++x < cam->hsize - 1)
 		{
-			printf("y: %d, x: %d\n", y, x);	
+			// printf("y: %d, x: %d\n", y, x);	
 			ray = ray_for_pixel(cam, x, y);
 			color = color_at(scene, &ray);
 			mlx_put_pixel(data->canvas, x, y, color_to_uint32(color));

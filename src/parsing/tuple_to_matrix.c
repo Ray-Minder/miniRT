@@ -52,26 +52,80 @@ t_matrix *get_transform(t_tuple tuple, t_tuple position)
 	return (transform);
 }
 
+// int set_object_transforms(t_object *objects)
+// {
+// 	t_matrix	*translate;
+// 	t_matrix	*scaled;
+
+// 	while (objects)
+// 	{
+// 		if (objects->type == SPHERE)
+// 			objects->direction = vector(0, 1, 0);
+// 		objects->transform = identity(4);
+// 		if (!objects->transform)
+// 			return (MALLOC_FAIL);
+// 		translate = translate_from_tuple(objects->position);
+// 		if (!translate)
+// 			return (MALLOC_FAIL);
+// 		scaled = scaling(objects->diameter / 2, objects->diameter / 2, objects->diameter / 2);
+// 		if (!scaled)
+// 			return (MALLOC_FAIL);
+// 		objects->transform = multiply_matrices(translate, scaled);
+// 		// objects->transform = scaling(objects->diameter / 2, objects->diameter / 2, objects->diameter / 2);
+// 		if (!objects->transform)
+// 			return (MALLOC_FAIL);
+// 		objects = objects->next;
+// 	}
+// 	return (SUCCESS);
+// }
+
+int set_sphere_transform(t_object *sphere)
+{
+	t_matrix *translate_matrix;
+	t_matrix *scaled_matrix;
+
+	translate_matrix = translate_from_tuple(sphere->position);
+	if (!translate_matrix)
+		return (MALLOC_FAIL);
+	scaled_matrix = scaling(sphere->diameter / 2, sphere->diameter / 2, sphere->diameter / 2);
+	if (!scaled_matrix)
+		return (MALLOC_FAIL);
+	sphere->transform = multiply_matrices(translate_matrix, scaled_matrix);
+	free_matrix(&translate_matrix);
+	free_matrix(&scaled_matrix);
+	if (!sphere->transform)
+		return (MALLOC_FAIL);
+	return (SUCCESS);
+}
+
+int set_plane_transform(t_object *plane)
+{
+	t_tuple forward;
+	t_tuple right;
+
+	plane->direction = normalize_tuple(plane->direction);
+	right = cross_product(plane->direction, vector(0, 0, 1));
+	if (compare_doubles(right.x, 0) && compare_doubles(right.y, 0) && compare_doubles(right.z, 0))
+		right = cross_product(plane->direction, vector(1, 0, 0));
+	right = normalize_tuple(right);
+	forward = cross_product(right, plane->direction);
+	forward = normalize_tuple(forward);
+	plane->transform = tuples_to_matrix(plane->direction, right, forward, plane->position);
+	if (!plane->transform)
+		return (MALLOC_FAIL);
+	printf("plane transform:\n");
+	print_matrix(plane->transform);
+	return (SUCCESS);
+}
+
 int set_object_transforms(t_object *objects)
 {
-	t_matrix	*translate;
-	t_matrix	*scaled;
-
 	while (objects)
 	{
 		if (objects->type == SPHERE)
-			objects->direction = vector(0, 1, 0);
-		objects->transform = identity(4);
-		if (!objects->transform)
-			return (MALLOC_FAIL);
-		translate = translate_from_tuple(objects->position);
-		if (!translate)
-			return (MALLOC_FAIL);
-		scaled = scaling(objects->diameter / 2, objects->diameter / 2, objects->diameter / 2);
-		if (!scaled)
-			return (MALLOC_FAIL);
-		objects->transform = multiply_matrices(translate, scaled);
-		// objects->transform = scaling(objects->diameter / 2, objects->diameter / 2, objects->diameter / 2);
+			set_sphere_transform(objects);
+		else if (objects->type == PLANE)
+			set_plane_transform(objects);
 		if (!objects->transform)
 			return (MALLOC_FAIL);
 		objects = objects->next;

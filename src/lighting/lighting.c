@@ -16,6 +16,11 @@ t_color	lighting(t_scene *scene, t_comps *comps)
 	reflectv = reflect(negate_tuple(lightv), comps->normalv);
 	reflect_dot_eye = dot_product(comps->eyev, reflectv);
 	specular_contribution = specular_lighting(scene->light, comps->object->material, reflect_dot_eye);
+	if (comps->object->type == PLANE)
+	{
+		printf("plane\n");
+		return (color(1, 1, 1));
+	}
 	
 	return (add_colors(ambient_contribution, add_colors(diffuse_contribution, specular_contribution)));
 }

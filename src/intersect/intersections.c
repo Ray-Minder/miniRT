@@ -17,6 +17,10 @@ t_x	*intersect(t_ray *ray, t_object *object)
 	free_matrix(&inverse_transform);
 	if (object->type == SPHERE)
 		return (sphere_intersect(&transformed_ray, object));
+	if (object->type == PLANE)
+		return (plane_intersect(&transformed_ray, object));
+	// if (object->type == CYLINDER)
+	// 	return (cylinder_intersect(&transformed_ray, object));
 	printf("Returning intersect because the object type wasn't SPHERE\n");
 	return (NULL);
 }
@@ -28,7 +32,7 @@ t_x	*hit(t_x *xs_list)
 
 	if (!xs_list)
 	{
-		printf("Cannot determine the hit from a NULL xs_list.\n");
+		// printf("Cannot determine the hit from a NULL xs_list.\n");
 		return (NULL);
 	}
 	current = xs_list;
@@ -101,6 +105,30 @@ t_x	*sphere_intersect(t_ray *ray, t_object *sphere)
 		xs->next->next = NULL;
 	}
 	// printf("Returned intersection: %f\n", xs->t);
+	return (xs);
+}
+
+t_x *plane_intersect(t_ray *ray, t_object *plane)
+{
+	t_x *xs;
+
+	xs = new_intersection_node();
+	if (!xs)
+		return (NULL);
+	// printf("plane intersect();");
+	// printf("ray origin:\n");
+	// print_tuple(ray->origin);
+	// printf("ray direction:\n");
+	// print_tuple(ray->direction);
+	if (compare_doubles(ray->direction.y, 0.0))
+	{
+		xs->t = 0;
+		return (xs);
+	}
+	// printf("-ray origin y: %f, ray direction y: %f\n", -ray->origin.y, ray->direction.y);
+	xs->t = -ray->origin.y / ray->direction.y;
+	xs->hit = true;
+	xs->object = plane;
 	return (xs);
 }
 

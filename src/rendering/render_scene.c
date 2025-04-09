@@ -5,7 +5,7 @@ void render_scene(t_scene *scene)
 	t_data			data;
 	// t_tuple			r_position;
 	// t_color 		final_color;
-	t_render_params params;
+	// t_render_params params;
 
 	// int			y;
 	// int			x;
@@ -13,7 +13,7 @@ void render_scene(t_scene *scene)
 	// double		world_x;
 
 	init_data(&data);
-	init_render_params(&params, data.width, data.height);
+	// init_render_params(&params, data.width, data.height);
 	
 	// print_objects(sphere);
 	// y = -1;
@@ -35,7 +35,7 @@ void render_scene(t_scene *scene)
 
 	// 	// print_intersection_list(xs_list);
 	// }
-	data.cam = camera(400, 400, M_PI / 2);
+	data.cam = camera(400, 400, PI / 2);
 	data.cam->transform = view_transform(point(0, 0, -5), point(0, 0, 0), vector(0, 1, 0));
 	render(&data, data.cam, scene);
 
