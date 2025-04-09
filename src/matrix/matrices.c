@@ -9,6 +9,13 @@ t_matrix	*identity(int size);
 
 //	=== Function Definitions ===
 
+/**
+ * @brief	Creates a matrix of given size and initializes it with zeros.
+ * 
+ * @param	rows	Number of rows in the matrix.
+ * @param	columns	Number of columns in the matrix.
+ * @return	A pointer to the created matrix, or NULL if an error occurs.
+ */
 t_matrix	*create_matrix(int rows, int columns)
 {
 	t_matrix	*matrix;
@@ -38,6 +45,14 @@ t_matrix	*create_matrix(int rows, int columns)
 	return (matrix);
 }
 
+/**
+ * @brief	Initializes a matrix with the given data.
+ * 
+ * @param	matrix	Pointer to the matrix to be initialized.
+ * @param	data	Pointer to the data to initialize the matrix with.
+ * @param	data_size	Size of the data array.
+ * @return	None.
+ */
 void initialize_matrix(t_matrix *matrix, double *data, int data_size)
 {
 	int	i;
@@ -61,6 +76,12 @@ void initialize_matrix(t_matrix *matrix, double *data, int data_size)
 	}
 }
 
+/**
+ * @brief	Creates a copy of the given matrix.
+ * 
+ * @param	m	Pointer to the matrix to be copied.
+ * @return	A pointer to the copied matrix, or NULL if an error occurs.
+ */
 t_matrix	*copy_matrix(t_matrix *m)
 {
 	t_matrix	*copy;
@@ -82,6 +103,12 @@ t_matrix	*copy_matrix(t_matrix *m)
 	return (copy);
 }
 
+/**
+ * @brief	Creates an identity matrix of given size.
+ * 
+ * @param	size	Size of the identity matrix.
+ * @return	A pointer to the created identity matrix; NULL if an error occurs.
+ */
 t_matrix	*identity(int size)
 {
 	t_matrix	*_identity;

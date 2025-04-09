@@ -10,6 +10,12 @@ t_matrix	*invert_matrix(t_matrix *m);
 
 //	=== Function Definitions ===
 
+/**
+ * @brief	Transposes a matrix.
+ * 
+ * @param	m	Pointer to the matrix to be transposed.
+ * @return	A pointer to the transposed matrix, or NULL if an error occurs.
+ */
 t_matrix	*transpose_matrix(t_matrix *m)
 {
 	t_matrix	*transposed;
@@ -34,6 +40,14 @@ t_matrix	*transpose_matrix(t_matrix *m)
 	return (transposed);
 }
 
+/**
+ * @brief	Creates a submatrix by removing the specified row and column.
+ * 
+ * @param	m	Pointer to the original matrix.
+ * @param	row	The row index to remove.
+ * @param	column	The column index to remove.
+ * @return	A pointer to the submatrix, or NULL if an error occurs.
+ */
 t_matrix	*submatrix(t_matrix	*m, int row, int column)
 {
 	t_matrix	*submatrix;
@@ -71,6 +85,12 @@ t_matrix	*submatrix(t_matrix	*m, int row, int column)
 	return (submatrix);
 }
 
+/**
+ * @brief	Calculates the determinant of a matrix.
+ * 
+ * @param	m	Pointer to the matrix.
+ * @return	The determinant of the matrix, or 0 if an error occurs.
+ */
 double	determinant(t_matrix *m)
 {
 	double	determinant;
@@ -92,6 +112,14 @@ double	determinant(t_matrix *m)
 	return (determinant);
 }
 
+/**
+ * @brief	Calculates the cofactor of a matrix element.
+ * 
+ * @param	m	Pointer to the matrix.
+ * @param	row	The row index of the element.
+ * @param	col	The column index of the element.
+ * @return	The cofactor of the element, or 0 if an error occurs.
+ */
 double	cofactor(t_matrix *m, int row, int col)
 {
 	t_matrix	*s_matrix;
@@ -113,6 +141,12 @@ double	cofactor(t_matrix *m, int row, int col)
 	return (minor * sign);
 }
 
+/**
+ * @brief	Inverts a matrix.
+ *
+ * @param	m	Pointer to the matrix to be inverted.
+ * @return	A pointer to the inverted matrix, or NULL if an error occurs.
+ */
 t_matrix	*invert_matrix(t_matrix *m)
 {
 	t_matrix	*inverse;
@@ -146,8 +180,3 @@ t_matrix	*invert_matrix(t_matrix *m)
 	}
 	return(inverse);
 }
-
-// t_matrix invert_matrix(t_matrix *m)
-// {
-// 	t_matrix  inverse;
-// }

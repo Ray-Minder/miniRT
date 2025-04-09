@@ -9,6 +9,13 @@ t_tuple		multiply_matrix_by_tuple(t_matrix *m, t_tuple t);
 
 //	=== Function Definitions ===
 
+/**
+ * @brief	Compares two matrices for equality.
+ * 
+ * @param	a	Pointer to the first matrix.
+ * @param	b	Pointer to the second matrix.
+ * @return	True if the matrices are equal, false otherwise.
+ */
 bool	compare_matrices(t_matrix *a, t_matrix *b)
 {
 	int	i;
@@ -31,6 +38,13 @@ bool	compare_matrices(t_matrix *a, t_matrix *b)
 	return (true);
 }
 
+/**
+ * @brief	Multiplies two matrices.
+ * 
+ * @param	a	Pointer to the first matrix.
+ * @param	b	Pointer to the second matrix.
+ * @return	A pointer to the resulting matrix, or NULL if an error occurs.
+ */
 t_matrix	*multiply_matrices(t_matrix *a, t_matrix *b)
 {
 	t_matrix	*result;
@@ -60,6 +74,13 @@ t_matrix	*multiply_matrices(t_matrix *a, t_matrix *b)
 	return (result);
 }
 
+/**
+ * @brief	Gets a row from a matrix as a tuple.
+ * 
+ * @param	m	Pointer to the matrix.
+ * @param	row	The row index to retrieve.
+ * @return	A tuple representing the row, or an error tuple if an error occurs.
+ */
 t_tuple	get_row_as_tuple(t_matrix *m, int row)
 {
 	t_tuple	row_as_tuple;
@@ -84,6 +105,14 @@ t_tuple	get_row_as_tuple(t_matrix *m, int row)
 	return (row_as_tuple);
 }
 
+/**
+ * @brief	Multiplies a matrix by a tuple.
+ * 
+ * @param	m	Pointer to the matrix.
+ * @param	t	The tuple to multiply.
+ * @return	A tuple representing the result of the multiplication,
+ * 			or an error tuple if an error occurs.
+ */
 t_tuple	multiply_matrix_by_tuple(t_matrix *m, t_tuple t)
 {
 	t_tuple	result;
