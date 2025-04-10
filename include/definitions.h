@@ -151,6 +151,7 @@ t_x		*intersect(t_ray *ray, t_object *object);
 t_x		*hit(t_x *xs_list);
 void	add_intersection_node(t_x **xs_list, t_x *current);
 t_x		*sphere_intersect(t_ray *ray, t_object *sphere);
+t_x		*plane_intersect(t_ray *ray, t_object *plane);
 double	calculate_discriminant(t_ray *ray);
 
 //	ray.c
