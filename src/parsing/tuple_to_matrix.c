@@ -82,8 +82,6 @@ t_matrix *get_transform(t_tuple tuple, t_tuple position)
 
 
 //Is this only for spheres?
-int set_object_transforms(t_object *objects)
-=======
 // int set_object_transforms(t_object *objects)
 // {
 // 	t_matrix	*translate;
