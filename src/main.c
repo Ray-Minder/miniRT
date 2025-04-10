@@ -41,7 +41,6 @@ int main(int argc, char *argv[])
 	set_transforms(data.scene);
 	data.cam = &data.scene->camera;
 	camera(&data, radians(data.cam->fov));
-	data.cam->transform = view_transform(data.cam->forward, data.cam->position);
 	render_scene(&data);
 	
 	mlx_key_hook(data.mlx, &key_hooks, (void *) &data);

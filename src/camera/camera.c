@@ -5,9 +5,6 @@ void	camera(t_data *data, double field_of_view)
 	data->cam->hsize = data->width;
 	data->cam->vsize = data->height;
 	data->cam->fov = field_of_view;
-	// data->cam->transform = identity(4);
-	// if (!data->cam->transform)
-	// 	return ;
 	data->cam->inverse_transform = invert_matrix(data->cam->transform);
 	if (!data->cam->inverse_transform)
 	{
