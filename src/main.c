@@ -41,6 +41,7 @@ int main(int argc, char *argv[])
 		return (EXIT_FAILURE);
 	}
 	set_transforms(data.scene);
+	
 	data.cam = &data.scene->camera;
 	camera(&data, radians(data.cam->fov));
 	

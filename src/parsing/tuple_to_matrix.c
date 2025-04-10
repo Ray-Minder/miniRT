@@ -52,6 +52,7 @@ t_matrix *get_transform(t_tuple tuple, t_tuple position)
 	return (transform);
 }
 
+//Is this only for spheres?
 int set_object_transforms(t_object *objects)
 {
 	t_matrix	*translate;
@@ -74,7 +75,7 @@ int set_object_transforms(t_object *objects)
 		// objects->transform = scaling(objects->diameter / 2, objects->diameter / 2, objects->diameter / 2);
 		if (!objects->transform)
 			return (MALLOC_FAIL);
-		// objects->inverse_transform = invert_matrix(objects->transform);
+		objects->inverse_transform = invert_matrix(objects->transform);
 		// if (!objects->inverse_transform)
 		// 	return (MALLOC_FAIL);
 		objects = objects->next;

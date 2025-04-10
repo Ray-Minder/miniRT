@@ -3,21 +3,14 @@
 t_x	*intersect(t_ray *ray, t_object *object)
 {
 	t_ray		transformed_ray;
-	t_matrix	*inverse_transform;
+	// t_matrix	*inverse_transform;
 
 	if (!ray || !object)
 	{
 		printf("Returning intersect because there's no ray or object\n");
 		return (NULL);
 	}
-	if (!object->transform)
-	{
-		printf("Assigning the object a default transform: the identity matrix\n");
-		object->transform = identity(4); //LATER REMOVE, IT SHOULD be INIT already. 
-	} 
-	inverse_transform = invert_matrix(object->transform);
-	transformed_ray = transform_ray(ray, inverse_transform);
-	free_matrix(&inverse_transform);
+	transformed_ray = transform_ray(ray, object->inverse_transform);
 	if (object->type == SPHERE)
 		return (sphere_intersect(&transformed_ray, object));
 	printf("Returning intersect because the object type wasn't SPHERE\n");
