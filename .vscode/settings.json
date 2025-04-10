@@ -1,0 +1,22 @@
+{
+	"files.associations": {
+		"stdio.h": "c",
+		"scene.h": "c",
+		"parser.h": "c",
+		"libft.h": "c",
+		"*.tcc": "c",
+		"numeric": "c",
+		"ranges": "c",
+		"optional": "c",
+		"colors.h": "c",
+		"assert.h": "c",
+		"atomic": "cpp",
+		"ostream": "cpp",
+		"array": "c",
+		"string_view": "c",
+		"initializer_list": "c",
+		"span": "c",
+		"utility": "c",
+		"minirt.h": "c"
+	}
+}

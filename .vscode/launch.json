@@ -1,0 +1,29 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/minirt", // Path to your compiled executable
+            "args": ["./scenes/scene1.rt"], // Arguments to pass to your program
+            "stopAtEntry": true,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ],
+            "preLaunchTask": "build", // Task to build your program before debugging
+            "miDebuggerPath": "/usr/bin/gdb", // Path to gdb
+            "logging": {
+                "engineLogging": true
+            }
+        }
+    ]
+}

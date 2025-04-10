@@ -2,7 +2,8 @@
 
 t_x	*intersect(t_ray *ray, t_object *object)
 {
-	t_ray	transformed_ray;
+	t_ray		transformed_ray;
+	t_matrix	*inverse_transform;
 
 	if (!ray || !object)
 	{
@@ -11,9 +12,15 @@ t_x	*intersect(t_ray *ray, t_object *object)
 	}
 	if (!object->transform)
 		object->transform = identity(4); //LATER REMOVE, IT SHOULD be INIT already. 
-	transformed_ray = transform(ray, invert_matrix(object->transform));
+	inverse_transform = invert_matrix(object->transform);
+	transformed_ray = transform(ray, inverse_transform);
+	free_matrix(&inverse_transform);
 	if (object->type == SPHERE)
 		return (sphere_intersect(&transformed_ray, object));
+	if (object->type == PLANE)
+		return (plane_intersect(&transformed_ray, object));
+	// if (object->type == CYLINDER)
+	// 	return (cylinder_intersect(&transformed_ray, object));
 	printf("Returning intersect because the object type wasn't SPHERE\n");
 	return (NULL);
 }
@@ -25,14 +32,14 @@ t_x	*hit(t_x *xs_list)
 
 	if (!xs_list)
 	{
-		printf("Cannot determine the hit from a NULL xs_list.\n");
+		// printf("Cannot determine the hit from a NULL xs_list.\n");
 		return (NULL);
 	}
 	current = xs_list;
-	lowest_hit = current;
+	lowest_hit = NULL;
 	while (current != NULL)
 	{
-		if (current->t > 0 && current->t < lowest_hit->t)
+		if (current->t > 0 && (!lowest_hit || current->t < lowest_hit->t))
 			lowest_hit = current;
 		current = current->next;
 	}
@@ -44,7 +51,7 @@ void	add_intersection_node(t_x **xs_list, t_x *current)
 {
 	t_x	*iterator;
 
-	if ((!xs_list || !*xs_list) && !current)
+	if (!xs_list && !current)
 	{
 		printf("There's no xs list, and no intersection to add either.\n");
 		return ;
@@ -90,9 +97,38 @@ t_x	*sphere_intersect(t_ray *ray, t_object *sphere)
 	xs->t = (-b - sqrt(discriminant)) / (2 * a);
 	xs->next->t = (-b + sqrt(discriminant)) / (2 * a);
 	xs->hit = true;
+	xs->object = sphere;
 	if (xs->next)
+	{
 		xs->next->hit = true;
+		xs->next->object = sphere;
+		xs->next->next = NULL;
+	}
 	// printf("Returned intersection: %f\n", xs->t);
+	return (xs);
+}
+
+t_x *plane_intersect(t_ray *ray, t_object *plane)
+{
+	t_x *xs;
+
+	xs = new_intersection_node();
+	if (!xs)
+		return (NULL);
+	// printf("plane intersect();");
+	// printf("ray origin:\n");
+	// print_tuple(ray->origin);
+	// printf("ray direction:\n");
+	// print_tuple(ray->direction);
+	if (compare_doubles(ray->direction.y, 0.0))
+	{
+		xs->t = 0;
+		return (xs);
+	}
+	// printf("-ray origin y: %f, ray direction y: %f\n", -ray->origin.y, ray->direction.y);
+	xs->t = -ray->origin.y / ray->direction.y;
+	xs->hit = true;
+	xs->object = plane;
 	return (xs);
 }
 
