@@ -1,7 +1,7 @@
 #include "../../include/parser.h"
 # include "../../include/minirt.h"
 
-void	initialize_scene(t_scene *scene)
+void	init_scene(t_scene *scene)
 {
 	scene->ambient_light.is_set = false;
 	scene->camera.is_set = false;

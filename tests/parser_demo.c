@@ -4,7 +4,7 @@
 int main(int argc, char *argv[])
 {
 	t_scene scene;
-	initialize_scene(&scene);
+	init_scene(&scene);
 	
 	scene.objects = NULL;
 	if (argc != 2)

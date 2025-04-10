@@ -1,30 +1,28 @@
 #include "../../include/minirt.h"
 
-t_camera *camera(double hsize, double vsize, double field_of_view)
+void	camera(t_data *data, double field_of_view)
 {
-	t_camera	*cam;
-
-	cam = ft_calloc(1, sizeof(t_camera));
-	if (!cam)
-		return (NULL);
-	cam->hsize = hsize;
-	cam->vsize = vsize;
-	cam->fov = field_of_view;
-	cam->transform = identity(4);
-	if (!cam->transform)
-		return (free(cam), NULL);
-	cam->half_view = tan(field_of_view / 2);
-	cam->aspect = hsize / vsize;
-	if (cam->aspect >= 1)
+	data->cam->hsize = data->width;
+	data->cam->vsize = data->height;
+	data->cam->fov = field_of_view;
+	data->cam->inverse_transform = invert_matrix(data->cam->transform);
+	if (!data->cam->inverse_transform)
 	{
-		cam->half_height = cam->half_view / cam->aspect;
-		cam->half_width = cam->half_view;
+		print_error_msg("There was an error inverting the camera matrix.\n");
+		exit(EXIT_FAILURE); //Clean up memory from data
+	}
+	data->cam->origin = multiply_matrix_by_tuple(data->cam->inverse_transform, point(0, 0, 0));
+	data->cam->half_view = tan(field_of_view / 2);
+	data->cam->aspect = data->cam->hsize / data->cam->vsize;
+	if (data->cam->aspect >= 1)
+	{
+		data->cam->half_height = data->cam->half_view / data->cam->aspect;
+		data->cam->half_width = data->cam->half_view;
 	}
 	else
 	{
-		cam->half_height = cam->half_view;
-		cam->half_width = cam->half_view * cam->aspect;
+		data->cam->half_height = data->cam->half_view;
+		data->cam->half_width = data->cam->half_view * data->cam->aspect;
 	}
-	cam->pixel_size = (cam->half_width * 2) / hsize;
-	return (cam);
+	data->cam->pixel_size = (data->cam->half_width * 2) / data->cam->hsize;
 }

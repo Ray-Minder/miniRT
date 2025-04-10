@@ -1,5 +1,17 @@
 #include "../../include/minirt.h"
 
+/**
+ * @brief	Chains multiple transformation matrices into a single matrix.
+ * 
+ * @param	matrices	An array of transformation matrices.
+ * @return	A pointer to the resulting chained matrix.
+ * 			Returns NULL if an error occurs.
+ * @note	The last matrix in the array is used as the initial matrix.
+ * 			The function multiplies the matrices in reverse order,
+ * 			starting from the last one and moving to the first.
+ * 			The resulting matrix is the product of all the matrices.
+ * 			The function frees the memory of the intermediate matrices.
+ */
 t_matrix	*chain_transformations(t_matrix *matrices[])
 {
 	t_matrix	*chained_matrix;
@@ -19,6 +31,5 @@ t_matrix	*chain_transformations(t_matrix *matrices[])
 			free_matrix(&chained_matrix);
 		chained_matrix = temp;
 	}
-	// printf("Exiting chain transformations\n");
 	return (chained_matrix);
 }

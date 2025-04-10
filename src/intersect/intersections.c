@@ -3,18 +3,13 @@
 t_x	*intersect(t_ray *ray, t_object *object)
 {
 	t_ray		transformed_ray;
-	t_matrix	*inverse_transform;
 
 	if (!ray || !object)
 	{
 		printf("Returning intersect because there's no ray or object\n");
 		return (NULL);
 	}
-	if (!object->transform)
-		object->transform = identity(4); //LATER REMOVE, IT SHOULD be INIT already. 
-	inverse_transform = invert_matrix(object->transform);
-	transformed_ray = transform(ray, inverse_transform);
-	free_matrix(&inverse_transform);
+	transformed_ray = transform_ray(ray, object->inverse_transform);
 	if (object->type == SPHERE)
 		return (sphere_intersect(&transformed_ray, object));
 	if (object->type == PLANE)
@@ -31,10 +26,7 @@ t_x	*hit(t_x *xs_list)
 	t_x	*lowest_hit;
 
 	if (!xs_list)
-	{
-		// printf("Cannot determine the hit from a NULL xs_list.\n");
 		return (NULL);
-	}
 	current = xs_list;
 	lowest_hit = NULL;
 	while (current != NULL)

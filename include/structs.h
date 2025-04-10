@@ -56,6 +56,8 @@ typedef struct s_camera
 	t_tuple		position;
 	t_tuple		forward;
 	t_matrix	*transform;
+	t_matrix	*inverse_transform;
+	t_tuple		origin;
 	double		fov;
 	double		hsize;
 	double		vsize;
@@ -117,6 +119,7 @@ typedef struct s_object
 	t_tuple			position;
 	t_tuple			direction;
 	t_matrix		*transform;
+	t_matrix		*inverse_transform;
 	t_material		material;
 	double			diameter;
 	double			height;
@@ -170,10 +173,12 @@ typedef struct s_data
 {
 	mlx_t		*mlx;
 	mlx_image_t	*canvas;
+	t_scene		*scene;
 	t_camera	*cam;
 	t_light		*light;
 	int			width;
 	int			height;
+	int			current_row;
 }	t_data;
 
 #endif

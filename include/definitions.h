@@ -19,11 +19,13 @@
 
 //	camera.c
 
-t_camera *camera(double hsize, double vsize, double field_of_view);
+// t_camera *camera(double hsize, double vsize, double field_of_view);
+void	camera(t_data *data, double field_of_view);
 
 //	view_transform.c
 
-t_matrix	*view_transform(t_tuple from, t_tuple to, t_tuple up);
+// t_matrix	*view_transform(t_tuple from, t_tuple to, t_tuple up);
+t_matrix	*view_transform(t_tuple forward, t_tuple point);
 
 //	ray_for_pixel.c
 
@@ -79,6 +81,11 @@ t_color diffuse_lighting(t_light light, t_tuple normal, t_tuple position, t_colo
 
 t_color	lighting(t_scene *scene, t_comps *comps);
 
+//	shading.c
+
+t_color	shade_hit(t_scene *scene, t_comps *comps);
+bool	is_shadowed(t_scene *scene, t_tuple point);
+
 //	specular_lighting.c
 
 t_color	specular_lighting(t_light light, t_material material, double reflect_dot_eye);
@@ -119,8 +126,7 @@ void 	print_matrix(t_matrix* matrix);
 //	===== MLX =====
 
 void	key_hooks(mlx_key_data_t keydata, void *param);
-void 	render_sphere(t_data *data);
-void	render_scene(t_scene *scene);
+
 
 //	===== RAYS =====
 
@@ -156,7 +162,7 @@ t_tuple	position(t_ray ray, double t);
 
 //	transform.c
 
-t_ray	transform(t_ray *ray, t_matrix *matrix);
+t_ray	transform_ray(t_ray *ray, t_matrix *matrix);
 void	set_transform(t_object *object, t_matrix *transformation);
 
 //	===== RENDERING =====
@@ -164,6 +170,14 @@ void	set_transform(t_object *object, t_matrix *transformation);
 void	init_render_params(t_render_params *params, int width, int height);
 void	setup_default_scene(t_scene *scene);
 t_comps	*prepare_computations(t_x *hit, t_ray *ray);
+
+//	render_scene.c
+
+void	render_scene(t_data *data);
+
+//	render_sphere.c
+
+void 	render_sphere(t_data *data);
 
 //	render.c
 
