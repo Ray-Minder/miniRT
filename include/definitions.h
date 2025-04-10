@@ -126,8 +126,7 @@ void 	print_matrix(t_matrix* matrix);
 //	===== MLX =====
 
 void	key_hooks(mlx_key_data_t keydata, void *param);
-void 	render_sphere(t_data *data);
-void	render_scene(t_scene *scene);
+
 
 //	===== RAYS =====
 
@@ -170,6 +169,14 @@ void	set_transform(t_object *object, t_matrix *transformation);
 void	init_render_params(t_render_params *params, int width, int height);
 void	setup_default_scene(t_scene *scene);
 t_comps	*prepare_computations(t_x *hit, t_ray *ray);
+
+//	render_scene.c
+
+void	render_scene(t_data *data);
+
+//	render_sphere.c
+
+void 	render_sphere(t_data *data);
 
 //	render.c
 

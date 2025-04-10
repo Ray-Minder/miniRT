@@ -23,29 +23,31 @@
 
 int main(int argc, char *argv[])
 {
-	t_scene scene;
-	initialize_scene(&scene);
-	
-	scene.objects = NULL;
+	t_data data;
+
+	init_data(&data);
+	init_mlx(&data);
+	init_scene(data.scene);
 	if (argc != 2)
 	{
 		printf("Usage: %s <filename>\n", argv[0]);
 		return (1);
 	}
-	if (parse_scene(argv[1], &scene) != SUCCESS)
+	if (parse_scene(argv[1], data.scene) != SUCCESS)
 	{
-		cleanup(&scene);
+		cleanup(data.scene);
 		return (EXIT_FAILURE);
 	}
-	// printf("Camera forward: \n");
-	// print_tuple(scene.camera.forward);
-	set_transforms(&scene);
-	// printf("Camera forward 2: \n");
-	// print_tuple(scene.camera.forward);
-	// print_objects(scene.objects);
-	// print_light(&scene.light);
+	set_transforms(data.scene);
+	data.cam = &data.scene->camera;
+	camera(&data, radians(data.cam->fov));
+	data.cam->transform = view_transform(data.cam->forward, data.cam->position);
+	render_scene(&data);
 	
-	render_scene(&scene);
-	cleanup(&scene);
+	mlx_key_hook(data.mlx, &key_hooks, (void *) &data);
+	mlx_loop(data.mlx);
+	mlx_terminate(data.mlx);
+
+	cleanup(data.scene);
 	return (0);
 }

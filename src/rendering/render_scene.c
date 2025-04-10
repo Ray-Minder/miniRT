@@ -24,26 +24,15 @@ void	render_row(void *param)
 	data->current_row++;
 }
 
-void render_scene(t_scene *scene)
+void render_scene(t_data *data)
 {
-	t_data			data;
-
-	init_data(&data);
-	data.scene = scene;
-	data.cam = &scene->camera;
-	camera(&data, radians(data.cam->fov));
-	data.cam->transform = view_transform(data.cam->forward, data.cam->position);
-	data.current_row = 0;
-	if (mlx_image_to_window(data.mlx, data.canvas, 0, 0) < 0)
+	if (mlx_image_to_window(data->mlx, data->canvas, 0, 0) < 0)
 	{
-		printf("Failure to put image to window\n");
-		return;
+		print_error_msg("Failure to put image to window\n");
+		//Clean memory
+		exit(EXIT_FAILURE);
 	}
-	// render(&data, data.cam, scene);
-	mlx_loop_hook(data.mlx, &render_row, (void *) &data);
-	mlx_key_hook(data.mlx, &key_hooks, (void *) &data);
-	mlx_loop(data.mlx);
-	mlx_terminate(data.mlx);
+	mlx_loop_hook(data->mlx, &render_row, (void *) &data);
 }
 
 // void render_scene(t_scene *scene)
