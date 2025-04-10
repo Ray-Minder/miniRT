@@ -57,6 +57,7 @@ typedef struct s_camera
 	t_tuple		forward;
 	t_matrix	*transform;
 	t_matrix	*inverse_transform;
+	t_tuple		origin;
 	double		fov;
 	double		hsize;
 	double		vsize;
@@ -118,6 +119,7 @@ typedef struct s_object
 	t_tuple			position;
 	t_tuple			direction;
 	t_matrix		*transform;
+	t_matrix		*inverse_transform;
 	t_material		material;
 	double			diameter;
 	double			height;

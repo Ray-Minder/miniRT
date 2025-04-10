@@ -11,6 +11,7 @@ void	camera(t_data *data, double field_of_view)
 		print_error_msg("There was an error inverting the camera matrix.\n");
 		exit(EXIT_FAILURE); //Clean up memory from data
 	}
+	data->cam->origin = multiply_matrix_by_tuple(data->cam->inverse_transform, point(0, 0, 0));
 	data->cam->half_view = tan(field_of_view / 2);
 	data->cam->aspect = data->cam->hsize / data->cam->vsize;
 	if (data->cam->aspect >= 1)

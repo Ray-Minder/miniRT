@@ -13,7 +13,6 @@ void	render_row(void *param)
 	x = -1;
 	while (++x < data->width)
 	{
-		// printf("y: %d, x: %d\n", data->current_row, x);
 		ray = ray_for_pixel(data->cam, x, data->current_row);
 		color = color_at(data->scene, &ray);
 		mlx_put_pixel(data->canvas, x, data->current_row, color_to_uint32(color));
@@ -29,7 +28,7 @@ void render_scene(t_data *data)
 		//Clean memory
 		exit(EXIT_FAILURE);
 	}
-	mlx_loop_hook(data->mlx, &render_row, (void *) &data);
+	mlx_loop_hook(data->mlx, &render_row, (void *) data);
 }
 
 // void render_scene(t_scene *scene)

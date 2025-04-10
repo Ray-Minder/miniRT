@@ -8,7 +8,6 @@ t_ray	ray_for_pixel(t_camera *camera, int x, int y)
 	double	offset[2];
 	double	world[2];
 	t_tuple	pixel;
-	t_tuple	origin;
 	t_tuple	direction;
 
 	offset[X] = (x + 0.5) * camera->pixel_size;
@@ -16,9 +15,8 @@ t_ray	ray_for_pixel(t_camera *camera, int x, int y)
 	world[X] = camera->half_view - offset[X];
 	world[Y] = camera->half_height - offset[Y];
 	pixel = multiply_matrix_by_tuple(camera->inverse_transform, point(world[X], world[Y], -1));
-	origin = multiply_matrix_by_tuple(camera->inverse_transform, point(0, 0, 0));
-	direction = normalize_tuple(subtract_tuples(pixel, origin));
-	return (create_ray(origin, direction));
+	direction = normalize_tuple(subtract_tuples(pixel, camera->origin));
+	return (create_ray(camera->origin, direction));
 }
 
 // t_ray		ray;

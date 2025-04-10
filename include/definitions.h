@@ -161,7 +161,7 @@ t_tuple	position(t_ray ray, double t);
 
 //	transform.c
 
-t_ray	transform(t_ray *ray, t_matrix *matrix);
+t_ray	transform_ray(t_ray *ray, t_matrix *matrix);
 void	set_transform(t_object *object, t_matrix *transformation);
 
 //	===== RENDERING =====

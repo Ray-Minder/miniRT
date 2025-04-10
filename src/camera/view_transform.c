@@ -8,9 +8,6 @@ t_matrix	*view_transform(t_tuple forward, t_tuple point)
 	t_matrix	*_view_transform;
 
 	right = normalize_tuple(get_camera_right(forward));
-	printf("forward vector: ");
-	print_tuple(forward);
-
 	up = cross_product(right, forward);
 	orientation = identity(4);
 	if (!orientation)
@@ -25,12 +22,6 @@ t_matrix	*view_transform(t_tuple forward, t_tuple point)
 	orientation->values[2][1] = -forward.y;
 	orientation->values[2][2] = -forward.z;
 	_view_transform = multiply_matrices(orientation, translation(-point.x, -point.y, -point.z));
-	printf("\n\n\n");
-	printf("Orientation matrix:\n");
-	print_matrix(orientation);
-	printf("\n\n\n");
-	printf("View transform matrix:\n");
-	print_matrix(_view_transform);
 	free_matrix(&orientation);
 	return (_view_transform);
 }

@@ -24,9 +24,11 @@
 int main(int argc, char *argv[])
 {
 	t_data data;
+	t_scene scene;
 
 	init_data(&data);
 	init_mlx(&data);
+	data.scene = &scene;
 	init_scene(data.scene);
 	if (argc != 2)
 	{
@@ -41,6 +43,7 @@ int main(int argc, char *argv[])
 	set_transforms(data.scene);
 	data.cam = &data.scene->camera;
 	camera(&data, radians(data.cam->fov));
+	
 	render_scene(&data);
 	
 	mlx_key_hook(data.mlx, &key_hooks, (void *) &data);
