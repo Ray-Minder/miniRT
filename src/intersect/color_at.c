@@ -17,7 +17,7 @@ t_color color_at(t_scene *scene, t_ray *ray)
 	else
 	{
 		free_intersections_list(&xs_list);
-		return (scene->ambient_light.color);
+		return (scene->ambient_light.color); //Is this right though? Or maybe a black background that intersects with ambient light?
 	}
 	final_color = shade_hit(scene, comps);
 	ft_free((void **) &comps);
