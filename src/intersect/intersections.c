@@ -3,7 +3,6 @@
 t_x	*intersect(t_ray *ray, t_object *object)
 {
 	t_ray		transformed_ray;
-	// t_matrix	*inverse_transform;
 
 	if (!ray || !object)
 	{
@@ -23,10 +22,7 @@ t_x	*hit(t_x *xs_list)
 	t_x	*lowest_hit;
 
 	if (!xs_list)
-	{
-		// printf("Cannot determine the hit from a NULL xs_list.\n");
 		return (NULL);
-	}
 	current = xs_list;
 	lowest_hit = NULL;
 	while (current != NULL)
