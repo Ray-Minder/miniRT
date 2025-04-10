@@ -22,6 +22,11 @@ t_matrix *get_camera_matrix(t_camera camera)
 	up = cross_product(right, forward);
 	up = normalize_tuple(up);	
 	transform = tuples_to_matrix(up, right, forward, camera.position);
+	if (!transform)
+	{
+		print_error_msg("There was an error creating the camera matrix.\n");
+		return (NULL);
+	}
 	return (transform);
 }
 
