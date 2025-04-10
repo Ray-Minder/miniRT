@@ -25,13 +25,11 @@ void	free_intersections_list(t_x **xs_list)
 	if (!xs_list || !*xs_list)
 		return ;
 	current = (*xs_list);
-	next = (*xs_list)->next;
 	while (current != NULL)
 	{
-		free_intersection_node(&current);
+		next = current->next;
+		free(current);
 		current = next;
-		if (current != NULL)
-			next = current->next;
 	}
 	*xs_list = NULL;
 }
