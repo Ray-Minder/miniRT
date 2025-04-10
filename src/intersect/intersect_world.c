@@ -11,8 +11,6 @@ t_x *intersect_world(t_scene *scene, t_ray *ray)
 	while (object)
 	{
 		xs = intersect(ray, object);
-		// if (object->type == PLANE)
-		// 	printf("plane t: %f\n", xs->t);
 		if (xs && !compare_doubles(xs->t, 0))
 			add_intersection_node(&xs_list, xs);
 		object = object->next;

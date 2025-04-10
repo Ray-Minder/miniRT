@@ -38,8 +38,8 @@ int main(int argc, char *argv[])
 		return (EXIT_FAILURE);
 	}
 	set_transforms(&scene);
-	print_objects(scene.objects);
-	print_light(&scene.light);
+	// print_objects(scene.objects);
+	// print_light(&scene.light);
 	render_scene(&scene);
 	cleanup(&scene);
 	return (0);

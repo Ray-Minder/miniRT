@@ -9,32 +9,60 @@ t_tuple get_right(t_tuple up)
 	return (right);
 }
 
+// t_matrix *tuples_to_matrix(t_tuple up, t_tuple right, t_tuple forward, t_tuple position)
+// {
+// 	t_matrix *matrix;
+// 	double	data[16];
+
+// 	data[0] = right.x;
+// 	data[1] = right.y;
+// 	data[2] = right.z;
+// 	data[3] = right.w;
+// 	data[4] = up.x;
+// 	data[5] = up.y;
+// 	data[6] = up.z;
+// 	data[7] = up.w;
+// 	data[8] = forward.x;
+// 	data[9] = forward.y;
+// 	data[10] = forward.z;
+// 	data[11] = forward.w;
+// 	data[12] = position.x;
+// 	data[13] = position.y;
+// 	data[14] = position.z;
+// 	data[15] = position.w;
+// 	matrix = create_matrix(4, 4);
+// 	if (!matrix)
+// 		return (NULL);
+// 	initialize_matrix(matrix, data, 16);
+// 	return (matrix);
+// }
+
 t_matrix *tuples_to_matrix(t_tuple up, t_tuple right, t_tuple forward, t_tuple position)
 {
-	t_matrix *matrix;
-	double	data[16];
+	t_matrix *orientation_matrix;
+	t_matrix *inverted_orientation;
+	t_matrix *translation_matrix;
+	t_matrix *transform_matrix;
 
-	data[0] = right.x;
-	data[1] = right.y;
-	data[2] = right.z;
-	data[3] = right.w;
-	data[4] = up.x;
-	data[5] = up.y;
-	data[6] = up.z;
-	data[7] = up.w;
-	data[8] = forward.x;
-	data[9] = forward.y;
-	data[10] = forward.z;
-	data[11] = forward.w;
-	data[12] = position.x;
-	data[13] = position.y;
-	data[14] = position.z;
-	data[15] = position.w;
-	matrix = create_matrix(4, 4);
-	if (!matrix)
+	orientation_matrix = identity(4);
+	if (!orientation_matrix)
 		return (NULL);
-	initialize_matrix(matrix, data, 16);
-	return (matrix);
+	orientation_matrix->values[0][0] = right.x;
+	orientation_matrix->values[0][1] = right.y;
+	orientation_matrix->values[0][2] = right.z;
+	orientation_matrix->values[1][0] = up.x;
+	orientation_matrix->values[1][1] = up.y;
+	orientation_matrix->values[1][2] = up.z;
+	orientation_matrix->values[2][0] = forward.x;
+	orientation_matrix->values[2][1] = forward.y;
+	orientation_matrix->values[2][2] = forward.z;
+	translation_matrix = translation(position.x, position.y, position.z);
+	inverted_orientation = invert_matrix(orientation_matrix);
+	transform_matrix = multiply_matrices(translation_matrix, inverted_orientation);
+	free_matrix(&orientation_matrix);
+	free_matrix(&translation_matrix);
+	free_matrix(&inverted_orientation);
+	return (transform_matrix);
 }
 
 t_matrix *get_transform(t_tuple tuple, t_tuple position)
@@ -106,14 +134,20 @@ int set_plane_transform(t_object *plane)
 	plane->direction = normalize_tuple(plane->direction);
 	right = cross_product(plane->direction, vector(0, 0, 1));
 	if (compare_doubles(right.x, 0) && compare_doubles(right.y, 0) && compare_doubles(right.z, 0))
-		right = cross_product(plane->direction, vector(1, 0, 0));
+		right = cross_product(vector(0, 1, 0), plane->direction);
 	right = normalize_tuple(right);
 	forward = cross_product(right, plane->direction);
 	forward = normalize_tuple(forward);
 	plane->transform = tuples_to_matrix(plane->direction, right, forward, plane->position);
 	if (!plane->transform)
 		return (MALLOC_FAIL);
-	printf("plane transform:\n");
+	printf("right:\n");
+	print_tuple(right);
+	printf("forward:\n");
+	print_tuple(forward);
+	printf("up:\n");
+	print_tuple(plane->direction);
+	printf("\nplane transform:\n");
 	print_matrix(plane->transform);
 	return (SUCCESS);
 }

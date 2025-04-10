@@ -35,7 +35,7 @@ void render_scene(t_scene *scene)
 
 	// 	// print_intersection_list(xs_list);
 	// }
-	data.cam = camera(400, 400, PI / 2);
+	data.cam = camera(500, 500, PI / 2);
 	data.cam->transform = view_transform(point(0, 0, -5), point(0, 0, 0), vector(0, 1, 0));
 	render(&data, data.cam, scene);
 
