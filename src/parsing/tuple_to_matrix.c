@@ -120,7 +120,7 @@ int set_sphere_transform(t_object *sphere)
 	scaled_matrix = scaling(sphere->diameter / 2, sphere->diameter / 2, sphere->diameter / 2);
 	if (!scaled_matrix)
 		return (MALLOC_FAIL);
-	sphere->transform = multiply_matrices(translate_matrix, scaled_matrix);
+	sphere->transform = multiply_matrices(invert_matrix(translate_matrix), scaled_matrix);
 	free_matrix(&translate_matrix);
 	free_matrix(&scaled_matrix);
 	if (!sphere->transform)

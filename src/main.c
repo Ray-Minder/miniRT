@@ -28,8 +28,8 @@ int main(int argc, char *argv[])
 
 	init_data(&data);
 	init_mlx(&data);
+	init_scene(&scene);
 	data.scene = &scene;
-	init_scene(data.scene);
 	if (argc != 2)
 	{
 		printf("Usage: %s <filename>\n", argv[0]);
