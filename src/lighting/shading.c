@@ -23,8 +23,11 @@ bool is_shadowed(t_scene *scene, t_tuple point)
 	shadow_ray.direction = normalize_tuple(subtract_tuples(scene->light.position, point));
 	xs_list = intersect_world(scene, &shadow_ray);
 	_hit = hit(xs_list);
-	free_intersections_list(&xs_list);
 	if (_hit && _hit->hit && _hit->t < distance)
+	{
+		free_intersections_list(&xs_list);
 		return (true);
+	}
+	free_intersections_list(&xs_list);
 	return (false);
 }
