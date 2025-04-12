@@ -18,15 +18,3 @@ t_ray	ray_for_pixel(t_camera *camera, int x, int y)
 	direction = normalize_tuple(subtract_tuples(pixel, camera->origin));
 	return (create_ray(camera->origin, direction));
 }
-
-// t_ray		ray;
-// 	t_tuple		pixel;
-// 	t_tuple		origin;
-// 	t_tuple		direction;
-
-// 	pixel = pixel_at(camera, x, y);
-// 	origin = camera->position;
-// 	direction = subtract_tuples(pixel, origin);
-// 	ray.origin = origin;
-// 	ray.direction = normalize_tuple(direction);
-// 	return (ray);

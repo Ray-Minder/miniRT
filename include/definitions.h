@@ -45,8 +45,11 @@ uint32_t	color_to_uint32(t_color color);
 
 //	clean.c
 
-void	clean(t_data *data, char *error_msg);
-void	clean_and_exit(t_data *data, char *error_msg, int exit_code);
+void	clean_and_exit(t_data *data, int	exit_code);
+void	free_scene(t_scene **scene);
+void	free_camera(t_camera *camera);
+void	free_light(t_light *light);
+
 
 //	print_error.c
 

@@ -9,4 +9,3 @@ t_color ambient_lighting(t_ambient_light ambient_light, t_color object_color)
 	ambient = hadamard_product(ambient, object_color);
 	return (ambient);
 }
-

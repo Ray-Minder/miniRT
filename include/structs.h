@@ -70,11 +70,11 @@ typedef struct s_camera
 
 typedef struct s_light
 {
-	bool	is_set;
-	t_tuple	position;
+	bool		is_set;
+	t_tuple		position;
 	t_matrix	*transform;
-	double	brightness;
-	t_color	color;
+	double		brightness;
+	t_color		color;
 }	t_light;
 
 // typedef struct s_sphere
