@@ -17,5 +17,6 @@ t_color	lighting(t_scene *scene, t_comps *comps)
 	reflect_dot_eye = dot_product(comps->eyev, reflectv);
 	specular_contribution = specular_lighting(scene->light, comps->object->material, reflect_dot_eye);
 
-	return (add_colors(ambient_contribution, add_colors(diffuse_contribution, specular_contribution)));
+	// return (add_colors(ambient_contribution, add_colors(diffuse_contribution, specular_contribution)));
+	return (add_colors(ambient_contribution, diffuse_contribution));
 }

@@ -84,8 +84,8 @@ int	process_file_lines(int file, t_scene *scene)
 
 int	parse_scene(char *filename, t_scene *scene)
 {
-	int		file;
-	int		error;
+	int	file;
+	int	error;
 
 	if (!verify_filename(filename))
 		return (print_error(INVALID_FILENAME));
