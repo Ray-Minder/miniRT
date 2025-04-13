@@ -1,5 +1,18 @@
 #include "../../include/minirt.h"
 
+/**
+ * @brief Computes the color at a given point in the scene based on the ray.
+ * 
+ * @param scene Pointer to the scene structure.
+ * @param ray Pointer to the ray structure.
+ * @return A t_color structure representing the color at the intersection point.
+ * 
+ * This function first checks for intersections between the ray and the objects in the scene.
+ * If an intersection is found, it prepares the computations for shading.
+ * It then calculates the color at the intersection point using the shading function.
+ * If no intersection is found, it returns the ambient light color.
+ * The function also handles memory management for the intersection list and computations.
+ */
 t_color color_at(t_scene *scene, t_ray *ray)
 {
 	t_comps		*comps;

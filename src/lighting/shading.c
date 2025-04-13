@@ -4,23 +4,23 @@ t_color shade_hit(t_scene *scene, t_comps *comps)
 {
 	t_color final_color;
 
-	if (is_shadowed(scene, comps->point))
-		final_color = scene->ambient_light.color;
+	if (is_shadowed(scene, comps->over_point))
+		final_color = ambient_lighting(scene->ambient_light, comps->object->material.color); //Before it was scene->ambient_light.color
 	else
 		final_color = lighting(scene, comps);
 	return (final_color);
 }
 
-bool is_shadowed(t_scene *scene, t_tuple point)
+bool is_shadowed(t_scene *scene, t_tuple over_point)
 {
 	double	distance;
 	t_ray	shadow_ray;
 	t_x		*xs_list;
 	t_x		*_hit;
 
-	distance = tuple_magnitude(subtract_tuples(scene->light.position, point));
-	shadow_ray.origin = point;
-	shadow_ray.direction = normalize_tuple(subtract_tuples(scene->light.position, point));
+	distance = tuple_magnitude(subtract_tuples(scene->light.position, over_point));
+	shadow_ray.origin = over_point;
+	shadow_ray.direction = normalize_tuple(subtract_tuples(scene->light.position, over_point));
 	xs_list = intersect_world(scene, &shadow_ray);
 	_hit = hit(xs_list);
 	if (_hit && _hit->hit && _hit->t < distance)

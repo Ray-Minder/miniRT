@@ -1,5 +1,19 @@
 #include "../../include/minirt.h"
 
+/**
+ * @brief This function computes the camera's view matrix.
+ * 
+ * @param forward The forward vector of the camera.
+ * @param point The point in world space where the camera is looking.
+ * @return A pointer to a matrix representing the view transformation.
+ * 
+ * @note This function computes a view matrix by deriving right and up vectors
+ * from the given forward vector.
+ * It constructs a transformation matrix that orients and positions the camera
+ * in world space.
+ * The resulting matrix, combining rotation and translation,
+ * transforms points from world space to camera space.
+ */
 t_matrix	*view_transform(t_tuple forward, t_tuple point)
 {
 	t_tuple		right;

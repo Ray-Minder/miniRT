@@ -142,6 +142,7 @@ typedef struct s_comps
 	t_tuple		eyev;		//The vector pointing from the point to the eye/camera.
 	t_tuple		normalv;	//The normal vector at the intersection point (in world space).
 	bool		inside;		//A boolean to check if the ray was originating from inside the object.
+	t_tuple		over_point;	//The point just above the intersection point, used to avoid shadow acne.
 }	t_comps;
 
 typedef struct s_scene
