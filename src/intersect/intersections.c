@@ -29,13 +29,29 @@ t_x	*hit(t_x *xs_list)
 		return (NULL);
 	current = xs_list;
 	lowest_hit = NULL;
+	lowest_hit = new_intersection_node();
+	if (!lowest_hit)
+	{
+		printf("failure to allocate new intersection\n");
+		return (NULL);
+	}
+	lowest_hit->t = INFINITY;
 	while (current != NULL)
 	{
-		if (current->t > 0 && (!lowest_hit || current->t < lowest_hit->t))
-			lowest_hit = current;
+		if (current->t > 0 && current->t < lowest_hit->t)
+		{
+			lowest_hit->hit = true;
+			lowest_hit->t = current->t;
+			lowest_hit->object = current->object;
+			lowest_hit->next = current->next;
+		}
 		current = current->next;
 	}
-	// printf("Lowest hit: %f\n", lowest_hit->t);
+	if (lowest_hit->hit == false)
+	{
+		free(lowest_hit);
+		return (NULL);
+	}
 	return (lowest_hit);
 }
 
