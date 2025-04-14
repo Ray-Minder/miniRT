@@ -34,8 +34,7 @@ t_comps	*prepare_computations(t_x *hit, t_ray *ray)
 		comps->inside = true;
 		comps->normalv = negate_tuple(comps->normalv);
 	}
-	comps->over_point = add_tuples(comps->point, multiply_tuple_by_scalar(comps->normalv, 0.0001));
-	comps->over_point.w = 1;
+	comps->over_point = add_tuples(comps->point, multiply_tuple_by_scalar(comps->normalv, EPSILON));
 	return (comps);
 }
 
