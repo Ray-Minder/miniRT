@@ -1,10 +1,10 @@
 #include "../../include/minirt.h"
 
-void	init_data(t_data *data)
+void	init_data(t_data *data, t_scene *scene)
 {
 	data->mlx = NULL;
 	data->canvas = NULL;
-	data->scene = NULL;
+	data->scene = scene;
 	data->cam = NULL;
 	data->light = NULL;
 	data->width = WINDOW_WIDTH;

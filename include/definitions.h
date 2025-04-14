@@ -58,7 +58,7 @@ void	print_errno(char *function_name);
 
 //	===== INIT =====
 
-void	init_data(t_data *data);
+void	init_data(t_data *data, t_scene *scene);
 void	init_mlx(t_data	*data);
 
 //	===== INTERSECT =====
@@ -221,6 +221,7 @@ bool	compare_tuples(t_tuple a, t_tuple b);
 
 t_color	tuple_to_color(t_tuple tuple);
 t_tuple	color_to_tuple(t_color color);
+bool	is_zero_vector(t_tuple v);
 
 //	===== UTILITIES =====
 

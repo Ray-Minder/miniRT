@@ -1,10 +1,21 @@
 #include "../../include/minirt.h"
 #include "../../include/parser.h"
 
+/**
+ * @brief Computes the right vector for the camera based on the forward vector.
+ * 
+ * @param forward The forward vector of the camera.
+ * @return The right vector of the camera.
+ * 
+ * This function calculates the right vector by taking the cross product of the
+ * forward vector and the up vector (0, 1, 0). If the result is a zero vector,
+ * it uses the cross product of the forward vector and (0, 0, 1) instead.
+ * This ensures that the right vector is always perpendicular to the forward vector.
+ */
 t_tuple get_camera_right(t_tuple forward)
 {
 	t_tuple right = cross_product(forward, vector(0, 1, 0));
-	if (compare_doubles(right.x, 0) && compare_doubles(right.y, 0) && compare_doubles(right.z, 0))
+	if (is_zero_vector(right))
 		right = cross_product(forward, vector(0, 0, 1));
 	return (right);
 }

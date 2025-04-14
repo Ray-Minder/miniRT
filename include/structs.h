@@ -77,39 +77,13 @@ typedef struct s_light
 	t_color		color;
 }	t_light;
 
-// typedef struct s_sphere
-// {
-// 	t_tuple	position;
-// 	double	diameter;
-// 	t_color	color;
-// 	struct s_sphere	*next;
-// }	t_sphere;
-
-// typedef struct s_plane
-// {
-// 	t_tuple	point;
-// 	t_tuple	normal;
-// 	t_color	color;
-// 	struct s_plane	*next;
-// }	t_plane;
-
-// typedef struct s_cylinder
-// {
-// 	t_tuple	position;
-// 	t_tuple	axis;
-// 	double	diameter;
-// 	double	height;
-// 	t_color	color;
-// 	struct s_cylinder	*next;
-// }	t_cylinder;
-
 typedef struct s_material
 {
 	t_color	color;
-	double	ambient;	//How much ambient light it reflects.		[0, 1]
-	double	diffuse;	//How much diffuse light it reflects.		[0, 1]
-	double	specular;	//How much specular light it reflects.		[0, 1]
-	double	shininess;	//Controls the size of specular highlight.	[10, ~]
+	// double	ambient;	//How much ambient light it reflects.		[0, 1]
+	// double	diffuse;	//How much diffuse light it reflects.		[0, 1]
+	// double	specular;	//How much specular light it reflects.		[0, 1]
+	// double	shininess;	//Controls the size of specular highlight.	[10, ~]
 }	t_material;
 
 

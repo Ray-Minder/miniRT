@@ -6,6 +6,7 @@ void 	print_tuple(t_tuple tuple);
 bool	compare_tuples(t_tuple a, t_tuple b);
 t_color	tuple_to_color(t_tuple tuple);
 t_tuple	color_to_tuple(t_color color);
+bool	is_zero_vector(t_tuple v);
 
 //	=== Function Definitions ===
 
@@ -96,4 +97,19 @@ t_tuple	color_to_tuple(t_color color)
 	tuple.z = color.b;
 	tuple.w = 0.0;
 	return (tuple);
+}
+
+/**
+ * @brief Checks if a tuple is a zero vector.
+ * 
+ * This function checks if the given tuple represents a zero vector
+ * by comparing its x, y, and z components to 0.0.
+ */
+bool	is_zero_vector(t_tuple v)
+{
+	if (compare_doubles(v.x, 0.0)
+		&& compare_doubles(v.y, 0.0)
+		&& compare_doubles(v.z, 0.0))
+		return (true);
+	return (false);
 }

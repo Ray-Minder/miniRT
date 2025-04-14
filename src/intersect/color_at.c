@@ -34,6 +34,6 @@ t_color color_at(t_scene *scene, t_ray *ray)
 	}
 	final_color = shade_hit(scene, comps);
 	ft_free((void **) &comps);
-	// free_intersections_list(&_hit); // Sometimes we get a double free because the hit list takes nodes from the intersect list.
+	free_intersections_list(&_hit); // Sometimes we get a double free because the hit list takes nodes from the intersect list.
 	return (final_color);
 }
