@@ -50,14 +50,15 @@ t_comps	*prepare_computations(t_x *hit, t_ray *ray)
 	comps->hit = hit;
 	comps->object = hit->object;
 	comps->point = position(*ray, hit->t);
-	comps->eyev = negate_tuple(ray->direction);
+	comps->eyev = negate_tuple(transformed_ray.direction);
 	comps->normalv = normal_at(comps->object, comps->point);
 	comps->inside = false;
-	if (dot_product(comps->normalv, comps->eyev) < 0)
-	{
-		comps->inside = true;
-		comps->normalv = negate_tuple(comps->normalv);
-	}
+	// if (dot_product(comps->normalv, comps->eyev) < 0)
+	// {
+	// 	printf("Inside\n");
+	// 	comps->inside = true;
+	// 	comps->normalv = negate_tuple(comps->normalv);
+	// }
 	return (comps);
 }
 

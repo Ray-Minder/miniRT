@@ -47,13 +47,27 @@ t_object	create_sphere(t_tuple position, double diameter, t_color color)
 	return (sphere);
 }
 
-t_object	right_sphere()
+t_camera create_camera(t_tuple position, t_tuple forward, double fov)
 {
-}
+	t_camera camera;
+	t_matrix *transform;
 
-t_object	center_sphere()
-{
-
+	camera.position = position;
+	camera.forward = forward;
+	camera.fov = fov;
+	camera.transform = view_transform(position, forward);
+	if (!camera.transform)
+	{
+		printf("Failed to allocate memory for camera transform\n");
+		exit(EXIT_FAILURE);
+	}
+	camera.inverse_transform = invert_matrix(camera.transform);
+	if (!camera.inverse_transform)
+	{
+		printf("Failed to allocate memory for camera inverse transform\n");
+		free_matrix(&camera.transform);
+		exit(EXIT_FAILURE);
+	}
 }
 
 int main()
@@ -66,5 +80,14 @@ int main()
 	center_sphere = create_sphere(point(0, 0, 0), 2, color(0, 1, 0));
 	right_sphere = create_sphere(point(1, 0, 0), 2, color(0, 0, 1));
 
+	t_light light;
+	light.position = point(-10, 10, -10);
+	light.color = color(1, 1, 1);
+	light.brightness = 0.8;
+
+	t_camera camera;
+	camera = create_camera(point(0, 0, -5), vector(0, 0, 1), 90);
+	
+	
 	
 }
