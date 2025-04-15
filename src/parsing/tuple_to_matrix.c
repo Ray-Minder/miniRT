@@ -125,7 +125,6 @@ int set_sphere_transform(t_object *sphere)
 	free_matrix(&scaled_matrix);
 	if (!sphere->transform)
 		return (MALLOC_FAIL);
-	printf("Testing inverse\n");
 	sphere->inverse_transform = invert_matrix(sphere->transform);
 	if (!sphere->inverse_transform)
 		return (MALLOC_FAIL);
