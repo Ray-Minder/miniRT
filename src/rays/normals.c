@@ -59,11 +59,12 @@ t_tuple normal_at_sphere(t_object *object, t_tuple world_point)
 	}
 	object_point = multiply_matrix_by_tuple(object->inverse_transform, world_point);
 	// object_point = multiply_matrix_by_tuple(invert_matrix(identity(4)), world_point);
-	object_normal = subtract_tuples(object_point, object->position);
-	// object_normal = subtract_tuples(object_point, point(0, 0, 0));
+	// object_normal = subtract_tuples(object_point, object->position);
+	object_normal = subtract_tuples(object_point, point(0, 0, 0));
 	object_normal.w = 0;
 	world_normal = multiply_matrix_by_tuple(transpose_matrix(object->inverse_transform), object_normal);
 	world_normal.w = 0;
+	world_normal = subtract_tuples(world_point, object->position);
 	return (normalize_tuple(world_normal));
 }
 

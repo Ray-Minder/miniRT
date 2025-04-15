@@ -24,8 +24,8 @@ int main(int argc, char *argv[])
 	camera(&data, radians(data.cam->fov));
 
 	render_scene(&data);
-	
 	mlx_key_hook(data.mlx, &key_hooks, (void *) &data);
+	mlx_mouse_hook(data.mlx, &mouse_hook, (void*) &data);
 	mlx_loop(data.mlx);
 	mlx_terminate(data.mlx);
 

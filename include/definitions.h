@@ -129,6 +129,7 @@ void 	print_matrix(t_matrix* matrix);
 //	===== MLX =====
 
 void	key_hooks(mlx_key_data_t keydata, void *param);
+void mouse_hook(enum mouse_key button, enum action action, enum modifier_key mods, void *param);
 
 
 //	===== RAYS =====

@@ -16,7 +16,9 @@
 t_comps	*prepare_computations(t_x *hit, t_ray *ray)
 {
 	t_comps	*comps;
+	t_ray 	transformed_ray;
 
+	transformed_ray = transform_ray(ray, hit->object->inverse_transform);
 	comps = ft_calloc(1, sizeof(t_comps));
 	if (!comps)
 	{
@@ -26,14 +28,14 @@ t_comps	*prepare_computations(t_x *hit, t_ray *ray)
 	comps->hit = hit;
 	comps->object = hit->object;
 	comps->point = position(*ray, hit->t);
-	comps->eyev = negate_tuple(ray->direction);
+	comps->eyev = negate_tuple(transformed_ray.direction);
 	comps->normalv = normal_at(comps->object, comps->point);
 	comps->inside = false;
-	if (dot_product(comps->normalv, comps->eyev) < 0)
-	{
-		comps->inside = true;
-		comps->normalv = negate_tuple(comps->normalv);
-	}
+	// if (dot_product(comps->normalv, comps->eyev) < 0)
+	// {
+	// 	comps->inside = true;
+	// 	comps->normalv = negate_tuple(comps->normalv);
+	// }
 	comps->over_point = add_tuples(comps->point, multiply_tuple_by_scalar(comps->normalv, EPSILON));
 	return (comps);
 }
