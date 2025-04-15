@@ -94,6 +94,7 @@ typedef struct s_object
 	t_tuple			direction;
 	t_matrix		*transform;			// Transforms from object space to world space
 	t_matrix		*inverse_transform;	// Transforms from world space to object space
+	t_matrix		*inverse_transpose;
 	t_color			color;
 	double			diameter;
 	double			height;

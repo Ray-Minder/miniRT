@@ -160,6 +160,8 @@ t_matrix	*invert_matrix(t_matrix *m)
 		perror ("Inverse");
 		return (NULL);
 	}
+	printf("IN INVERT MATRIX PRINTING THE MATRIX:\n");
+	print_matrix(m);
 	_identity = identity(m->columns); //Check if it fails
 	if (compare_matrices(m, _identity))
 		return (_identity);
@@ -167,8 +169,8 @@ t_matrix	*invert_matrix(t_matrix *m)
 	_determinant = determinant(m);
 	if (compare_doubles(_determinant, 0.0))
 	{
-		printf("The matrix is not invertible.\n");
-		return (NULL);
+		// printf("The matrix is not invertible.\n");
+		return (identity(m->columns));
 	}
 	inverse = create_matrix(m->rows, m->columns); //Or replace by identity?
 	r = -1;

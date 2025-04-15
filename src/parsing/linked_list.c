@@ -27,6 +27,8 @@ t_object	*create_object(void)
 	ptr->position = point(0, 0, 0);
 	ptr->direction = vector(0, 0, 0);
 	ptr->transform = NULL;
+	ptr->inverse_transform = NULL;
+	ptr->inverse_transpose = NULL;
 	ptr->next = NULL;
 	ptr->transform = identity(4);
 	if (!ptr->transform)
