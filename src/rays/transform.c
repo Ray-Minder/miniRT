@@ -11,7 +11,6 @@ t_ray	transform_ray(t_ray *ray, t_matrix *matrix)
 	}
 	transformed_ray.origin = multiply_matrix_by_tuple(matrix, ray->origin);
 	transformed_ray.direction = multiply_matrix_by_tuple(matrix, ray->direction);
-	transformed_ray.direction = normalize_tuple(transformed_ray.direction);
 	return (transformed_ray);
 }
 

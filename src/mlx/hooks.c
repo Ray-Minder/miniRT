@@ -73,7 +73,9 @@ t_tuple normal_at_sphere_debug(t_object *object, t_tuple world_point)
 		ft_putstr_fd("Error: normal_at_sphere\n", 2);
 		exit(EXIT_FAILURE);
 	}
-	object_point = multiply_matrix_by_tuple(invert_matrix(object->transform), world_point);
+	printf("World point: ");
+	print_tuple(world_point);
+	object_point = multiply_matrix_by_tuple(object->transform, world_point);
 	printf("Object point: ");
 	print_tuple(object_point);
 	// object_point = multiply_matrix_by_tuple(invert_matrix(identity(4)), world_point);
@@ -123,6 +125,7 @@ void mouse_hook(enum mouse_key button, enum action action, enum modifier_key mod
 		// print_hit(_hit);
 		comps = prepare_computations(_hit, &ray);
 		normal_at_sphere_debug(_hit->object, comps->point);
+		printf("hit t: %f\n", _hit->t);
 		// print_comps(comps);
 	}	
 }
