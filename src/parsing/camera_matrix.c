@@ -84,7 +84,7 @@ int set_transforms(t_scene *scene)
 	if (!scene->camera.transform)
 		return (MALLOC_FAIL);
 	// scene->light.transform = translate_from_tuple(scene->light.position);
-	scene->light.transform = identity(4);
+	scene->light.transform = identity(4); //It can also be NULL.
 	if (!scene->light.transform)	
 		return (MALLOC_FAIL);
 	return (SUCCESS);
