@@ -6,7 +6,7 @@ t_color shade_hit(t_scene *scene, t_comps *comps)
 
 	// if (is_shadowed(scene, comps->over_point))
 	// {
-	// 	final_color = ambient_lighting(scene->ambient_light, comps->object->material.color);
+	// 	final_color = ambient_lighting(scene->ambient_light, comps->object->color);
 	// }
 	// else
 		final_color = lighting(scene, comps);

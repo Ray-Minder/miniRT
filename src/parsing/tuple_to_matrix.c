@@ -125,6 +125,9 @@ int set_sphere_transform(t_object *sphere)
 	free_matrix(&scaled_matrix);
 	if (!sphere->transform)
 		return (MALLOC_FAIL);
+	sphere->inverse_transform = invert_matrix(sphere->transform);
+	if (!sphere->inverse_transform)
+		return (MALLOC_FAIL);
 	return (SUCCESS);
 }
 
@@ -142,6 +145,9 @@ int set_plane_transform(t_object *plane)
 	forward = normalize_tuple(forward);
 	plane->transform = tuples_to_matrix(plane->direction, right, forward, plane->position);
 	if (!plane->transform)
+		return (MALLOC_FAIL);
+	plane->inverse_transform = invert_matrix(plane->transform);
+	if (!plane->inverse_transform)
 		return (MALLOC_FAIL);
 	printf("right:\n");
 	print_tuple(right);
@@ -164,9 +170,6 @@ int set_object_transforms(t_object *objects)
 			set_plane_transform(objects);
 		if (!objects->transform)
 			return (MALLOC_FAIL);
-		objects->inverse_transform = invert_matrix(objects->transform);
-		// if (!objects->inverse_transform)
-		// 	return (MALLOC_FAIL);
 		objects = objects->next;
 	}
 	return (SUCCESS);

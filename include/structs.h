@@ -55,8 +55,8 @@ typedef struct s_camera
 	bool		is_set;
 	t_tuple		position;
 	t_tuple		forward;
-	t_matrix	*transform;
-	t_matrix	*inverse_transform;
+	t_matrix	*transform;			// Transforms from object space to world space
+	t_matrix	*inverse_transform;	// Transforms from world space to object space
 	t_tuple		origin;
 	double		fov;
 	double		hsize;
@@ -72,19 +72,19 @@ typedef struct s_light
 {
 	bool		is_set;
 	t_tuple		position;
-	t_matrix	*transform;
+	t_matrix	*transform;	//Not needed (probably)
 	double		brightness;
 	t_color		color;
 }	t_light;
 
-typedef struct s_material
-{
-	t_color	color;
-	// double	ambient;	//How much ambient light it reflects.		[0, 1]
-	// double	diffuse;	//How much diffuse light it reflects.		[0, 1]
-	// double	specular;	//How much specular light it reflects.		[0, 1]
-	// double	shininess;	//Controls the size of specular highlight.	[10, ~]
-}	t_material;
+// typedef struct s_material
+// {
+// 	t_color	color;
+// 	// double	ambient;	//How much ambient light it reflects.		[0, 1]
+// 	// double	diffuse;	//How much diffuse light it reflects.		[0, 1]
+// 	// double	specular;	//How much specular light it reflects.		[0, 1]
+// 	// double	shininess;	//Controls the size of specular highlight.	[10, ~]
+// }	t_material;
 
 
 typedef struct s_object
@@ -92,9 +92,9 @@ typedef struct s_object
 	t_object_type	type;
 	t_tuple			position;
 	t_tuple			direction;
-	t_matrix		*transform;
-	t_matrix		*inverse_transform;
-	t_material		material;
+	t_matrix		*transform;			// Transforms from object space to world space
+	t_matrix		*inverse_transform;	// Transforms from world space to object space
+	t_color			color;
 	double			diameter;
 	double			height;
 	struct s_object	*next;

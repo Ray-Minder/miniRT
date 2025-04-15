@@ -91,7 +91,7 @@ bool	is_shadowed(t_scene *scene, t_tuple point);
 
 //	specular_lighting.c
 
-t_color	specular_lighting(t_light light, t_material material, double reflect_dot_eye);
+// t_color	specular_lighting(t_light light, t_material material, double reflect_dot_eye);
 
 
 //	===== MATRICES ======
