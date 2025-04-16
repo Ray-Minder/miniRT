@@ -83,7 +83,7 @@ t_x	*sphere_intersect(t_ray *ray, t_object *sphere)
 	xs->next = new_intersection_node();
 	if (!xs->next)
 		return (free_intersections_list(&xs), NULL);
-	sphere_to_ray = subtract_tuples(ray->origin, sphere->position);
+	sphere_to_ray = subtract_tuples(ray->origin, point(0, 0, 0));
 	a = dot_product(ray->direction, ray->direction);
 	b = 2 * dot_product(ray->direction, sphere_to_ray);
 	xs->t = (-b - sqrt(discriminant)) / (2 * a);

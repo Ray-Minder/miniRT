@@ -4,10 +4,10 @@ t_color shade_hit(t_scene *scene, t_comps *comps)
 {
 	t_color final_color;
 
-	if (is_shadowed(scene, comps->point))
-		final_color = scene->ambient_light.color;
-	else
-		final_color = lighting(scene, comps);
+	// if (is_shadowed(scene, comps->point))
+	// 	final_color = scene->ambient_light.color;
+	// else
+	final_color = lighting(scene, comps);
 	return (final_color);
 }
 
