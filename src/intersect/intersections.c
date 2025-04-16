@@ -14,8 +14,8 @@ t_x	*intersect(t_ray *ray, t_object *object)
 		return (sphere_intersect(&transformed_ray, object));
 	if (object->type == PLANE)
 		return (plane_intersect(&transformed_ray, object));
-	// if (object->type == CYLINDER)
-	// 	return (cylinder_intersect(&transformed_ray, object));
+	if (object->type == CYLINDER)
+		return (cylinder_intersect(&transformed_ray, object));
 	printf("Returning intersect because the object type wasn't SPHERE\n");
 	return (NULL);
 }

@@ -66,6 +66,8 @@ t_color color_at(t_scene *scene, t_ray *ray);
 // intersect_world.c
 
 t_x *intersect_world(t_scene *scene, t_ray *ray);
+t_x *cylinder_intersect(t_ray *ray, t_object *cylinder);
+
 
 //	===== LIGHTING =====
 
