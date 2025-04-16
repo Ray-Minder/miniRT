@@ -7,10 +7,10 @@
 
 # define MAX_WINDOW_WIDTH 3840
 # define MAX_WINDOW_HEIGHT 2160
-# define WINDOW_WIDTH 800
-# define WINDOW_HEIGHT 600
-# define MIN_WINDOW_WIDTH 500
-# define MIN_WINDOW_HEIGHT 500
+# define WINDOW_WIDTH 200
+# define WINDOW_HEIGHT 200
+# define MIN_WINDOW_WIDTH 200
+# define MIN_WINDOW_HEIGHT 200
 
 
 //	===== FUNCTIONS =====
@@ -127,6 +127,7 @@ void 	print_matrix(t_matrix* matrix);
 
 void	key_hooks(mlx_key_data_t keydata, void *param);
 void mouse_hook(enum mouse_key button, enum action action, enum modifier_key mods, void *param);
+void print_ray(t_ray ray);
 
 
 //	===== RAYS =====

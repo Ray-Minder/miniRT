@@ -83,11 +83,13 @@ t_x	*sphere_intersect(t_ray *ray, t_object *sphere)
 	xs->next = new_intersection_node();
 	if (!xs->next)
 		return (free_intersections_list(&xs), NULL);
-	sphere_to_ray = subtract_tuples(ray->origin, sphere->position);
+	sphere_to_ray = subtract_tuples(ray->origin, point(0, 0, 0));
 	a = dot_product(ray->direction, ray->direction);
 	b = 2 * dot_product(ray->direction, sphere_to_ray);
+	printf("a: %f, b: %f\n", a, b);
 	xs->t = (-b - sqrt(discriminant)) / (2 * a);
 	xs->next->t = (-b + sqrt(discriminant)) / (2 * a);
+	printf("xs->t: %f, xs->next->t: %f\n", xs->t, xs->next->t);
 	xs->hit = true;
 	xs->object = sphere;
 	if (xs->next)
@@ -136,7 +138,9 @@ double	calculate_discriminant(t_ray *ray)
 	a = dot_product(ray->direction, ray->direction);
 	b = 2 * dot_product(ray->direction, sphere_to_ray);
 	c = dot_product(sphere_to_ray, sphere_to_ray) - 1;
-	discriminant = b * b - 4 * a * c;
+	discriminant = (b * b) - 4.0 * a * c;
+	printf("a: %f, b: %f, c: %f\n", a, b, c);
+	printf("discriminant: %f\n", discriminant);
 
 	return (discriminant);
 }

@@ -42,9 +42,39 @@ int main(int argc, char *argv[])
 	}
 	set_transforms(data.scene);
 	
+	
 	data.cam = &data.scene->camera;
 	camera(&data, radians(data.cam->fov));
-	
+
+	printf("Object transform:\n");
+	print_matrix(data.scene->objects->transform);
+
+	printf("Camera transform:\n");
+	print_matrix(data.scene->camera.transform);
+
+	t_ray ray;
+	t_ray transformed_ray;
+
+	ray = ray_for_pixel(data.cam, 173, 106);
+	transformed_ray = transform_ray(&ray, data.scene->objects->inverse_transform);
+
+	print_ray(ray);
+	printf("transform ray:\n");
+	print_ray(transformed_ray);
+
+	t_x *_hit;
+	t_x *xs_list;
+
+	xs_list = sphere_intersect(&transformed_ray, data.scene->objects);
+	_hit = hit(xs_list);
+	if (_hit && _hit->hit)
+	{
+		printf("Hit: %f\n", _hit->t);
+	}
+	else
+	{
+		printf("No hit\n");
+	}
 	render_scene(&data);
 	mlx_key_hook(data.mlx, &key_hooks, (void *) &data);
 	mlx_mouse_hook(data.mlx, &mouse_hook, (void*) &data);

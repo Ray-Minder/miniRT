@@ -1,5 +1,7 @@
 #include "../../include/minirt.h"
 
+void print_ray(t_ray ray);
+
 void	key_hooks(mlx_key_data_t keydata, void *param)
 {
 	t_data	*data;
@@ -17,14 +19,22 @@ t_x *intersect_world_debug(t_scene *scene, t_ray *ray)
 	t_x			*xs_list;
 	t_x			*xs;
 	t_object	*object;
+	t_ray		transformed_ray;
 
 	xs_list = NULL;
 	object = scene->objects;
 	while (object)
 	{
 		xs = intersect(ray, object);
+		transformed_ray = transform_ray(ray, object->inverse_transform);
+		printf("transformed ray:\n");
+		print_ray(transformed_ray);
 		if (xs && !compare_doubles(xs->t, 0))
+		{
+			printf("transformed ray:\n");
+			print_ray(transformed_ray);
 			add_intersection_node(&xs_list, xs);
+		}
 		object = object->next;
 	}
 	return (xs_list);
@@ -75,7 +85,7 @@ t_tuple normal_at_sphere_debug(t_object *object, t_tuple world_point)
 	}
 	printf("World point: ");
 	print_tuple(world_point);
-	object_point = multiply_matrix_by_tuple(object->transform, world_point);
+	object_point = multiply_matrix_by_tuple(invert_matrix(object->transform), world_point);
 	printf("Object point: ");
 	print_tuple(object_point);
 	// object_point = multiply_matrix_by_tuple(invert_matrix(identity(4)), world_point);
@@ -86,10 +96,20 @@ t_tuple normal_at_sphere_debug(t_object *object, t_tuple world_point)
 	printf("World normal: ");
 	print_tuple(world_normal);
 	world_normal.w = 0;
-	world_normal = subtract_tuples(world_point, object->position);
-	printf("World normal after subtracting position: ");
+	// world_normal = subtract_tuples(world_point, object->position);
+	printf("World normal normalized: ");
 	print_tuple(normalize_tuple(world_normal));
 	return (normalize_tuple(world_normal));
+}
+
+void print_ray(t_ray ray)
+{
+	printf("Ray:\n");
+	printf("  Origin: ");
+	print_tuple(ray.origin);
+	printf("  Direction: ");
+	print_tuple(ray.direction);
+	printf("magnitude: %f\n", tuple_magnitude(ray.direction));
 }
 
 void mouse_hook(enum mouse_key button, enum action action, enum modifier_key mods, void *param)
@@ -112,10 +132,7 @@ void mouse_hook(enum mouse_key button, enum action action, enum modifier_key mod
 		printf("Mouse position: (%d, %d)\n", x, y);
 		t_ray ray;
 		ray = ray_for_pixel(data->cam, x, y);
-		printf("Ray origin: ");
-		print_tuple(ray.origin);
-		printf("Ray direction: ");
-		print_tuple(ray.direction);
+		print_ray(ray);
 
 		t_x *xs_list;
 		t_x *_hit;

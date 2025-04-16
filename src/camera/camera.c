@@ -14,6 +14,7 @@ void	camera(t_data *data, double field_of_view)
 	data->cam->origin = multiply_matrix_by_tuple(data->cam->inverse_transform, point(0, 0, 0));
 	data->cam->half_view = tan(field_of_view / 2);
 	data->cam->aspect = data->cam->hsize / data->cam->vsize;
+	printf("aspect: %f\n", data->cam->aspect);
 	if (data->cam->aspect >= 1)
 	{
 		data->cam->half_height = data->cam->half_view / data->cam->aspect;
