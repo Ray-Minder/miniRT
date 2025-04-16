@@ -26,8 +26,8 @@ t_tuple	normal_at_plane(t_object *object, t_tuple world_point)
 	}
 	(void) world_point;
 	object_normal = vector(0, 1, 0);
-	// return (multiply_matrix_by_tuple(transpose_matrix(invert_matrix(object->transform)), object_normal));
-	return (object->direction);
+	return (multiply_matrix_by_tuple(transpose_matrix(invert_matrix(object->transform)), object_normal));
+	// return (object->direction);
 }
 
 t_tuple normal_at_cylinder(t_object *object, t_tuple world_point)
