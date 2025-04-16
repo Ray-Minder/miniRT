@@ -73,6 +73,8 @@ t_tuple normal_at_sphere_debug(t_object *object, t_tuple world_point)
 	t_tuple object_normal;
 	// t_tuple world_point;
 	t_tuple world_normal;
+	if (!object)
+		return (point(0,0,0));
 
 	if (object->type != SPHERE)
 	{
@@ -122,13 +124,17 @@ void mouse_hook(enum mouse_key button, enum action action, enum modifier_key mod
 
 		t_x *xs_list;
 		t_x *_hit;
+		xs_list = NULL;
 		xs_list = intersect_world_debug(data->scene, &ray);
 		// print_intersection_list(xs_list);
 		_hit = hit(xs_list);
 		// print_hit(_hit);
-		comps = prepare_computations(_hit, &ray);
-		normal_at_sphere_debug(_hit->object, comps->point);
-		printf("hit t: %f\n", _hit->t);
+		if (_hit)
+		{
+			comps = prepare_computations(_hit, &ray);
+			normal_at_sphere_debug(_hit->object, comps->point);
+			printf("hit t: %f\n", _hit->t);
+		}
 		// print_comps(comps);
 	}	
 }
