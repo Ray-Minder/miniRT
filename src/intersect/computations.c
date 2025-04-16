@@ -51,11 +51,11 @@ t_comps	*prepare_computations(t_x *hit, t_ray *ray)
 	comps->eyev = negate_tuple(ray->direction);
 	comps->normalv = normal_at(comps->object, comps->point);
 	comps->inside = false;
-	if (dot_product(comps->normalv, comps->eyev) < 0)
-	{
-		comps->inside = true;
-		comps->normalv = negate_tuple(comps->normalv);
-	}
+	// if (dot_product(comps->normalv, comps->eyev) < 0)
+	// {
+	// 	comps->inside = true;
+	// 	comps->normalv = negate_tuple(comps->normalv);
+	// }
 	return (comps);
 }
 
