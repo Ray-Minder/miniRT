@@ -55,7 +55,7 @@ t_x *cylinder_intersect(t_ray *ray, t_object *cylinder)
 	}
 	double y0 = ray->origin.y + xs->t * ray->direction.y;
 	double y1 = ray->origin.y + xs->next->t * ray->direction.y;
-	if ((-cylinder->height / 2) < y0 && y0 < (cylinder->height / 2))
+	if ((0) < y0 && y0 < (cylinder->height * 2))
 	{
 		xs->hit = true;
 	}
@@ -64,7 +64,7 @@ t_x *cylinder_intersect(t_ray *ray, t_object *cylinder)
 		xs->t = 0;
 		xs->hit = false;
 	}
-	if ((-cylinder->height / 2) < y1 && y1 < (cylinder->height / 2))
+	if ((0) < y1 && y1 < (cylinder->height * 2))
 	{
 		xs->next->hit = true;
 	}
