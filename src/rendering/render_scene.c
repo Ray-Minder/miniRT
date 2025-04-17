@@ -22,6 +22,8 @@ void	render_row(void *param)
 
 void render_scene(t_data *data)
 {
+	// printf("In render scene\n");
+	// print_objects(data->scene->objects);
 	if (mlx_image_to_window(data->mlx, data->canvas, 0, 0) < 0)
 	{
 		print_error_msg("Failure to put image to window\n");

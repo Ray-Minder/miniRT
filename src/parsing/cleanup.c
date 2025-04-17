@@ -8,7 +8,8 @@ void	cleanup(t_scene *scene)
 	object = scene->objects;
 	while (object)
 	{
-		free(object->transform);
+		if (object->transform)
+			free_matrix(&object->transform);
 		next = object->next;
 		free(object);
 		object = next;

@@ -45,8 +45,11 @@ uint32_t	color_to_uint32(t_color color);
 
 //	clean.c
 
-void	clean(t_data *data, char *error_msg);
-void	clean_and_exit(t_data *data, char *error_msg, int exit_code);
+void	clean_and_exit(t_data *data, int	exit_code);
+void	free_scene(t_scene **scene);
+void	free_camera(t_camera *camera);
+void	free_light(t_light *light);
+
 
 //	print_error.c
 
@@ -55,7 +58,7 @@ void	print_errno(char *function_name);
 
 //	===== INIT =====
 
-void	init_data(t_data *data);
+void	init_data(t_data *data, t_scene *scene);
 void	init_mlx(t_data	*data);
 
 //	===== INTERSECT =====
@@ -88,7 +91,7 @@ bool	is_shadowed(t_scene *scene, t_tuple point);
 
 //	specular_lighting.c
 
-t_color	specular_lighting(t_light light, t_material material, double reflect_dot_eye);
+// t_color	specular_lighting(t_light light, t_material material, double reflect_dot_eye);
 
 
 //	===== MATRICES ======
@@ -198,26 +201,34 @@ t_matrix	*chain_transformations(t_matrix *matrices[]);
 
 //	===== TUPLES =====
 
+//	tuples.c
+
 t_tuple	tuple(double x, double y, double z, double w);
 t_tuple	point(double x, double y, double z);
 t_tuple	vector(double x, double y, double z);
-t_tuple add_tuples(t_tuple a, t_tuple b);
+
+//	tuples_advanced_operations.c
+
+double	tuple_magnitude(t_tuple t);
+t_tuple	normalize_tuple(t_tuple t);
+double	dot_product(t_tuple a, t_tuple b);
+t_tuple	cross_product(t_tuple a, t_tuple b);
+
+//	tuples_basic_operations.c
+
+t_tuple	add_tuples(t_tuple a, t_tuple b);
 t_tuple	subtract_tuples(t_tuple a, t_tuple b);
 t_tuple	negate_tuple(t_tuple t);
 t_tuple	multiply_tuple_by_scalar(t_tuple t, double scalar);
 t_tuple	divide_tuple_by_scalar(t_tuple t, double scalar);
-double  tuple_magnitude(t_tuple t);
-t_tuple normalize_tuple(t_tuple t);
-t_tuple normalize_point(t_tuple t);
-double  dot_product(t_tuple a, t_tuple b);
-t_tuple cross_product(t_tuple a, t_tuple b);
-void	print_tuple(t_tuple tuple);
-bool	compare_tuples(t_tuple a, t_tuple b);
 
 //	tuple_utils.c
 
+void 	print_tuple(t_tuple tuple);
+bool	compare_tuples(t_tuple a, t_tuple b);
 t_color	tuple_to_color(t_tuple tuple);
 t_tuple	color_to_tuple(t_color color);
+bool	is_zero_vector(t_tuple v);
 
 //	===== UTILITIES =====
 

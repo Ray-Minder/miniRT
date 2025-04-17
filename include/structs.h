@@ -55,8 +55,8 @@ typedef struct s_camera
 	bool		is_set;
 	t_tuple		position;
 	t_tuple		forward;
-	t_matrix	*transform;
-	t_matrix	*inverse_transform;
+	t_matrix	*transform;			// Transforms from object space to world space
+	t_matrix	*inverse_transform;	// Transforms from world space to object space
 	t_tuple		origin;
 	double		fov;
 	double		hsize;
@@ -70,47 +70,12 @@ typedef struct s_camera
 
 typedef struct s_light
 {
-	bool	is_set;
-	t_tuple	position;
-	t_matrix	*transform;
-	double	brightness;
-	t_color	color;
+	bool		is_set;
+	t_tuple		position;
+	t_matrix	*transform;	//Not needed (probably)
+	double		brightness;
+	t_color		color;
 }	t_light;
-
-// typedef struct s_sphere
-// {
-// 	t_tuple	position;
-// 	double	diameter;
-// 	t_color	color;
-// 	struct s_sphere	*next;
-// }	t_sphere;
-
-// typedef struct s_plane
-// {
-// 	t_tuple	point;
-// 	t_tuple	normal;
-// 	t_color	color;
-// 	struct s_plane	*next;
-// }	t_plane;
-
-// typedef struct s_cylinder
-// {
-// 	t_tuple	position;
-// 	t_tuple	axis;
-// 	double	diameter;
-// 	double	height;
-// 	t_color	color;
-// 	struct s_cylinder	*next;
-// }	t_cylinder;
-
-typedef struct s_material
-{
-	t_color	color;
-	double	ambient;	//How much ambient light it reflects.		[0, 1]
-	double	diffuse;	//How much diffuse light it reflects.		[0, 1]
-	double	specular;	//How much specular light it reflects.		[0, 1]
-	double	shininess;	//Controls the size of specular highlight.	[10, ~]
-}	t_material;
 
 
 typedef struct s_object
@@ -118,9 +83,10 @@ typedef struct s_object
 	t_object_type	type;
 	t_tuple			position;
 	t_tuple			direction;
-	t_matrix		*transform;
-	t_matrix		*inverse_transform;
-	t_material		material;
+	t_matrix		*transform;			// Transforms from object space to world space
+	t_matrix		*inverse_transform;	// Transforms from world space to object space
+	t_matrix		*inverse_transpose;
+	t_color			color;
 	double			diameter;
 	double			height;
 	struct s_object	*next;
@@ -130,7 +96,7 @@ typedef struct s_intersection
 {
 	t_object	*object;
 	double		t;
-	bool		hit;
+	bool		is_hit;
 	t_x			*next;
 }	t_x;
 
@@ -142,6 +108,7 @@ typedef struct s_comps
 	t_tuple		eyev;		//The vector pointing from the point to the eye/camera.
 	t_tuple		normalv;	//The normal vector at the intersection point (in world space).
 	bool		inside;		//A boolean to check if the ray was originating from inside the object.
+	t_tuple		over_point;	//The point just above the intersection point, used to avoid shadow acne.
 }	t_comps;
 
 typedef struct s_scene

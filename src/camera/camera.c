@@ -1,5 +1,16 @@
 #include "../../include/minirt.h"
 
+/**
+ * @brief Initializes the camera with the given field of view.
+ * 
+ * @param data Pointer to the data structure containing camera and scene information.
+ * @param field_of_view The field of view in radians.
+ * 
+ * This function sets the camera's horizontal and vertical size, field of view,
+ * inverse transformation matrix, origin, half view, aspect ratio, half height,
+ * half width, and pixel size based on the provided field of view.
+ * It also calculates the camera's transformation matrix.
+ */
 void	camera(t_data *data, double field_of_view)
 {
 	data->cam->hsize = data->width;

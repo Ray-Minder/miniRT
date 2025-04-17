@@ -1,5 +1,18 @@
 #include "../../include/minirt.h"
 
+/**
+ * @brief Intersects a ray with an object.
+ * 
+ * @param ray Pointer to the ray structure.
+ * @param object Pointer to the object structure.
+ * 
+ * @return A linked list of intersection points (t_x) with the object.
+ * 
+ * This function uses the object's inverse transformation matrix
+ * to bring the ray into the object's local space.
+ * It then calculates the intersection points based on the object's type.
+ * If no intersections are found, the list will be empty.
+ */
 t_x	*intersect(t_ray *ray, t_object *object)
 {
 	t_ray		transformed_ray;
@@ -16,29 +29,63 @@ t_x	*intersect(t_ray *ray, t_object *object)
 		return (plane_intersect(&transformed_ray, object));
 	// if (object->type == CYLINDER)
 	// 	return (cylinder_intersect(&transformed_ray, object));
-	printf("Returning intersect because the object type wasn't SPHERE\n");
+	printf("Returning intersect because the object type wasn't SPHERE or PLANE\n");
 	return (NULL);
 }
 
+/**
+ * @brief Finds the closest intersection point from a list of intersections.
+ * 
+ * @param xs_list Pointer to the linked list of intersection points (t_x).
+ * 
+ * @return A pointer to the closest intersection point (t_x)
+ * or NULL if no intersections are found.
+ * 
+ * This function iterates through the list of intersection points
+ * and finds the one with the smallest positive t value.
+ * If no positive t values are found, it returns NULL.
+ */
 t_x	*hit(t_x *xs_list)
 {
-	t_x	*current;
 	t_x	*lowest_hit;
 
 	if (!xs_list)
 		return (NULL);
-	current = xs_list;
 	lowest_hit = NULL;
-	while (current != NULL)
+	lowest_hit = new_intersection_node();
+	if (!lowest_hit)
 	{
-		if (current->t > 0 && (!lowest_hit || current->t < lowest_hit->t))
-			lowest_hit = current;
-		current = current->next;
+		printf("failure to allocate new intersection\n");
+		return (NULL);
 	}
-	// printf("Lowest hit: %f\n", lowest_hit->t);
+	lowest_hit->t = INFINITY;
+	while (xs_list != NULL)
+	{
+		if (xs_list->t > EPSILON && xs_list->t < lowest_hit->t)
+		{
+			lowest_hit->is_hit = true;
+			lowest_hit->t = xs_list->t;
+			lowest_hit->object = xs_list->object;
+		}
+		xs_list = xs_list->next;
+	}
+	if (lowest_hit->is_hit == false)
+	{
+		free(lowest_hit);
+		return (NULL);
+	}
 	return (lowest_hit);
 }
 
+/**
+ * @brief Adds an intersection node to the end of the linked list.
+ * 
+ * @param xs_list Pointer to the head of the linked list of intersection points (t_x).
+ * @param current Pointer to the current intersection point (t_x) to be added.
+ * 
+ * This function traverses the linked list and adds the current intersection point
+ * to the end of the list. If the list is empty, it sets the head to the current point.
+ */
 void	add_intersection_node(t_x **xs_list, t_x *current)
 {
 	t_x	*iterator;
@@ -59,6 +106,17 @@ void	add_intersection_node(t_x **xs_list, t_x *current)
 	iterator->next = current;
 }
 
+/**
+ * @brief Intersects a ray with a sphere.
+ * 
+ * @param ray Pointer to the ray structure.
+ * @param sphere Pointer to the sphere object.
+ * 
+ * @return A linked list of intersection points (t_x) with the sphere.
+ * 
+ * This function calculates the intersection points between the ray and the sphere.
+ * It uses the quadratic formula to find the intersection points.
+ */
 t_x	*sphere_intersect(t_ray *ray, t_object *sphere)
 {
 	t_x		*xs;
@@ -77,7 +135,8 @@ t_x	*sphere_intersect(t_ray *ray, t_object *sphere)
 	if (discriminant < 0)
 	{
 		// printf("There's no intersection because discriminant is less than 0\n");
-		xs->t = 0;
+		xs->t = 0; //Is this a good default value? I think it might be because later we check if t > 0
+		xs->is_hit = false;
 		return (xs);
 	}
 	xs->next = new_intersection_node();
@@ -87,12 +146,12 @@ t_x	*sphere_intersect(t_ray *ray, t_object *sphere)
 	a = dot_product(ray->direction, ray->direction);
 	b = 2 * dot_product(ray->direction, sphere_to_ray);
 	xs->t = (-b - sqrt(discriminant)) / (2 * a);
-	xs->next->t = (-b + sqrt(discriminant)) / (2 * a);
-	xs->hit = true;
+	xs->is_hit = true;
 	xs->object = sphere;
 	if (xs->next)
 	{
-		xs->next->hit = true;
+		xs->next->t = (-b + sqrt(discriminant)) / (2 * a);
+		xs->next->is_hit = true;
 		xs->next->object = sphere;
 		xs->next->next = NULL;
 	}
@@ -100,6 +159,17 @@ t_x	*sphere_intersect(t_ray *ray, t_object *sphere)
 	return (xs);
 }
 
+/**
+ * @brief Intersects a ray with a plane.
+ * 
+ * @param ray Pointer to the ray structure.
+ * @param plane Pointer to the plane object.
+ * 
+ * @return A linked list of intersection points (t_x) with the plane.
+ * 
+ * This function calculates the intersection point between the ray and the plane.
+ * If the ray is parallel to the plane, it returns an intersection point at t = 0.
+ */
 t_x *plane_intersect(t_ray *ray, t_object *plane)
 {
 	t_x *xs;
@@ -119,11 +189,18 @@ t_x *plane_intersect(t_ray *ray, t_object *plane)
 	}
 	// printf("-ray origin y: %f, ray direction y: %f\n", -ray->origin.y, ray->direction.y);
 	xs->t = -ray->origin.y / ray->direction.y;
-	xs->hit = true;
+	xs->is_hit = true;
 	xs->object = plane;
 	return (xs);
 }
 
+/**
+ * @brief Calculates the discriminant for a ray-sphere intersection.
+ * 
+ * @param ray Pointer to the ray structure.
+ * 
+ * @return The discriminant value.
+ */
 double	calculate_discriminant(t_ray *ray)
 {
 	double	a;

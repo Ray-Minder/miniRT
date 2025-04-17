@@ -17,6 +17,7 @@
 		"initializer_list": "c",
 		"span": "c",
 		"utility": "c",
-		"minirt.h": "c"
+		"minirt.h": "c",
+		"random": "c"
 	}
 }

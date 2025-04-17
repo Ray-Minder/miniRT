@@ -15,9 +15,10 @@ void	print_objects(t_object *object_list)
 {
 	while (object_list)
 	{
-		printf("position: %f, %f, %f\n", object_list->position.x, object_list->position.y, object_list->position.z);
-		printf("diameter: %f\n", object_list->diameter);
-		printf("color: %f, %f, %f\n\n\n", object_list->material.color.r, object_list->material.color.g, object_list->material.color.b);
+		printf("Position: %f, %f, %f\n", object_list->position.x, object_list->position.y, object_list->position.z);
+		printf("Diameter: %f\n", object_list->diameter);
+		printf("Color: %f, %f, %f\n", object_list->color.r, object_list->color.g, object_list->color.b);
+		printf("Transform matrix: \n");
 		print_matrix(object_list->transform);
 		object_list = object_list->next;
 	}

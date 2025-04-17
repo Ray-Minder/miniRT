@@ -2,6 +2,6 @@
 # define CONSTANTS_H
 
 # define PI 3.141592653589793
-# define EPSILON 0.00001
+# define EPSILON 0.0001
 
 #endif
