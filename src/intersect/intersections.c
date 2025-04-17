@@ -61,15 +61,15 @@ t_x	*hit(t_x *xs_list)
 	lowest_hit->t = INFINITY;
 	while (xs_list != NULL)
 	{
-		if (xs_list->t > 0 && xs_list->t < lowest_hit->t)
+		if (xs_list->t > EPSILON && xs_list->t < lowest_hit->t)
 		{
-			lowest_hit->hit = true;
+			lowest_hit->is_hit = true;
 			lowest_hit->t = xs_list->t;
 			lowest_hit->object = xs_list->object;
 		}
 		xs_list = xs_list->next;
 	}
-	if (lowest_hit->hit == false)
+	if (lowest_hit->is_hit == false)
 	{
 		free(lowest_hit);
 		return (NULL);
@@ -135,7 +135,8 @@ t_x	*sphere_intersect(t_ray *ray, t_object *sphere)
 	if (discriminant < 0)
 	{
 		// printf("There's no intersection because discriminant is less than 0\n");
-		xs->t = 0;
+		xs->t = 0; //Is this a good default value? I think it might be because later we check if t > 0
+		xs->is_hit = false;
 		return (xs);
 	}
 	xs->next = new_intersection_node();
@@ -145,12 +146,12 @@ t_x	*sphere_intersect(t_ray *ray, t_object *sphere)
 	a = dot_product(ray->direction, ray->direction);
 	b = 2 * dot_product(ray->direction, sphere_to_ray);
 	xs->t = (-b - sqrt(discriminant)) / (2 * a);
-	xs->next->t = (-b + sqrt(discriminant)) / (2 * a);
-	xs->hit = true;
+	xs->is_hit = true;
 	xs->object = sphere;
 	if (xs->next)
 	{
-		xs->next->hit = true;
+		xs->next->t = (-b + sqrt(discriminant)) / (2 * a);
+		xs->next->is_hit = true;
 		xs->next->object = sphere;
 		xs->next->next = NULL;
 	}
@@ -188,7 +189,7 @@ t_x *plane_intersect(t_ray *ray, t_object *plane)
 	}
 	// printf("-ray origin y: %f, ray direction y: %f\n", -ray->origin.y, ray->direction.y);
 	xs->t = -ray->origin.y / ray->direction.y;
-	xs->hit = true;
+	xs->is_hit = true;
 	xs->object = plane;
 	return (xs);
 }

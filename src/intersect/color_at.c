@@ -23,7 +23,7 @@ t_color color_at(t_scene *scene, t_ray *ray)
 	xs_list = intersect_world(scene, ray);
 	_hit = hit(xs_list); // Add prepare computations within this function?
 	free_intersections_list(&xs_list);
-	if (_hit && _hit->hit)
+	if (_hit && _hit->is_hit)
 		comps = prepare_computations(_hit, ray);
 	else
 		return (scene->ambient_light.color); //Is this right though? Or maybe a black background that intersects with ambient light?

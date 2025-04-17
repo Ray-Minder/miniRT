@@ -77,15 +77,6 @@ typedef struct s_light
 	t_color		color;
 }	t_light;
 
-// typedef struct s_material
-// {
-// 	t_color	color;
-// 	// double	ambient;	//How much ambient light it reflects.		[0, 1]
-// 	// double	diffuse;	//How much diffuse light it reflects.		[0, 1]
-// 	// double	specular;	//How much specular light it reflects.		[0, 1]
-// 	// double	shininess;	//Controls the size of specular highlight.	[10, ~]
-// }	t_material;
-
 
 typedef struct s_object
 {
@@ -105,7 +96,7 @@ typedef struct s_intersection
 {
 	t_object	*object;
 	double		t;
-	bool		hit;
+	bool		is_hit;
 	t_x			*next;
 }	t_x;
 
