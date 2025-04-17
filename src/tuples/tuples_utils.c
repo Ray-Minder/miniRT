@@ -21,9 +21,9 @@ bool	is_zero_vector(t_tuple v);
  */
 void print_tuple(t_tuple tuple)
 {
-	if (tuple.w == 0.0)
+	if (compare_doubles(tuple.w, 0.0))
 		printf("The tuple is a vector.\n");
-	else if (tuple.w == 1.0)
+	else if (compare_doubles(tuple.w, 1.0))
 		printf("The tuple is a point.\n");
 	else
 		printf("The tuple is neither a vector nor a point.\n");

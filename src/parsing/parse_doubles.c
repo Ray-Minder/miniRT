@@ -89,6 +89,7 @@ int	parse_tuple(char *line, t_tuple *tuple)
 	error = parse_double(split_line[0], &tuple->x);
 	error += parse_double(split_line[1], &tuple->y);
 	error += parse_double(split_line[2], &tuple->z);
+	tuple->w = 1;
 	if (error != SUCCESS)
 	{
 		ft_free_ptrs(split_line);
