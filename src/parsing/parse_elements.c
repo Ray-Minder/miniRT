@@ -42,6 +42,7 @@ int	parse_camera(char **line, t_scene *scene)
 	error = parse_tuple(line[1], &scene->camera.position);
 	if (error != SUCCESS)
 		return (error);
+	scene->camera.position.w = 1;
 	error = parse_tuple(line[2], &scene->camera.forward);
 	if (error != SUCCESS)
 		return (error);
@@ -65,6 +66,7 @@ int	parse_light(char **line, t_scene *scene)
 	error = parse_tuple(line[1], &scene->light.position);
 	if (error != SUCCESS)
 		return (error);
+	scene->light.position.w = 1;
 	error = parse_double(line[2], &scene->light.brightness);
 	if (error != SUCCESS)
 		return (error);

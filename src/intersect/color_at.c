@@ -26,7 +26,7 @@ t_color color_at(t_scene *scene, t_ray *ray)
 	if (_hit && _hit->is_hit)
 		comps = prepare_computations(_hit, ray);
 	else
-		return (hadamard_product(color(0, 0, 0), scene->ambient_light.color)); //Is this right though? Or maybe a black background that intersects with ambient light?
+		return (hadamard_product(color(0, 0, 0), scene->ambient_light.color));
 	final_color = shade_hit(scene, comps);
 	ft_free((void **) &comps);
 	free_intersections_list(&_hit); // Sometimes we get a double free because the hit list takes nodes from the intersect list.

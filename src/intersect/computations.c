@@ -16,9 +16,7 @@
 t_comps	*prepare_computations(t_x *hit, t_ray *ray)
 {
 	t_comps	*comps;
-	// t_ray 	transformed_ray;
 
-	// transformed_ray = transform_ray(ray, hit->object->inverse_transform);
 	comps = ft_calloc(1, sizeof(t_comps));
 	if (!comps)
 	{
