@@ -143,14 +143,39 @@ int set_plane_transform(t_object *plane)
 	plane->transform = tuples_to_matrix(plane->direction, right, forward, plane->position);
 	if (!plane->transform)
 		return (MALLOC_FAIL);
-	printf("right:\n");
-	print_tuple(right);
-	printf("forward:\n");
-	print_tuple(forward);
-	printf("up:\n");
-	print_tuple(plane->direction);
-	printf("\nplane transform:\n");
-	print_matrix(plane->transform);
+	return (SUCCESS);
+}
+
+int set_cylinder_transform(t_object *cylinder)
+{
+	t_tuple forward;
+	t_tuple right;
+	t_matrix *chain[4];
+	
+	chain[3] = NULL;
+	chain[0] = scaling(cylinder->diameter / 2, cylinder->diameter / 2, cylinder->diameter / 2);
+	if (!chain[0])
+		return (MALLOC_FAIL);
+	chain[1] = translation(cylinder->position.x, cylinder->position.y, cylinder->position.z);
+	if (!chain[1])
+		return (MALLOC_FAIL);
+	
+	cylinder->direction = normalize_tuple(cylinder->direction);
+	right = cross_product(cylinder->direction, vector(0, 0, 1));
+	if (compare_doubles(right.x, 0) && compare_doubles(right.y, 0) && compare_doubles(right.z, 0))
+		right = cross_product(vector(0, 1, 0), cylinder->direction);
+	right = normalize_tuple(right);
+	forward = cross_product(right, cylinder->direction);
+	forward = normalize_tuple(forward);
+	chain[2] = tuples_to_matrix(cylinder->direction, right, forward, cylinder->position);
+	if (!chain[2])
+		return (MALLOC_FAIL);
+	cylinder->transform = chain_transformations(chain);
+	free_matrix(&chain[0]);
+	free_matrix(&chain[1]);
+	free_matrix(&chain[2]);
+	if (!cylinder->transform)
+		return (MALLOC_FAIL);
 	return (SUCCESS);
 }
 
@@ -162,6 +187,8 @@ int set_object_transforms(t_object *objects)
 			set_sphere_transform(objects);
 		else if (objects->type == PLANE)
 			set_plane_transform(objects);
+		else if (objects->type == CYLINDER)
+			set_cylinder_transform(objects);
 		if (!objects->transform)
 			return (MALLOC_FAIL);
 		objects->inverse_transform = invert_matrix(objects->transform);
