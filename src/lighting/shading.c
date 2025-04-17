@@ -22,9 +22,13 @@ bool is_shadowed(t_scene *scene, t_tuple over_point)
 	t_x		*the_hit;
 
 	light_vector = subtract_tuples(scene->light.position, over_point);
+	light_vector.w = 0;
 	distance = tuple_magnitude(light_vector);
 	shadow_ray.origin = over_point;
 	shadow_ray.direction = normalize_tuple(light_vector);
+	// printf("Shadow ray:\n");
+	// print_tuple(shadow_ray.origin);
+	// print_tuple(shadow_ray.direction);
 	xs_list = intersect_world(scene, &shadow_ray);
 	the_hit = hit(xs_list);
 	free_intersections_list(&xs_list);

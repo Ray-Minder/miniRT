@@ -27,7 +27,7 @@ t_comps	*prepare_computations(t_x *hit, t_ray *ray)
 	}
 	comps->hit = hit;
 	comps->object = hit->object;
-	comps->point = position(*ray, hit->t); //Is this right? Or should it be the transformed ray?
+	comps->point = position(*ray, hit->t);
 	comps->normalv = normal_at(comps->object, comps->point);
 	comps->inside = false;
 	if (dot_product(comps->normalv, ray->direction) > 0)

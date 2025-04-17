@@ -123,6 +123,23 @@ void mouse_hook(enum mouse_key button, enum action action, enum modifier_key mod
 		// print_hit(_hit);
 		comps = prepare_computations(_hit, &ray);
 		normal_at_sphere_debug(_hit->object, comps->point);
+
+		t_tuple	light_vector;
+		double	distance;
+		t_ray	shadow_ray;
+		
+
+		light_vector = subtract_tuples(data->scene->light.position, comps->over_point);
+		distance = tuple_magnitude(light_vector);
+		shadow_ray.origin = comps->over_point;
+		shadow_ray.direction = normalize_tuple(light_vector);
+		printf("Light vector: ");
+		print_tuple(light_vector);
+		printf("Over point: ");
+		print_tuple(comps->over_point);
+		printf("Shadow ray:\n");
+		print_tuple(shadow_ray.origin);
+		print_tuple(shadow_ray.direction);
 		// print_comps(comps);
 	}	
 }
