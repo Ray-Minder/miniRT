@@ -34,7 +34,17 @@ t_tuple normal_at_cylinder(t_object *object, t_tuple world_point)
 {
 	t_tuple object_normal;
 	t_tuple object_point;
+	double distance;
 
+	distance = world_point.x * world_point.x + world_point.z * world_point.z;
+	if (distance < 1.0 && compare_doubles(world_point.y, object->height))
+	{
+		return (vector(0, 1, 0));
+	}
+	else if (distance < 1.0 && compare_doubles(world_point.y, 0.0))
+	{
+		return (vector(0, -1, 0));
+	}	
 	if (object->type != CYLINDER)
 	{
 		ft_putstr_fd("Error: normal_at_cylinder\n", 2);
