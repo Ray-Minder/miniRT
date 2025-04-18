@@ -28,5 +28,4 @@ static void	call_mlx_functions(t_data *data)
 	mlx_key_hook(data->mlx, &key_hooks, (void *) data);
 	mlx_mouse_hook(data->mlx, &mouse_hook, (void *) data);
 	mlx_loop(data->mlx);
-	mlx_terminate(data->mlx);
 }
