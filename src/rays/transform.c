@@ -1,13 +1,13 @@
 #include "../../include/minirt.h"
 
-t_ray	transform_ray(t_ray *ray, t_matrix *matrix)
+t_ray	transform_ray(t_data *data, t_ray *ray, t_matrix *matrix)
 {
 	t_ray	transformed_ray;
 
 	if (!ray || !is_matrix_initialized(matrix) || matrix->rows != 4)
 	{
-		print_error_msg("Error multiplying a matrix by a tuple");
-		return (*ray);
+		print_error_msg("Error\nCouldn't transform a ray\n");
+		clean_and_exit(data, EXIT_FAILURE);
 	}
 	transformed_ray.origin = multiply_matrix_by_tuple(matrix, ray->origin);
 	transformed_ray.direction = multiply_matrix_by_tuple(matrix, ray->direction);

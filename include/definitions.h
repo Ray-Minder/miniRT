@@ -67,11 +67,11 @@ void	init_data(t_data *data);
 //	===== INTERSECT =====
 
 //	color_at.c
-t_color color_at(t_scene *scene, t_ray *ray);
+t_color color_at(t_data *data, t_ray *ray);
 
 // intersect_world.c
 
-t_x *intersect_world(t_scene *scene, t_ray *ray);
+t_x *intersect_world(t_data *data, t_ray *ray);
 
 //	===== LIGHTING =====
 
@@ -89,8 +89,8 @@ t_color	lighting(t_scene *scene, t_comps *comps);
 
 //	shading.c
 
-t_color	shade_hit(t_scene *scene, t_comps *comps);
-bool	is_shadowed(t_scene *scene, t_tuple point);
+t_color	shade_hit(t_data *data, t_comps *comps);
+bool	is_shadowed(t_data *data, t_tuple over_point);
 
 //	specular_lighting.c
 
@@ -153,7 +153,7 @@ void	print_intersection_list(t_x *xs_list);
 
 //	intersections.c
 
-t_x		*intersect(t_ray *ray, t_object *object);
+t_x		*intersect(t_data *data, t_ray *ray, t_object *object);
 t_x		*hit(t_x *xs_list);
 void	add_intersection_node(t_x **xs_list, t_x *current);
 t_x		*sphere_intersect(t_ray *ray, t_object *sphere);
@@ -168,7 +168,7 @@ t_tuple	position(t_ray ray, double t);
 
 //	transform.c
 
-t_ray	transform_ray(t_ray *ray, t_matrix *matrix);
+t_ray	transform_ray(t_data *data, t_ray *ray, t_matrix *matrix);
 void	set_transform(t_object *object, t_matrix *transformation);
 
 //	===== RENDERING =====
@@ -187,7 +187,7 @@ void 	render_sphere(t_data *data);
 
 //	render.c
 
-void	render(t_data *data, t_camera *cam, t_scene *scene);
+void	render(t_data *data);
 
 //	===== TRANSFORMATIONS =====
 

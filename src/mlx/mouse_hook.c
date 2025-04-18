@@ -10,7 +10,7 @@ void print_ray(t_ray ray)
 	printf("magnitude: %f\n", tuple_magnitude(ray.direction));
 }
 
-t_x *intersect_world_debug(t_scene *scene, t_ray *ray)
+t_x *intersect_world_debug(t_data *data, t_scene *scene, t_ray *ray)
 {
 	t_x			*xs_list;
 	t_x			*xs;
@@ -21,8 +21,8 @@ t_x *intersect_world_debug(t_scene *scene, t_ray *ray)
 	object = scene->objects;
 	while (object)
 	{
-		xs = intersect(ray, object);
-		transformed_ray = transform_ray(ray, object->inverse_transform);
+		xs = intersect(data, ray, object);
+		transformed_ray = transform_ray(data, ray, object->inverse_transform);
 		printf("transformed ray:\n");
 		print_ray(transformed_ray);
 		if (xs && !compare_doubles(xs->t, 0))
@@ -125,7 +125,7 @@ void mouse_hook(enum mouse_key button, enum action action, enum modifier_key mod
 		t_x *xs_list;
 		t_x *_hit;
 		xs_list = NULL;
-		xs_list = intersect_world_debug(data->scene, &ray);
+		xs_list = intersect_world_debug(data, data->scene, &ray);
 		// print_intersection_list(xs_list);
 		_hit = hit(xs_list);
 		// print_hit(_hit);
