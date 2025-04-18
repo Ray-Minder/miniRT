@@ -153,10 +153,10 @@ int set_cylinder_transform(t_object *cylinder)
 	t_matrix *chain[4];
 	
 	chain[3] = NULL;
-	chain[0] = scaling(cylinder->diameter / 2, cylinder->diameter / 2, cylinder->diameter / 2);
+	chain[0] = scaling(cylinder->diameter / 2, 1, cylinder->diameter / 2);
 	if (!chain[0])
 		return (MALLOC_FAIL);
-	chain[1] = translation(cylinder->position.x, cylinder->position.y, cylinder->position.z);
+	chain[2] = translation(cylinder->position.x, cylinder->position.y, cylinder->position.z);
 	if (!chain[1])
 		return (MALLOC_FAIL);
 	
@@ -167,7 +167,7 @@ int set_cylinder_transform(t_object *cylinder)
 	right = normalize_tuple(right);
 	forward = cross_product(right, cylinder->direction);
 	forward = normalize_tuple(forward);
-	chain[2] = tuples_to_matrix(cylinder->direction, right, forward, cylinder->position);
+	chain[1] = tuples_to_matrix(cylinder->direction, right, forward, cylinder->position);
 	if (!chain[2])
 		return (MALLOC_FAIL);
 	cylinder->transform = chain_transformations(chain);

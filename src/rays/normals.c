@@ -32,27 +32,32 @@ t_tuple	normal_at_plane(t_object *object, t_tuple world_point)
 
 t_tuple normal_at_cylinder(t_object *object, t_tuple world_point)
 {
+	printf("calucalating normal at cylinder\n");
 	t_tuple object_normal;
 	t_tuple object_point;
+	t_tuple world_normal;
 	double distance;
 
-	distance = world_point.x * world_point.x + world_point.z * world_point.z;
-	if (distance < 1.0 && compare_doubles(world_point.y, object->height))
-	{
-		return (vector(0, 1, 0));
-	}
-	else if (distance < 1.0 && compare_doubles(world_point.y, 0.0))
-	{
-		return (vector(0, -1, 0));
-	}	
-	if (object->type != CYLINDER)
-	{
-		ft_putstr_fd("Error: normal_at_cylinder\n", 2);
-		exit(EXIT_FAILURE);
-	}
 	object_point = multiply_matrix_by_tuple(invert_matrix(object->transform), world_point);
 	object_normal = vector(object_point.x, 0, object_point.z);
-	return (multiply_matrix_by_tuple(transpose_matrix(invert_matrix(object->transform)), object_normal));
+
+	distance = object_point.x * object_point.x + object_point.z * object_point.z;
+	printf("distance: %f\n", distance);
+	if (distance < 1.0 && compare_doubles(object_point.y, object->height))
+	{
+		printf("normal at cylinder top\n");
+		object_normal = vector(0, 1, 0);
+	}
+	else if (distance < 1.0 && compare_doubles(object_point.y, 0.0))
+	{
+		printf("normal at cylinder bottom\n");
+		object_normal = vector(0, -1, 0);
+	}
+	world_normal = multiply_matrix_by_tuple(transpose_matrix(invert_matrix(object->transform)), object_normal);
+	world_normal.w = 0;
+
+	world_normal = normalize_tuple(world_normal);
+	return (world_normal);
 }
 
 t_tuple normal_at_sphere(t_object *object, t_tuple world_point)

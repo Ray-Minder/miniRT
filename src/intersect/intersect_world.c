@@ -11,8 +11,16 @@ t_x *intersect_world(t_scene *scene, t_ray *ray)
 	while (object)
 	{
 		xs = intersect(ray, object);
-		if (xs && !compare_doubles(xs->t, 0))
-			add_intersection_node(&xs_list, xs);
+		while (xs)
+		{
+			// free node that's 0
+			if (xs && !compare_doubles(xs->t, 0))
+			{
+				add_intersection_node(&xs_list, xs);
+				break ;
+			}
+			xs = xs->next;
+		}
 		object = object->next;
 	}
 	return (xs_list);

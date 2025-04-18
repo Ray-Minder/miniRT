@@ -43,14 +43,14 @@ t_x *intersect_caps(t_object *cylinder, t_ray *ray)
 	{
 		return (NULL);
 	}
-	t0 = (cylinder->height - ray->origin.y) / ray->direction.y;
+	t0 = (0 - ray->origin.y) / ray->direction.y;
 	if (check_cap(ray, t0))
 	{
 		printf("t0: %f\n", t0);
 		caps->t = t0;
 		caps->hit = true;
 	}
-	t1 = (-cylinder->height - ray->origin.y) / ray->direction.y;
+	t1 = (cylinder->height - ray->origin.y) / ray->direction.y;
 	if (check_cap(ray, t1))
 	{
 		printf("t1: %f\n", t1);
