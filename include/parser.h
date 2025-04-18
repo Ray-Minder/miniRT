@@ -25,7 +25,7 @@ typedef enum e_error
 }	t_error;
 
 bool	verify_filename(char *filename);
-int		parse_scene(char *filename, t_scene *scene);
+void	parse_scene(t_data *data, char *filename);
 int		parse_ambient_light(char **line, t_scene *scene);
 int		parse_camera(char **line, t_scene *scene);
 int		parse_light(char **line, t_scene *scene);

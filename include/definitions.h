@@ -2,6 +2,7 @@
 # define DEFINITIONS_H
 
 # include "minirt.h"
+# include "parser.h"
 
 # define SCALE 4
 
@@ -12,6 +13,8 @@
 # define MIN_WINDOW_WIDTH 500
 # define MIN_WINDOW_HEIGHT 500
 
+typedef enum e_error t_error;
+
 
 //	===== FUNCTIONS =====
 
@@ -20,7 +23,7 @@
 //	camera.c
 
 // t_camera *camera(double hsize, double vsize, double field_of_view);
-void	camera(t_data *data, double field_of_view);
+void	set_up_camera(t_data *data);
 
 //	view_transform.c
 
@@ -53,13 +56,13 @@ void	free_light(t_light *light);
 
 //	print_error.c
 
+void	print_clean_and_exit(t_data *data, t_error err_no, int exit_code);
 void	print_error_msg(char *error_msg);
 void	print_errno(char *function_name);
 
 //	===== INIT =====
 
-void	init_data(t_data *data, t_scene *scene);
-void	init_mlx(t_data	*data);
+void	init_data(t_data *data);
 
 //	===== INTERSECT =====
 

@@ -11,19 +11,20 @@
  * half width, and pixel size based on the provided field of view.
  * It also calculates the camera's transformation matrix.
  */
-void	camera(t_data *data, double field_of_view)
+void	set_up_camera(t_data *data)
 {
+	data->cam = &data->scene->camera;
 	data->cam->hsize = data->width;
 	data->cam->vsize = data->height;
-	data->cam->fov = field_of_view;
+	data->cam->fov = radians(data->scene->camera.fov);
 	data->cam->inverse_transform = invert_matrix(data->cam->transform);
 	if (!data->cam->inverse_transform)
 	{
-		print_error_msg("There was an error inverting the camera matrix.\n");
-		exit(EXIT_FAILURE); //Clean up memory from data
+		// print_error_msg("There was an error inverting the camera matrix.\n"); INVERT_MATRIX
+		print_clean_and_exit(data, MALLOC_FAIL, EXIT_FAILURE);
 	}
 	data->cam->origin = multiply_matrix_by_tuple(data->cam->inverse_transform, point(0, 0, 0));
-	data->cam->half_view = tan(field_of_view / 2);
+	data->cam->half_view = tan(data->cam->fov / 2);
 	data->cam->aspect = data->cam->hsize / data->cam->vsize;
 	if (data->cam->aspect >= 1)
 	{

@@ -1,5 +1,11 @@
 #include "../../include/minirt.h"
 
+void	print_clean_and_exit(t_data *data, t_error err_no, int exit_code)
+{
+	print_error(err_no);
+	clean_and_exit(data, exit_code);
+}
+
 /**
  * @brief Prints an error message to the standard output.
  * 

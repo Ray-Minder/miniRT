@@ -166,6 +166,8 @@ int set_object_transforms(t_object *objects)
 			set_sphere_transform(objects);
 		else if (objects->type == PLANE)
 			set_plane_transform(objects);
+		// else if (objects->type == CYLINDER)
+		// 	set_plane_transform(objects);
 		if (!objects->transform)
 			return (MALLOC_FAIL);
 		objects = objects->next;

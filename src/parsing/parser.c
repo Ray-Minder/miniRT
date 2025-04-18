@@ -82,21 +82,26 @@ int	process_file_lines(int file, t_scene *scene)
 	return (SUCCESS);
 }
 
-int	parse_scene(char *filename, t_scene *scene)
+void	parse_scene(t_data *data, char *filename)
 {
 	int	file;
 	int	error;
 
+	if (!data || !data->scene)
+		clean_and_exit(data, EXIT_FAILURE);
 	if (!verify_filename(filename))
-		return (print_error(INVALID_FILENAME));
+		print_clean_and_exit(data, INVALID_FILENAME, EXIT_FAILURE);
 	file = open(filename, O_RDONLY);
 	if (file == -1)
-		return (print_error(NO_ACCESS));
-	error = process_file_lines(file, scene);
-	close(file);
+		print_clean_and_exit(data, NO_ACCESS, EXIT_FAILURE);
+	error = process_file_lines(file, data->scene);
+	if (close(file))
+		print_error_msg("close in parse_scene");
 	if (error == SUCCESS)
-		error = validate_scene(scene);
+		error = validate_scene(data->scene);
 	if (error != SUCCESS)
-		print_error(error);
-	return (error);
+		print_clean_and_exit(data, error, EXIT_FAILURE);
+	error = set_transforms(data->scene);
+	if (error != SUCCESS)
+		print_clean_and_exit(data, error, EXIT_FAILURE);
 }
