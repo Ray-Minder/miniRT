@@ -17,7 +17,10 @@ void	clean_and_exit(t_data *data, int exit_code)
 	if (data->canvas)
 		mlx_delete_image(data->mlx, data->canvas);
 	if (data->mlx)
+	{
+		mlx_close_window(data->mlx);
 		mlx_terminate(data->mlx);
+	}
 	if (data->scene)
 		free_scene(&data->scene);
 	exit(exit_code);
@@ -55,8 +58,6 @@ void	free_light(t_light *light)
 		return ;
 	if (light->transform)
 		free_matrix(&light->transform);
-	// if (light->inverse_transform)
-	// 	free_matrix(&light->inverse_transform);
 	light->is_set = false;
 }
 
@@ -75,6 +76,8 @@ void	free_objects(t_object **object_list)
 			free_matrix(&current->transform);
 		if (current->inverse_transform)
 			free_matrix(&current->inverse_transform);
+		if (current->inverse_transpose)
+			free_matrix(&current->inverse_transpose);
 		free(current);
 		current = next;
 	}

@@ -13,22 +13,22 @@
  * If no intersection is found, it returns the ambient light color.
  * The function also handles memory management for the intersection list and computations.
  */
-t_color color_at(t_scene *scene, t_ray *ray)
+t_color color_at(t_data *data, t_ray *ray)
 {
 	t_comps		*comps;
 	t_color		final_color;
 	t_x			*xs_list;
-	t_x			*_hit;
+	t_x			*the_hit;
 
-	xs_list = intersect_world(scene, ray);
-	_hit = hit(xs_list); // Add prepare computations within this function?
+	xs_list = intersect_world(data, ray);
+	the_hit = hit(xs_list); // Add prepare computations within this function?
 	free_intersections_list(&xs_list);
-	if (_hit && _hit->is_hit)
-		comps = prepare_computations(_hit, ray);
+	if (the_hit && the_hit->is_hit)
+		comps = prepare_computations(the_hit, ray);
 	else
-		return (hadamard_product(color(0, 0, 0), scene->ambient_light.color));
-	final_color = shade_hit(scene, comps);
+		return (hadamard_product(color(0, 0, 0), data->scene->ambient_light.color));
+	final_color = shade_hit(data, comps);
 	ft_free((void **) &comps);
-	free_intersections_list(&_hit); // Sometimes we get a double free because the hit list takes nodes from the intersect list.
+	free_intersections_list(&the_hit); // Sometimes we get a double free because the hit list takes nodes from the intersect list.
 	return (final_color);
 }

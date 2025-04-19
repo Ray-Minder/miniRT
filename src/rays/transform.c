@@ -1,13 +1,13 @@
 #include "../../include/minirt.h"
 
-t_ray	transform_ray(t_ray *ray, t_matrix *matrix)
+t_ray	transform_ray(t_data *data, t_ray *ray, t_matrix *matrix)
 {
 	t_ray	transformed_ray;
 
 	if (!ray || !is_matrix_initialized(matrix) || matrix->rows != 4)
 	{
-		print_error_msg("Error transforming a ray\n");
-		return (*ray);
+		print_error_msg("Error\nCouldn't transform a ray\n");
+		clean_and_exit(data, EXIT_FAILURE);
 	}
 	printf("In transform_ray\n");
 	transformed_ray.origin = multiply_matrix_by_tuple(matrix, ray->origin);

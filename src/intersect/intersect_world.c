@@ -13,16 +13,19 @@
  * object that the ray intersects with. The function returns the head of the linked list.
  * If no intersections are found, the list will be empty.
  */
-t_x *intersect_world(t_scene *scene, t_ray *ray)
+t_x *intersect_world(t_data *data, t_ray *ray)
 {
 	t_x			*xs_list;
 	t_x			*xs;
 	t_object	*object;
 
 	xs_list = NULL;
-	object = scene->objects;
+	object = data->scene->objects;
 	while (object)
 	{
+		xs = intersect(data, ray, object);
+		if (xs && !compare_doubles(xs->t, 0))
+			add_intersection_node(&xs_list, xs);
 		xs = intersect(ray, object);
 		while (xs)
 		{

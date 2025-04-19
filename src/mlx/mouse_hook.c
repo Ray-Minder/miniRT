@@ -10,7 +10,7 @@ void print_ray(t_ray ray)
 	printf("magnitude: %f\n", tuple_magnitude(ray.direction));
 }
 
-t_x *intersect_world_debug(t_scene *scene, t_ray *ray)
+t_x *intersect_world_debug(t_data *data, t_scene *scene, t_ray *ray)
 {
 	t_x			*xs_list;
 	t_x			*xs;

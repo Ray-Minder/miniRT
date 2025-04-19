@@ -3,6 +3,7 @@
 /**
  * @brief Intersects a ray with an object.
  * 
+ * @param data Pointer to the data structure.
  * @param ray Pointer to the ray structure.
  * @param object Pointer to the object structure.
  * 
@@ -13,7 +14,7 @@
  * It then calculates the intersection points based on the object's type.
  * If no intersections are found, the list will be empty.
  */
-t_x	*intersect(t_ray *ray, t_object *object)
+t_x	*intersect(t_data *data, t_ray *ray, t_object *object)
 {
 	t_ray		transformed_ray;
 
@@ -22,7 +23,7 @@ t_x	*intersect(t_ray *ray, t_object *object)
 		printf("Returning intersect because there's no ray or object\n");
 		return (NULL);
 	}
-	transformed_ray = transform_ray(ray, object->inverse_transform);
+	transformed_ray = transform_ray(data, ray, object->inverse_transform);
 	if (object->type == SPHERE)
 		return (sphere_intersect(&transformed_ray, object));
 	if (object->type == PLANE)
