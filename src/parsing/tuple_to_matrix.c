@@ -146,20 +146,47 @@ int set_plane_transform(t_object *plane)
 	return (SUCCESS);
 }
 
+// int set_cylinder_transform(t_object *cylinder)
+// {
+// 	t_tuple forward;
+// 	t_tuple right;
+// 	t_matrix *chain[4];
+	
+// 	chain[3] = NULL;
+// 	chain[0] = scaling(cylinder->diameter / 2, 1, cylinder->diameter / 2);
+// 	if (!chain[0])
+// 		return (MALLOC_FAIL);
+// 	chain[2] = translation(cylinder->position.x, cylinder->position.y, cylinder->position.z);
+// 	if (!chain[1])
+// 		return (MALLOC_FAIL);
+	
+// 	cylinder->direction = normalize_tuple(cylinder->direction);
+// 	right = cross_product(cylinder->direction, vector(0, 0, 1));
+// 	if (compare_doubles(right.x, 0) && compare_doubles(right.y, 0) && compare_doubles(right.z, 0))
+// 		right = cross_product(vector(0, 1, 0), cylinder->direction);
+// 	right = normalize_tuple(right);
+// 	forward = cross_product(right, cylinder->direction);
+// 	forward = normalize_tuple(forward);
+// 	chain[1] = tuples_to_matrix(cylinder->direction, right, forward, cylinder->position);
+// 	if (!chain[2])
+// 		return (MALLOC_FAIL);
+// 	cylinder->transform = chain_transformations(chain);
+// 	free_matrix(&chain[0]);
+// 	free_matrix(&chain[1]);
+// 	free_matrix(&chain[2]);
+// 	if (!cylinder->transform)
+// 		return (MALLOC_FAIL);
+// 	return (SUCCESS);
+// }
+
 int set_cylinder_transform(t_object *cylinder)
 {
 	t_tuple forward;
 	t_tuple right;
-	t_matrix *chain[4];
-	
-	chain[3] = NULL;
-	chain[0] = scaling(cylinder->diameter / 2, 1, cylinder->diameter / 2);
-	if (!chain[0])
-		return (MALLOC_FAIL);
-	chain[2] = translation(cylinder->position.x, cylinder->position.y, cylinder->position.z);
-	if (!chain[1])
-		return (MALLOC_FAIL);
-	
+
+	t_matrix *scaling_matrix;
+	t_matrix *translation_matrix;
+
 	cylinder->direction = normalize_tuple(cylinder->direction);
 	right = cross_product(cylinder->direction, vector(0, 0, 1));
 	if (compare_doubles(right.x, 0) && compare_doubles(right.y, 0) && compare_doubles(right.z, 0))
@@ -167,15 +194,17 @@ int set_cylinder_transform(t_object *cylinder)
 	right = normalize_tuple(right);
 	forward = cross_product(right, cylinder->direction);
 	forward = normalize_tuple(forward);
-	chain[1] = tuples_to_matrix(cylinder->direction, right, forward, cylinder->position);
-	if (!chain[2])
+	translation_matrix = tuples_to_matrix(cylinder->direction, right, forward, cylinder->position);
+	if (!translation_matrix)
 		return (MALLOC_FAIL);
-	cylinder->transform = chain_transformations(chain);
-	free_matrix(&chain[0]);
-	free_matrix(&chain[1]);
-	free_matrix(&chain[2]);
+	scaling_matrix = scaling(cylinder->diameter / 2, 1, cylinder->diameter / 2);
+	if (!scaling_matrix)
+		return (MALLOC_FAIL);
+	cylinder->transform = multiply_matrices(translation_matrix, scaling_matrix);
 	if (!cylinder->transform)
 		return (MALLOC_FAIL);
+	free_matrix(&translation_matrix);
+	free_matrix(&scaling_matrix);
 	return (SUCCESS);
 }
 

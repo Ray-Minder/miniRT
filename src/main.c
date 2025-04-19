@@ -45,6 +45,10 @@ int main(int argc, char *argv[])
 	data.cam = &data.scene->camera;
 	camera(&data, radians(data.cam->fov));
 	
+	print_tuple(normalize_tuple(data.scene->objects->direction));
+	printf("Cyl matrix:\n");
+	print_matrix(data.scene->objects->transform);
+
 	render_scene(&data);
 	
 	mlx_key_hook(data.mlx, &key_hooks, (void *) &data);
