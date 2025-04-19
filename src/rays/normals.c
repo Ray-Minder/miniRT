@@ -47,7 +47,7 @@ t_tuple normal_at_cylinder(t_object *object, t_tuple world_point)
 	object_normal = vector(object_point.x, 0, object_point.z);
 
 	distance = object_point.x * object_point.x + object_point.z * object_point.z;
-	if (distance < 1.0 && compare_doubles(object_point.y, object->height * 2))
+	if (distance < 1.0 && compare_doubles(object_point.y, object->height))
 	{
 		object_normal = vector(0, 1, 0);
 	}
