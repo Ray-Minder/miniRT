@@ -1,5 +1,15 @@
 #include "../../include/minirt.h"
 
+//	=== Function Declarations ===
+
+t_x		*new_intersection_node(void);
+void	add_intersection_node(t_x **xs_list, t_x *current);
+void	free_intersections_list(t_x **xs_list);
+void	free_intersection_node(t_x **node_ptr);
+void	print_intersection_list(t_x *xs_list);
+
+//	=== Function Definitions ===
+
 t_x	*new_intersection_node(void)
 {
 	t_x	*new_node;
@@ -15,6 +25,36 @@ t_x	*new_intersection_node(void)
 	new_node->is_hit = false;
 	new_node->next = NULL;
 	return (new_node);
+}
+
+
+/**
+ * @brief Adds an intersection node to the end of the linked list.
+ * 
+ * @param xs_list Pointer to the head of the linked list of intersection points (t_x).
+ * @param current Pointer to the current intersection point (t_x) to be added.
+ * 
+ * This function traverses the linked list and adds the current intersection point
+ * to the end of the list. If the list is empty, it sets the head to the current point.
+ */
+void	add_intersection_node(t_x **xs_list, t_x *current)
+{
+	t_x	*iterator;
+
+	if (!xs_list && !current)
+	{
+		printf("There's no xs list, and no intersection to add either.\n");
+		return ;
+	}
+	if (xs_list && !*xs_list && current)
+	{
+		*xs_list = current;
+		return ;
+	}
+	iterator = *xs_list;
+	while (iterator && iterator->next)
+		iterator = iterator->next;
+	iterator->next = current;
 }
 
 void	free_intersections_list(t_x **xs_list)

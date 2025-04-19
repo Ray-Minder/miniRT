@@ -37,6 +37,7 @@ t_x	*intersect(t_data *data, t_ray *ray, t_object *object)
 /**
  * @brief Finds the closest intersection point from a list of intersections.
  * 
+ * @param data Pointer to the data structure.
  * @param xs_list Pointer to the linked list of intersection points (t_x).
  * 
  * @return A pointer to the closest intersection point (t_x)
@@ -46,7 +47,7 @@ t_x	*intersect(t_data *data, t_ray *ray, t_object *object)
  * and finds the one with the smallest positive t value.
  * If no positive t values are found, it returns NULL.
  */
-t_x	*hit(t_x *xs_list)
+t_x	*hit(t_data *data, t_x *xs_list)
 {
 	t_x	*lowest_hit;
 
@@ -56,8 +57,8 @@ t_x	*hit(t_x *xs_list)
 	lowest_hit = new_intersection_node();
 	if (!lowest_hit)
 	{
-		printf("failure to allocate new intersection\n");
-		return (NULL);
+		print_error_msg("Failure to allocate new intersection\n");
+		clean_and_exit(data, EXIT_FAILURE);
 	}
 	lowest_hit->t = INFINITY;
 	while (xs_list != NULL)
@@ -71,41 +72,10 @@ t_x	*hit(t_x *xs_list)
 		xs_list = xs_list->next;
 	}
 	if (lowest_hit->is_hit == false)
-	{
-		free(lowest_hit);
-		return (NULL);
-	}
+		return (free(lowest_hit), NULL);
 	return (lowest_hit);
 }
 
-/**
- * @brief Adds an intersection node to the end of the linked list.
- * 
- * @param xs_list Pointer to the head of the linked list of intersection points (t_x).
- * @param current Pointer to the current intersection point (t_x) to be added.
- * 
- * This function traverses the linked list and adds the current intersection point
- * to the end of the list. If the list is empty, it sets the head to the current point.
- */
-void	add_intersection_node(t_x **xs_list, t_x *current)
-{
-	t_x	*iterator;
-
-	if (!xs_list && !current)
-	{
-		printf("There's no xs list, and no intersection to add either.\n");
-		return ;
-	}
-	if (xs_list && !*xs_list && current)
-	{
-		*xs_list = current;
-		return ;
-	}
-	iterator = *xs_list;
-	while (iterator && iterator->next)
-		iterator = iterator->next;
-	iterator->next = current;
-}
 
 /**
  * @brief Intersects a ray with a sphere.

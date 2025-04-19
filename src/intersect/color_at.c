@@ -21,7 +21,7 @@ t_color color_at(t_data *data, t_ray *ray)
 	t_x			*the_hit;
 
 	xs_list = intersect_world(data, ray);
-	the_hit = hit(xs_list); // Add prepare computations within this function?
+	the_hit = hit(data, xs_list);
 	free_intersections_list(&xs_list);
 	if (the_hit && the_hit->is_hit)
 		comps = prepare_computations(the_hit, ray);

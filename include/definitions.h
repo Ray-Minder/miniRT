@@ -156,7 +156,7 @@ void	print_intersection_list(t_x *xs_list);
 //	intersections.c
 
 t_x		*intersect(t_data *data, t_ray *ray, t_object *object);
-t_x		*hit(t_x *xs_list);
+t_x		*hit(t_data *data, t_x *xs_list);
 void	add_intersection_node(t_x **xs_list, t_x *current);
 t_x		*sphere_intersect(t_ray *ray, t_object *sphere);
 t_x		*plane_intersect(t_ray *ray, t_object *plane);
