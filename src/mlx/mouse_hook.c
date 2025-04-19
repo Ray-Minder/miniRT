@@ -157,7 +157,7 @@ void mouse_hook(enum mouse_key button, enum action action, enum modifier_key mod
 		xs_list = NULL;
 		xs_list = intersect_world_debug(data, data->scene, &ray);
 		print_intersection_list(xs_list);
-		_hit = hit(xs_list);
+		_hit = hit(data, xs_list);
 		// printf("Hit: %f\n", _hit->t);
 		if (_hit)
 		{
