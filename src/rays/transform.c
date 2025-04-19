@@ -6,9 +6,10 @@ t_ray	transform_ray(t_ray *ray, t_matrix *matrix)
 
 	if (!ray || !is_matrix_initialized(matrix) || matrix->rows != 4)
 	{
-		print_error_msg("Error multiplying a matrix by a tuple");
+		print_error_msg("Error transforming a ray\n");
 		return (*ray);
 	}
+	printf("In transform_ray\n");
 	transformed_ray.origin = multiply_matrix_by_tuple(matrix, ray->origin);
 	transformed_ray.direction = multiply_matrix_by_tuple(matrix, ray->direction);
 	return (transformed_ray);

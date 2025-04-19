@@ -47,13 +47,13 @@ t_x *intersect_caps(t_object *cylinder, t_ray *ray)
 	if (check_cap(ray, t0))
 	{
 		caps->t = t0;
-		caps->hit = true;
+		caps->is_hit = true;
 	}
 	t1 = ((cylinder->height * 2) - ray->origin.y) / ray->direction.y;
 	if (check_cap(ray, t1))
 	{
 		caps->next->t = t1;
-		caps->next->hit = true;
+		caps->next->is_hit = true;
 	}
 	return (caps);
 }
@@ -83,8 +83,8 @@ t_x *cylinder_intersect(t_ray *ray, t_object *cylinder)
 	}
 	xs->t = (-b - sqrt(discriminant)) / (2 * a);
 	xs->next->t = (-b + sqrt(discriminant)) / (2 * a);
-	xs->hit = true;
-	xs->next->hit = true;
+	xs->is_hit = true;
+	xs->next->is_hit = true;
 	if (xs->t > xs->next->t)
 	{
 		double temp = xs->t;
@@ -95,21 +95,21 @@ t_x *cylinder_intersect(t_ray *ray, t_object *cylinder)
 	double y1 = ray->origin.y + xs->next->t * ray->direction.y;
 	if ((0) < y0 && y0 < (cylinder->height * 2))
 	{
-		xs->hit = true;
+		xs->is_hit = true;
 	}
 	else
 	{
 		xs->t = 0;
-		xs->hit = false;
+		xs->is_hit = false;
 	}
 	if ((0) < y1 && y1 < (cylinder->height * 2))
 	{
-		xs->next->hit = true;
+		xs->next->is_hit = true;
 	}
 	else
 	{
 		xs->next->t = 0;
-		xs->next->hit = false;
+		xs->next->is_hit = false;
 	}
 	add_intersection_node(&xs, intersect_caps(cylinder, ray));
 	return (xs);
