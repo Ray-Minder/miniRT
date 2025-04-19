@@ -20,7 +20,7 @@ t_x *intersect_world_debug(t_data *data, t_scene *scene, t_ray *ray)
 	object = scene->objects;
 	while (object)
 	{
-		xs = intersect(ray, object);
+		xs = intersect(data, ray, object);
 		while (xs)
 		{
 			// free node that's 0
@@ -155,7 +155,7 @@ void mouse_hook(enum mouse_key button, enum action action, enum modifier_key mod
 		t_x *xs_list;
 		t_x *_hit;
 		xs_list = NULL;
-		xs_list = intersect_world_debug(data->scene, &ray);
+		xs_list = intersect_world_debug(data, data->scene, &ray);
 		print_intersection_list(xs_list);
 		_hit = hit(xs_list);
 		// printf("Hit: %f\n", _hit->t);
