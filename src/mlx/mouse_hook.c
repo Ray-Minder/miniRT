@@ -15,21 +15,21 @@ t_x *intersect_world_debug(t_scene *scene, t_ray *ray)
 	t_x			*xs_list;
 	t_x			*xs;
 	t_object	*object;
-	t_ray		transformed_ray;
 
 	xs_list = NULL;
 	object = scene->objects;
 	while (object)
 	{
 		xs = intersect(ray, object);
-		transformed_ray = transform_ray(ray, object->inverse_transform);
-		printf("transformed ray:\n");
-		print_ray(transformed_ray);
-		if (xs && !compare_doubles(xs->t, 0))
+		while (xs)
 		{
-			printf("transformed ray:\n");
-			print_ray(transformed_ray);
-			add_intersection_node(&xs_list, xs);
+			// free node that's 0
+			if (xs && !compare_doubles(xs->t, 0))
+			{
+				add_intersection_node(&xs_list, xs);
+				break ;
+			}
+			xs = xs->next;
 		}
 		object = object->next;
 	}
@@ -100,6 +100,37 @@ t_tuple normal_at_sphere_debug(t_object *object, t_tuple world_point)
 	return (normalize_tuple(world_normal));
 }
 
+t_tuple normal_at_cylinder_debug(t_object *object, t_tuple world_point)
+{
+	printf("calucalating normal at cylinder\n");
+	t_tuple object_normal;
+	t_tuple object_point;
+	t_tuple world_normal;
+	double distance;
+
+	object_point = multiply_matrix_by_tuple(invert_matrix(object->transform), world_point);
+	object_normal = vector(object_point.x, 0, object_point.z);
+
+	distance = object_point.x * object_point.x + object_point.z * object_point.z;
+	printf("distance: %f\n", distance);
+	if (distance < 1.0 && compare_doubles(object_point.y, object->height * 2))
+	{
+		printf("normal at cylinder top\n");
+		object_normal = vector(0, 1, 0);
+	}
+	else if (distance < 1.0 && compare_doubles(object_point.y, 0.0))
+	{
+		printf("normal at cylinder bottom\n");
+		object_normal = vector(0, -1, 0);
+	}
+	world_normal = multiply_matrix_by_tuple(transpose_matrix(invert_matrix(object->transform)), object_normal);
+	world_normal.w = 0;
+
+	world_normal = normalize_tuple(world_normal);
+	return (world_normal);
+}
+
+
 void mouse_hook(enum mouse_key button, enum action action, enum modifier_key mods, void *param)
 {
 	t_data	*data;
@@ -120,20 +151,28 @@ void mouse_hook(enum mouse_key button, enum action action, enum modifier_key mod
 		printf("Mouse position: (%d, %d)\n", x, y);
 		t_ray ray;
 		ray = ray_for_pixel(data->cam, x, y);
-		print_ray(ray);
+		// print_ray(ray);
 
 		t_x *xs_list;
 		t_x *_hit;
 		xs_list = NULL;
 		xs_list = intersect_world_debug(data->scene, &ray);
-		// print_intersection_list(xs_list);
+		print_intersection_list(xs_list);
 		_hit = hit(xs_list);
-		// print_hit(_hit);
+		// printf("Hit: %f\n", _hit->t);
 		if (_hit)
 		{
 			comps = prepare_computations(_hit, &ray);
-			normal_at_sphere_debug(_hit->object, comps->point);
+			// normal_at_sphere_debug(_hit->object, comps->point);
+			t_tuple normal;
+			normal = vector(0, 0, 0);
+			if (_hit->object->type == SPHERE)
+				normal = normal_at_sphere_debug(_hit->object, comps->point);
+			else if (_hit->object->type == CYLINDER)
+				normal = normal_at_cylinder_debug(_hit->object, comps->point);
+			print_tuple(normal);
 			printf("hit t: %f\n", _hit->t);
+			print_comps(comps);
 		}
 		// print_comps(comps);
 	}	

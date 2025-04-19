@@ -58,4 +58,5 @@ void print_intersection_list(t_x *xs_list)
 		printf("t: %f, hit: %d\n", current->t, current->is_hit);
 		current = current->next;
 	}
+	printf("\n");
 }

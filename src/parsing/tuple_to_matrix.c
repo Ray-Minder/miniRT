@@ -149,12 +149,36 @@ int set_plane_transform(t_object *plane)
 	plane->transform = tuples_to_matrix(plane->direction, right, forward, plane->position);
 	if (!plane->transform)
 		return (MALLOC_FAIL);
-	plane->inverse_transform = invert_matrix(plane->transform);
-	if (!plane->inverse_transform)
+	return (SUCCESS);
+}
+
+
+int set_cylinder_transform(t_object *cylinder)
+{
+	t_tuple forward;
+	t_tuple right;
+
+	t_matrix *scaling_matrix;
+	t_matrix *translation_matrix;
+
+	cylinder->direction = normalize_tuple(cylinder->direction);
+	right = cross_product(cylinder->direction, vector(0, 0, 1));
+	if (compare_doubles(right.x, 0) && compare_doubles(right.y, 0) && compare_doubles(right.z, 0))
+		right = cross_product(vector(0, 1, 0), cylinder->direction);
+	right = normalize_tuple(right);
+	forward = cross_product(right, cylinder->direction);
+	forward = normalize_tuple(forward);
+	translation_matrix = tuples_to_matrix(cylinder->direction, right, forward, cylinder->position);
+	if (!translation_matrix)
 		return (MALLOC_FAIL);
-	plane->inverse_transpose = transpose_matrix(plane->inverse_transform);
-	if (!plane->inverse_transpose)
+	scaling_matrix = scaling(cylinder->diameter / 2, 1, cylinder->diameter / 2);
+	if (!scaling_matrix)
 		return (MALLOC_FAIL);
+	cylinder->transform = multiply_matrices(translation_matrix, scaling_matrix);
+	if (!cylinder->transform)
+		return (MALLOC_FAIL);
+	free_matrix(&translation_matrix);
+	free_matrix(&scaling_matrix);
 	return (SUCCESS);
 }
 
@@ -166,6 +190,8 @@ int set_object_transforms(t_object *objects)
 			set_sphere_transform(objects);
 		else if (objects->type == PLANE)
 			set_plane_transform(objects);
+		else if (objects->type == CYLINDER)
+			set_cylinder_transform(objects);
 		if (!objects->transform)
 			return (MALLOC_FAIL);
 		objects = objects->next;
