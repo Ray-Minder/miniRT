@@ -1,5 +1,11 @@
 #include "../../include/minirt.h"
 
+//	=== Function Declarations ===
+
+void	key_hooks(mlx_key_data_t keydata, void *param);
+
+//	=== Function Definitions ===
+
 void	key_hooks(mlx_key_data_t keydata, void *param)
 {
 	t_data	*data;

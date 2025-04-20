@@ -1,5 +1,12 @@
 #include "../../include/minirt.h"
 
+//	=== Function Declarations ===
+
+t_ray	transform_ray(t_data *data, t_ray *ray, t_matrix *matrix);
+void	set_transform(t_object *object, t_matrix *transformation);
+
+//	=== Function Definitions ===
+
 t_ray	transform_ray(t_data *data, t_ray *ray, t_matrix *matrix)
 {
 	t_ray	transformed_ray;

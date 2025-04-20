@@ -1,6 +1,18 @@
 #include "../../include/minirt.h"
 
-void print_ray(t_ray ray)
+//	=== Function Declarations ===
+
+void	print_ray(t_ray ray);
+t_x		*intersect_world_debug(t_data *data, t_scene *scene, t_ray *ray);
+void	print_hit(t_x *hit);
+void	print_comps(t_comps *comps);
+t_tuple	normal_at_sphere_debug(t_object *object, t_tuple world_point);
+t_tuple	normal_at_cylinder_debug(t_object *object, t_tuple world_point);
+void	mouse_hook(enum mouse_key button, enum action action, enum modifier_key mods, void *param);
+
+//	=== Function Definitions ===
+
+void	print_ray(t_ray ray)
 {
 	printf("Ray:\n");
 	printf("  Origin: ");
@@ -10,7 +22,7 @@ void print_ray(t_ray ray)
 	printf("magnitude: %f\n", tuple_magnitude(ray.direction));
 }
 
-t_x *intersect_world_debug(t_data *data, t_scene *scene, t_ray *ray)
+t_x	*intersect_world_debug(t_data *data, t_scene *scene, t_ray *ray)
 {
 	t_x			*xs_list;
 	t_x			*xs;
@@ -36,7 +48,7 @@ t_x *intersect_world_debug(t_data *data, t_scene *scene, t_ray *ray)
 	return (xs_list);
 }
 
-void print_hit(t_x *hit)
+void	print_hit(t_x *hit)
 {
 	if (hit)
 	{
@@ -48,7 +60,7 @@ void print_hit(t_x *hit)
 	}
 }
 
-void print_comps(t_comps *comps)
+void	print_comps(t_comps *comps)
 {
 	if (comps)
 	{
@@ -67,7 +79,7 @@ void print_comps(t_comps *comps)
 	}
 }
 
-t_tuple normal_at_sphere_debug(t_object *object, t_tuple world_point)
+t_tuple	normal_at_sphere_debug(t_object *object, t_tuple world_point)
 {
 	t_tuple object_point;
 	t_tuple object_normal;
@@ -99,7 +111,7 @@ t_tuple normal_at_sphere_debug(t_object *object, t_tuple world_point)
 	return (normalize_tuple(world_normal));
 }
 
-t_tuple normal_at_cylinder_debug(t_object *object, t_tuple world_point)
+t_tuple	normal_at_cylinder_debug(t_object *object, t_tuple world_point)
 {
 	printf("calucalating normal at cylinder\n");
 	t_tuple object_normal;
@@ -130,7 +142,7 @@ t_tuple normal_at_cylinder_debug(t_object *object, t_tuple world_point)
 }
 
 
-void mouse_hook(enum mouse_key button, enum action action, enum modifier_key mods, void *param)
+void	mouse_hook(enum mouse_key button, enum action action, enum modifier_key mods, void *param)
 {
 	t_data	*data;
 	t_comps *comps;

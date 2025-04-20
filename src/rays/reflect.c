@@ -1,7 +1,10 @@
 #include "../../include/minirt.h"
 
+//	=== Function Declarations ===
 
 t_tuple reflect(t_tuple in, t_tuple normal);
+
+//	=== Function Definitions ===
 
 t_tuple reflect(t_tuple in, t_tuple normal)
 {
