@@ -24,6 +24,7 @@ t_x *intersect_world(t_data *data, t_ray *ray)
 	t_x			*xs_list;
 	t_x			*xs;
 	t_object	*object;
+	t_x			*next;
 
 	xs_list = NULL;
 	object = data->scene->objects;
@@ -32,13 +33,15 @@ t_x *intersect_world(t_data *data, t_ray *ray)
 		xs = intersect(data, ray, object);
 		while (xs)
 		{
+			next = xs->next;
 			// free node that's 0
 			if (xs && !compare_doubles(xs->t, 0))
 			{
 				add_intersection_node(&xs_list, xs);
 				break ;
 			}
-			xs = xs->next;
+			free(xs);
+			xs = next;
 		}
 		object = object->next;
 	}

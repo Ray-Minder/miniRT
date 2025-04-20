@@ -37,12 +37,6 @@ t_object	*create_object(void)
 	ptr->inverse_transform = NULL;
 	ptr->inverse_transpose = NULL;
 	ptr->next = NULL;
-	ptr->transform = identity(4);
-	if (!ptr->transform)
-	{
-		free(ptr);
-		return (NULL);
-	}
 	return (ptr);
 }
 
