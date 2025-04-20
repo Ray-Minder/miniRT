@@ -2,25 +2,11 @@
 
 //	=== Function Declarations ===
 
+t_matrix	*view_transform(t_tuple forward, t_tuple point);
 static void	set_orientation_values(t_matrix *orientation, t_tuple right,
 	t_tuple up, t_tuple forward);
-t_matrix	*view_transform(t_tuple forward, t_tuple point);
 
 //	=== Function Definitions ===
-
-static void	set_orientation_values(t_matrix *orientation, t_tuple right,
-	t_tuple up, t_tuple forward)
-{
-	orientation->values[0][0] = right.x;
-	orientation->values[0][1] = right.y;
-	orientation->values[0][2] = right.z;
-	orientation->values[1][0] = up.x;
-	orientation->values[1][1] = up.y;
-	orientation->values[1][2] = up.z;
-	orientation->values[2][0] = -forward.x;
-	orientation->values[2][1] = -forward.y;
-	orientation->values[2][2] = -forward.z;
-}
 
 /**
  * @brief This function computes the camera's view matrix.
@@ -62,4 +48,18 @@ t_matrix	*view_transform(t_tuple forward, t_tuple point)
 	if (!_view_transform)
 		return (NULL);
 	return (_view_transform);
+}
+
+static void	set_orientation_values(t_matrix *orientation, t_tuple right,
+	t_tuple up, t_tuple forward)
+{
+	orientation->values[0][0] = right.x;
+	orientation->values[0][1] = right.y;
+	orientation->values[0][2] = right.z;
+	orientation->values[1][0] = up.x;
+	orientation->values[1][1] = up.y;
+	orientation->values[1][2] = up.z;
+	orientation->values[2][0] = -forward.x;
+	orientation->values[2][1] = -forward.y;
+	orientation->values[2][2] = -forward.z;
 }

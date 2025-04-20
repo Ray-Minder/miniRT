@@ -1,5 +1,13 @@
 #include "../../include/minirt.h"
 
+//	=== Function Declarations ===
+
+void	print_clean_and_exit(t_data *data, t_error err_no, int exit_code);
+void	print_error_msg(char *error_msg);
+void	print_errno(char *function_name);
+
+//	=== Function Definitions ===
+
 void	print_clean_and_exit(t_data *data, t_error err_no, int exit_code)
 {
 	print_error(err_no);
