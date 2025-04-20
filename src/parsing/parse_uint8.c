@@ -1,5 +1,11 @@
-#include "../../include/parser.h"
 #include "../../include/minirt.h"
+
+//	=== Function Declarations ===
+
+int	parse_uint8(const char *s, uint8_t *result);
+int	parse_color(char *line, t_color *color);
+
+//	=== Function Definitions ===
 
 int	parse_uint8(const char *s, uint8_t *result)
 {

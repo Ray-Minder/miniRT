@@ -1,5 +1,14 @@
-#include "../../include/parser.h"
 #include "../../include/minirt.h"
+
+//	=== Function Declarations ===
+
+void	ft_free_ptrs(char **ptrs);
+int		identify_and_parse_element(char **line, t_scene *scene);
+int		process_line(char *line, t_scene *scene);
+int		process_file_lines(int file, t_scene *scene);
+void	parse_scene(t_data *data, char *filename);
+
+//	=== Function Definitions ===
 
 void	ft_free_ptrs(char **ptrs)
 {

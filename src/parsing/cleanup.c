@@ -1,5 +1,11 @@
 # include "../../include/minirt.h"
 
+//	=== Function Declarations ===
+
+void	cleanup(t_scene *scene);
+
+//	=== Function Definitions ===
+
 void	cleanup(t_scene *scene)
 {
 	t_object	*object;

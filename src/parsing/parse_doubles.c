@@ -1,5 +1,14 @@
-#include "../../include/parser.h"
 #include "../../include/minirt.h"
+
+//	=== Function Declarations ===
+
+double	ft_atodbl(char *s);
+bool	ft_is_double(const char *s);
+double	ft_safe_atodbl(char *s);
+int		parse_double(const char *s, double *result);
+int		parse_tuple(char *line, t_tuple *tuple);
+
+//	=== Function Definitions ===
 
 double	ft_atodbl(char *s)
 {

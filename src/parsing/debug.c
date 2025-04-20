@@ -1,5 +1,11 @@
-#include "../../include/parser.h"
-# include "../../include/minirt.h"
+#include "../../include/minirt.h"
+
+//	=== Function Declarations ===
+
+void	print_light(t_light *light);
+void	print_objects(t_object *object_list);
+
+//	=== Function Definitions ===
 
 void	print_light(t_light *light)
 {

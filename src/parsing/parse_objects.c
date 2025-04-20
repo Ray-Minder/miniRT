@@ -1,5 +1,12 @@
-#include "../../include/parser.h"
 #include "../../include/minirt.h"
+
+//	=== Function Declarations ===
+
+int	parse_sphere(char **line, t_scene *scene);
+int	parse_plane(char **line, t_scene *scene);
+int	parse_cylinder(char **line, t_scene *scene);
+
+//	=== Function Definitions ===
 
 int	parse_sphere(char **line, t_scene *scene)
 {

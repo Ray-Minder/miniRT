@@ -1,5 +1,10 @@
-#include "../../include/parser.h"
 #include "../../include/minirt.h"
+
+//	=== Function Declarations ===
+
+bool	verify_filename(char *filename);
+
+//	=== Function Definitions ===
 
 bool	verify_filename(char *filename)
 {

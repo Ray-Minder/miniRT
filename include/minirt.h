@@ -19,8 +19,8 @@
 # include "definitions.h"
 # include "errors.h"
 # include "get_next_line.h"
-# include "parser.h"
 
+typedef enum e_error t_error;
 typedef struct s_tuple t_tuple;
 typedef struct s_matrix t_matrix;
 typedef enum e_object_type t_object_type;

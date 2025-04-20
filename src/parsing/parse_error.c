@@ -1,5 +1,10 @@
-#include "../../include/parser.h"
-#include "../../libraries/libft/include/libft.h"
+#include "../../include/minirt.h"
+
+//	=== Function Declarations ===
+
+int	print_error(t_error error);
+
+//	=== Function Definitions ===
 
 static char	*g_error_messages[] = {
 	"Success",

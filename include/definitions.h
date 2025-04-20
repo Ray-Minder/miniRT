@@ -2,7 +2,7 @@
 # define DEFINITIONS_H
 
 # include "minirt.h"
-# include "parser.h"
+# include "errors.h"
 
 # define SCALE 4
 
@@ -12,8 +12,6 @@
 # define WINDOW_HEIGHT 600
 # define MIN_WINDOW_WIDTH 500
 # define MIN_WINDOW_HEIGHT 500
-
-typedef enum e_error t_error;
 
 
 //	===== FUNCTIONS =====
@@ -135,6 +133,39 @@ void 	print_matrix(t_matrix* matrix);
 
 void	key_hooks(mlx_key_data_t keydata, void *param);
 void	mouse_hook(enum mouse_key button, enum action action, enum modifier_key mods, void *param);
+
+//	===== PARSING =====
+
+bool	verify_filename(char *filename);
+void	parse_scene(t_data *data, char *filename);
+int		parse_ambient_light(char **line, t_scene *scene);
+int		parse_camera(char **line, t_scene *scene);
+int		parse_light(char **line, t_scene *scene);
+int		parse_sphere(char **line, t_scene *scene);
+int		parse_plane(char **line, t_scene *scene);
+int		parse_cylinder(char **line, t_scene *scene);
+bool	ft_is_double(const char *s);
+double	ft_atodbl(char *s);
+double	ft_safe_atodbl(char *s);
+int		parse_uint8(const char *s, uint8_t *result);
+int		parse_double(const char *s, double *result);
+int		parse_color(char *line, t_color *color);
+int		parse_tuple(char *line, t_tuple *tuple);
+int		count_tokens(char **tokens);
+void	ft_free_ptrs(char **ptrs);
+void	print_objects(t_object *object_list);
+void	cleanup(t_scene *scene);
+int		add_new_object(t_scene *scene, t_object **new_object);
+int		print_error(t_error error);
+void	init_scene(t_scene *scene);
+int		validate_scene(t_scene *scene);
+int		set_object_transforms(t_object *objects);
+t_matrix *get_transform(t_tuple tuple, t_tuple position);
+t_matrix *tuples_to_matrix(t_tuple up, t_tuple right, t_tuple forward, t_tuple position);
+t_tuple	get_camera_right(t_tuple forward);
+t_matrix *get_camera_matrix(t_camera camera);
+int			set_transforms(t_scene *scene);
+void	print_light(t_light *light);
 
 //	===== RAYS =====
 

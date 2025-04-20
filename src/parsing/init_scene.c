@@ -1,5 +1,11 @@
-#include "../../include/parser.h"
-# include "../../include/minirt.h"
+#include "../../include/minirt.h"
+
+//	=== Function Declarations ===
+
+void	init_scene(t_scene *scene);
+int		validate_scene(t_scene *scene);
+
+//	=== Function Definitions ===
 
 void	init_scene(t_scene *scene)
 {

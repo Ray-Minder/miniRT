@@ -1,5 +1,13 @@
 #include "../../include/minirt.h"
-#include "../../include/parser.h"
+
+//	=== Function Declarations ===
+
+int	count_tokens(char **tokens);
+int	parse_ambient_light(char **line, t_scene *scene);
+int	parse_camera(char **line, t_scene *scene);
+int	parse_light(char **line, t_scene *scene);
+
+//	=== Function Definitions ===
 
 int	count_tokens(char **tokens)
 {

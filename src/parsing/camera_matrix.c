@@ -1,5 +1,11 @@
 #include "../../include/minirt.h"
-#include "../../include/parser.h"
+
+//	=== Function Declarations ===
+
+t_tuple	get_camera_right(t_tuple forward);
+int		set_transforms(t_scene *scene);
+
+//	=== Function Definitions ===
 
 /**
  * @brief Computes the right vector for the camera based on the forward vector.
@@ -16,7 +22,7 @@
  * 
  * It returns a NOT NORMALIZED vector.
  */
-t_tuple get_camera_right(t_tuple forward)
+t_tuple	get_camera_right(t_tuple forward)
 {
 	t_tuple right;
 	
@@ -26,7 +32,7 @@ t_tuple get_camera_right(t_tuple forward)
 	return (right);
 }
 
-int set_transforms(t_scene *scene)
+int	set_transforms(t_scene *scene)
 {
 	if (set_object_transforms(scene->objects) != SUCCESS)
 		return (MALLOC_FAIL);

@@ -1,5 +1,12 @@
-#include "../../include/parser.h"
 #include "../../include/minirt.h"
+
+//	=== Function Declarations ===
+
+t_object	*get_last_object(t_object *object);
+t_object	*create_object(void);
+int			add_new_object(t_scene *scene, t_object **new_object);
+
+//	=== Function Definitions ===
 
 t_object	*get_last_object(t_object *object)
 {
