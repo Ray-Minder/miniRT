@@ -34,7 +34,6 @@ t_x *intersect_world(t_data *data, t_ray *ray)
 		while (xs)
 		{
 			next = xs->next;
-			// free node that's 0
 			if (xs && !compare_doubles(xs->t, 0))
 			{
 				add_intersection_node(&xs_list, xs);

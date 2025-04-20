@@ -1,42 +1,48 @@
 {
-    <MLX42>
+    strncmp invalid read
     Memcheck:Leak
-    ...
-    obj:/usr/lib/x86_64-linux-gnu/libnvidia*
+    fun:strncmp
+    ... 
 }
 {
-    <MLX42>
+    radeon
     Memcheck:Leak
     ...
-    obj:/usr/lib/x86_64-linux-gnu/libdbus*
+    obj:*/radeonsi_dri.so
+    ...
 }
 {
-    <MLX42>
+    LLVM
     Memcheck:Leak
     ...
-    obj:/usr/lib/x86_64-linux-gnu/libglfw*
+    obj:*/libLLVM-15.so.1
+    ...
 }
 {
-    <MLX42>
+    GLX
     Memcheck:Leak
     ...
-    obj:/usr/lib/x86_64-linux-gnu/libX11*
+    obj:*/libGLX_mesa.so.0.0.0
+    ...
 }
 {
-    <MLX42>
+    GLFW
     Memcheck:Leak
     ...
-    obj:/usr/lib/x86_64-linux-gnu/dri*
+    obj:*/libglfw.so.3.3
+    ...
 }
 {
-    <MLX42>
+    Valgrind leaks
     Memcheck:Leak
     ...
-    obj:/usr/lib/x86_64-linux-gnu/libLLVM*
+    fun:*dl*
+    ...
 }
 {
-    <MLX42>
+    X11
     Memcheck:Leak
     ...
-    fun:_dl_open
+    obj:*/libX11.so.6.4.0
+    ...
 }
