@@ -16,6 +16,10 @@ void	cleanup(t_scene *scene)
 	{
 		if (object->transform)
 			free_matrix(&object->transform);
+		if (object->inverse_transform)
+			free_matrix(&object->inverse_transform);
+		if (object->inverse_transpose)
+			free_matrix(&object->inverse_transpose);
 		next = object->next;
 		free(object);
 		object = next;

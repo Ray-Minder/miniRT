@@ -2,12 +2,35 @@
 
 //	=== Function Declarations ===
 
+int	set_object_transforms(t_object *objects);
 int	set_sphere_transform(t_object *sphere);
 int	set_plane_transform(t_object *plane);
 int	set_cylinder_transform(t_object *cylinder);
-int	set_object_transforms(t_object *objects);
 
 //	=== Function Definitions ===
+
+int set_object_transforms(t_object *objects)
+{
+	while (objects)
+	{
+		if (objects->type == SPHERE)
+			set_sphere_transform(objects);
+		else if (objects->type == PLANE)
+			set_plane_transform(objects);
+		else if (objects->type == CYLINDER)
+			set_cylinder_transform(objects);
+		if (!objects->transform)
+			return (MALLOC_FAIL);
+		objects->inverse_transform = invert_matrix(objects->transform);
+		if (!objects->inverse_transform)
+			return (MALLOC_FAIL);
+		objects->inverse_transpose = transpose_matrix(objects->inverse_transform);
+		if (!objects->inverse_transpose)
+			return (MALLOC_FAIL);
+		objects = objects->next;
+	}
+	return (SUCCESS);
+}
 
 int set_sphere_transform(t_object *sphere)
 {
@@ -24,12 +47,6 @@ int set_sphere_transform(t_object *sphere)
 	free_matrix(&translate_matrix);
 	free_matrix(&scaled_matrix);
 	if (!sphere->transform)
-		return (MALLOC_FAIL);
-	sphere->inverse_transform = invert_matrix(sphere->transform);
-	if (!sphere->inverse_transform)
-		return (MALLOC_FAIL);
-	sphere->inverse_transpose = transpose_matrix(sphere->inverse_transform);
-	if (!sphere->inverse_transpose)
 		return (MALLOC_FAIL);
 	return (SUCCESS);
 }
@@ -79,28 +96,5 @@ int set_cylinder_transform(t_object *cylinder)
 		return (MALLOC_FAIL);
 	free_matrix(&translation_matrix);
 	free_matrix(&scaling_matrix);
-	return (SUCCESS);
-}
-
-int set_object_transforms(t_object *objects)
-{
-	while (objects)
-	{
-		if (objects->type == SPHERE)
-			set_sphere_transform(objects);
-		else if (objects->type == PLANE)
-			set_plane_transform(objects);
-		else if (objects->type == CYLINDER)
-			set_cylinder_transform(objects);
-		if (!objects->transform)
-			return (MALLOC_FAIL);
-		objects->inverse_transform = invert_matrix(objects->transform);
-		if (!objects->inverse_transform)
-			return (MALLOC_FAIL);
-		objects->inverse_transpose = transpose_matrix(objects->inverse_transform);
-		if (!objects->inverse_transpose)
-			return (MALLOC_FAIL);
-		objects = objects->next;
-	}
 	return (SUCCESS);
 }
