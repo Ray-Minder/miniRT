@@ -1,4 +1,3 @@
-#include "../include/parser.h"
 #include "../include/minirt.h"
 
 int main(int argc, char *argv[])

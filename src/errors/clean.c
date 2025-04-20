@@ -56,8 +56,6 @@ void	free_light(t_light *light)
 {
 	if (!light)
 		return ;
-	if (light->transform)
-		free_matrix(&light->transform);
 	light->is_set = false;
 }
 
