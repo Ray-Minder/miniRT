@@ -1,5 +1,11 @@
 #include "../../include/minirt.h"
 
+//	=== Function Declarations ===
+
+t_comps	*prepare_computations(t_x *hit, t_ray *ray);
+
+//	=== Function Definitions ===
+
 /**
  * @brief Prepares the computations for shading calculations.
  * 

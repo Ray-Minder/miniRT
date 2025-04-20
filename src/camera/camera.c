@@ -1,5 +1,11 @@
 #include "../../include/minirt.h"
 
+//	=== Function Declarations ===
+
+void	set_up_camera(t_data *data);
+
+//	=== Function Definitions ===
+
 /**
  * @brief Initializes the camera with the given field of view.
  * 

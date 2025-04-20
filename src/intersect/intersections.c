@@ -1,5 +1,15 @@
 #include "../../include/minirt.h"
 
+//	=== Function Declarations ===
+
+t_x		*intersect(t_data *data, t_ray *ray, t_object *object);
+t_x		*hit(t_data *data, t_x *xs_list);
+t_x		*sphere_intersect(t_ray *ray, t_object *sphere);
+t_x		*plane_intersect(t_ray *ray, t_object *plane);
+double	calculate_discriminant(t_ray *ray);
+
+//	=== Function Definitions ===
+
 /**
  * @brief Intersects a ray with an object.
  * 

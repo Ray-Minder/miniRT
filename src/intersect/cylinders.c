@@ -1,5 +1,14 @@
 #include "../../include/minirt.h"
 
+//	=== Function Declarations ===
+
+t_x *create_node_pair(t_object *cylinder);
+bool check_cap(t_ray *ray, double t);
+t_x *intersect_caps(t_object *cylinder, t_ray *ray);
+t_x *cylinder_intersect(t_ray *ray, t_object *cylinder);
+
+//	=== Function Definitions ===
+
 t_x *create_node_pair(t_object *cylinder)
 {
 	t_x	*xs;

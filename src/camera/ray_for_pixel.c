@@ -3,6 +3,12 @@
 #define X 0
 #define Y 1
 
+//	=== Function Declarations ===
+
+t_ray	ray_for_pixel(t_camera *camera, int x, int y);
+
+//	=== Function Definitions ===
+
 /**
  * @brief Creates a ray for a specific pixel in the camera's view.
  * 

@@ -1,5 +1,11 @@
 #include "../../include/minirt.h"
 
+//	=== Function Declarations ===
+
+t_x *intersect_world(t_data *data, t_ray *ray);
+
+//	=== Function Definitions ===
+
 /**
  * @brief Intersects a ray with all objects in the scene.
  * 

@@ -1,5 +1,13 @@
 #include "../../include/minirt.h"
 
+//	=== Function Declarations ===
+
+static void	set_orientation_values(t_matrix *orientation, t_tuple right,
+	t_tuple up, t_tuple forward);
+t_matrix	*view_transform(t_tuple forward, t_tuple point);
+
+//	=== Function Definitions ===
+
 static void	set_orientation_values(t_matrix *orientation, t_tuple right,
 	t_tuple up, t_tuple forward)
 {

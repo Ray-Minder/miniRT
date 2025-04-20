@@ -1,5 +1,11 @@
 #include "../../include/minirt.h"
 
+//	=== Function Declarations ===
+
+t_color color_at(t_data *data, t_ray *ray);
+
+//	=== Function Definitions ===
+
 /**
  * @brief Computes the color at a given point in the scene based on the ray.
  * 
