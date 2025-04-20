@@ -1,6 +1,13 @@
 #include "../../include/minirt.h"
 
-void	render_row(void *param)
+//	=== Function Declarations ===
+
+static void	render_row(void *param);
+void 		render_scene(t_data *data);
+
+//	=== Function Definitions ===
+
+static void	render_row(void *param)
 {
 	t_data	*data;
 	int		x;

@@ -1,5 +1,14 @@
 #include "../../include/minirt.h"
 
+//	=== Function Declarations ===
+
+t_tuple	normal_at(t_object *object, t_tuple world_point);
+t_tuple	normal_at_plane(t_object *object, t_tuple world_point);
+t_tuple normal_at_cylinder(t_object *object, t_tuple world_point);
+t_tuple normal_at_sphere(t_object *object, t_tuple world_point);
+
+//	=== Function Definitions ===
+
 t_tuple	normal_at(t_object *object, t_tuple world_point)
 {
 	if (object->type == SPHERE)
@@ -79,12 +88,4 @@ t_tuple normal_at_sphere(t_object *object, t_tuple world_point)
 	world_normal = multiply_matrix_by_tuple(object->inverse_transpose, object_normal);
 	world_normal.w = 0;
 	return (normalize_tuple(world_normal));
-}
-
-t_tuple reflect(t_tuple in, t_tuple normal)
-{
-	t_tuple reflected;
-
-	reflected = subtract_tuples(in, multiply_tuple_by_scalar(normal, 2 * dot_product(in, normal)));
-	return (reflected);
 }
