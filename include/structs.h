@@ -145,6 +145,9 @@ typedef struct s_data
 	int			width;
 	int			height;
 	int			current_row;
+	t_x			*xs_list;
+	t_x			*curr_xs;
+	t_x			*hit;
 }	t_data;
 
 #endif
