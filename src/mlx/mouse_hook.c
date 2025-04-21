@@ -3,7 +3,7 @@
 //	=== Function Declarations ===
 
 void	print_ray(t_ray ray);
-t_x		*intersect_world_debug(t_data *data, t_scene *scene, t_ray *ray);
+t_x		*intersect_world_debug(t_data *data, t_ray *ray);
 void	print_hit(t_x *hit);
 void	print_comps(t_comps *comps);
 t_tuple	normal_at_sphere_debug(t_object *object, t_tuple world_point);
@@ -23,7 +23,7 @@ void	print_ray(t_ray ray)
 	printf("magnitude: %f\n", tuple_magnitude(ray.direction));
 }
 
-t_x	*intersect_world_debug(t_data *data, t_scene *scene, t_ray *ray)
+t_x	*intersect_world_debug(t_data *data, t_ray *ray)
 {
 	t_x			*xs_list;
 	t_x			*xs;
@@ -167,7 +167,7 @@ void	mouse_hook(enum mouse_key button, enum action action,
 		printf("Mouse position: (%d, %d)\n", x, y);
 		ray = ray_for_pixel(data->cam, x, y);
 		xs_list = NULL;
-		xs_list = intersect_world_debug(data, data->scene, &ray);
+		xs_list = intersect_world_debug(data, &ray);
 		print_intersection_list(xs_list);
 		_hit = hit(data, xs_list);
 		if (_hit)
