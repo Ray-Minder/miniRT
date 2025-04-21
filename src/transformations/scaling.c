@@ -57,4 +57,3 @@ t_matrix	*scaling_from_tuple(t_tuple tuple)
 	scaling_matrix->values[2][2] = tuple.z;
 	return (scaling_matrix);
 }
-

@@ -11,7 +11,7 @@
  * 
  * @note The EPSILON value is defined as 1e-6.
  */
-bool compare_doubles(double a, double b)
+bool	compare_doubles(double a, double b)
 {
 	if (a - b < EPSILON && a - b > -EPSILON)
 		return (true);

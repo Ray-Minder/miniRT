@@ -9,7 +9,7 @@ void	set_up_camera(t_data *data);
 /**
  * @brief Initializes the camera with the given field of view.
  * 
- * @param data Pointer to the data structure containing camera and scene information.
+ * @param data Pointer to the data structure containing camera and scene info.
  * @param field_of_view The field of view in radians.
  * 
  * This function sets the camera's horizontal and vertical size, field of view,
@@ -29,7 +29,8 @@ void	set_up_camera(t_data *data)
 		// print_error_msg("There was an error inverting the camera matrix.\n"); INVERT_MATRIX
 		print_clean_and_exit(data, MALLOC_FAIL, EXIT_FAILURE);
 	}
-	data->cam->origin = multiply_matrix_by_tuple(data->cam->inverse_transform, point(0, 0, 0));
+	data->cam->origin = multiply_matrix_by_tuple(data->cam->inverse_transform,
+			point(0, 0, 0));
 	data->cam->half_view = tan(data->cam->fov / 2);
 	data->cam->aspect = data->cam->hsize / data->cam->vsize;
 	if (data->cam->aspect >= 1)

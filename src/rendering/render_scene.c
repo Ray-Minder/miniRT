@@ -3,7 +3,7 @@
 //	=== Function Declarations ===
 
 static void	render_row(void *param);
-void 		render_scene(t_data *data);
+void		render_scene(t_data *data);
 
 //	=== Function Definitions ===
 
@@ -22,12 +22,13 @@ static void	render_row(void *param)
 	{
 		ray = ray_for_pixel(data->cam, x, data->current_row);
 		color = color_at(data, &ray);
-		mlx_put_pixel(data->canvas, x, data->current_row, color_to_uint32(color));
+		mlx_put_pixel(data->canvas, x, data->current_row,
+			color_to_uint32(color));
 	}
 	data->current_row++;
 }
 
-void render_scene(t_data *data)
+void	render_scene(t_data *data)
 {
 	if (mlx_image_to_window(data->mlx, data->canvas, 0, 0) < 0)
 	{

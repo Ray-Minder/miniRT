@@ -86,7 +86,6 @@ t_x	*hit(t_data *data, t_x *xs_list)
 	return (lowest_hit);
 }
 
-
 /**
  * @brief Intersects a ray with a sphere.
  * 
@@ -95,7 +94,8 @@ t_x	*hit(t_data *data, t_x *xs_list)
  * 
  * @return A linked list of intersection points (t_x) with the sphere.
  * 
- * This function calculates the intersection points between the ray and the sphere.
+ * This function calculates the intersection points
+ * between the ray and the sphere.
  * It uses the quadratic formula to find the intersection points.
  */
 t_x	*sphere_intersect(t_ray *ray, t_object *sphere)
@@ -115,8 +115,7 @@ t_x	*sphere_intersect(t_ray *ray, t_object *sphere)
 	discriminant = calculate_discriminant(ray);
 	if (discriminant < 0)
 	{
-		// printf("There's no intersection because discriminant is less than 0\n");
-		xs->t = 0; //Is this a good default value? I think it might be because later we check if t > 0
+		xs->t = 0;
 		xs->is_hit = false;
 		return (xs);
 	}
@@ -136,7 +135,6 @@ t_x	*sphere_intersect(t_ray *ray, t_object *sphere)
 		xs->next->object = sphere;
 		xs->next->next = NULL;
 	}
-	// printf("Returned intersection: %f\n", xs->t);
 	return (xs);
 }
 
@@ -149,26 +147,21 @@ t_x	*sphere_intersect(t_ray *ray, t_object *sphere)
  * @return A linked list of intersection points (t_x) with the plane.
  * 
  * This function calculates the intersection point between the ray and the plane.
- * If the ray is parallel to the plane, it returns an intersection point at t = 0.
+ * If the ray is parallel to the plane,
+ * it returns an intersection point at t = 0.
  */
-t_x *plane_intersect(t_ray *ray, t_object *plane)
+t_x	*plane_intersect(t_ray *ray, t_object *plane)
 {
-	t_x *xs;
+	t_x	*xs;
 
 	xs = new_intersection_node();
 	if (!xs)
 		return (NULL);
-	// printf("plane intersect();");
-	// printf("ray origin:\n");
-	// print_tuple(ray->origin);
-	// printf("ray direction:\n");
-	// print_tuple(ray->direction);
 	if (compare_doubles(ray->direction.y, 0.0))
 	{
 		xs->t = 0;
 		return (xs);
 	}
-	// printf("-ray origin y: %f, ray direction y: %f\n", -ray->origin.y, ray->direction.y);
 	xs->t = -ray->origin.y / ray->direction.y;
 	xs->is_hit = true;
 	xs->object = plane;
@@ -189,12 +182,11 @@ double	calculate_discriminant(t_ray *ray)
 	double	c;
 	double	discriminant;
 	t_tuple	sphere_to_ray;
-	
+
 	sphere_to_ray = subtract_tuples(ray->origin, point(0, 0, 0));
 	a = dot_product(ray->direction, ray->direction);
 	b = 2 * dot_product(ray->direction, sphere_to_ray);
 	c = dot_product(sphere_to_ray, sphere_to_ray) - 1;
 	discriminant = b * b - 4 * a * c;
-
 	return (discriminant);
 }

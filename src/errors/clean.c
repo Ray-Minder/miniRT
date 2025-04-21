@@ -39,7 +39,6 @@ void	free_scene(t_scene **scene)
 	*scene = NULL;
 }
 
-
 void	free_camera(t_camera *camera)
 {
 	if (!camera)

@@ -16,8 +16,8 @@ t_comps	*prepare_computations(t_x *hit, t_ray *ray);
  * 
  * This function calculates the intersection point, eye vector, normal vector,
  * and whether the intersection point is inside the object.
- * It also computes the over_point, which is slightly offset from the intersection point
- * to avoid floating-point inaccuracies.
+ * It also computes the over_point,
+ * which is slightly offset from the intersection point.
  */
 t_comps	*prepare_computations(t_x *hit, t_ray *ray)
 {
@@ -39,6 +39,7 @@ t_comps	*prepare_computations(t_x *hit, t_ray *ray)
 		comps->inside = true;
 		comps->normalv = negate_tuple(comps->normalv);
 	}
-	comps->over_point = add_tuples(comps->point, multiply_tuple_by_scalar(comps->normalv, EPSILON));
+	comps->over_point = add_tuples(comps->point,
+			multiply_tuple_by_scalar(comps->normalv, EPSILON));
 	return (comps);
 }

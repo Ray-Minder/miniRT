@@ -2,7 +2,7 @@
 
 //	=== Function Declarations ===
 
-t_x *intersect_world(t_data *data, t_ray *ray);
+t_x	*intersect_world(t_data *data, t_ray *ray);
 
 //	=== Function Definitions ===
 
@@ -12,14 +12,16 @@ t_x *intersect_world(t_data *data, t_ray *ray);
  * @param scene Pointer to the scene structure.
  * @param ray Pointer to the ray structure.
  * 
- * @return A linked list of intersection points (t_x) with the objects in the scene.
+ * @return A linked list of intersection points with the objects in the scene.
  * 
- * This function iterates through all objects in the scene and checks for intersections
- * with the given ray. It creates a linked list of intersection points (t_x) for each
- * object that the ray intersects with. The function returns the head of the linked list.
+ * This function iterates through all objects in the scene
+ * and checks for intersections with the given ray.
+ * It creates a linked list of intersection points for each object
+ * that the ray intersects with.
+ * The function returns the head of the linked list.
  * If no intersections are found, the list will be empty.
  */
-t_x *intersect_world(t_data *data, t_ray *ray)
+t_x	*intersect_world(t_data *data, t_ray *ray)
 {
 	t_x			*xs_list;
 	t_x			*xs;
