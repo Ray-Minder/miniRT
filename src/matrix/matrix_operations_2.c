@@ -1,4 +1,4 @@
-# include "../../include/minirt.h"
+#include "../../include/minirt.h"
 
 //	=== Function Declarations ===
 
@@ -104,7 +104,8 @@ double	determinant(t_matrix *m)
 	if (m->columns == 1)
 		return (m->values[0][0]);
 	if (m->columns == 2)
-		return (m->values[0][0] * m->values[1][1] - m->values[0][1] * m->values[1][0]);
+		return (m->values[0][0] * m->values[1][1]
+			- m->values[0][1] * m->values[1][0]);
 	determinant = 0;
 	i = -1;
 	while (++i < m->columns)
@@ -160,10 +161,15 @@ t_matrix	*invert_matrix(t_matrix *m)
 		perror ("Inverse");
 		return (NULL);
 	}
-	_identity = identity(m->columns); //Check if it fails
+	_identity = identity(m->columns);
+	if (!_identity)
+	{
+		perror("Inverse");
+		return (NULL);
+	}
 	if (compare_matrices(m, _identity))
 		return (_identity);
-	free_matrix(&_identity); 
+	free_matrix(&_identity);
 	_determinant = determinant(m);
 	if (compare_doubles(_determinant, 0.0))
 	{
@@ -178,5 +184,5 @@ t_matrix	*invert_matrix(t_matrix *m)
 		while (++c < m->columns)
 			inverse->values[c][r] = cofactor(m, r, c) / _determinant;
 	}
-	return(inverse);
+	return (inverse);
 }

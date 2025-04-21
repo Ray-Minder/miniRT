@@ -27,15 +27,15 @@ t_x	*new_intersection_node(void)
 	return (new_node);
 }
 
-
 /**
  * @brief Adds an intersection node to the end of the linked list.
  * 
- * @param xs_list Pointer to the head of the linked list of intersection points (t_x).
- * @param current Pointer to the current intersection point (t_x) to be added.
+ * @param xs_list Pointer to the head of the linked list of intersection points
+ * @param current Pointer to the current intersection point to be added.
  * 
- * This function traverses the linked list and adds the current intersection point
- * to the end of the list. If the list is empty, it sets the head to the current point.
+ * This function traverses the linked list
+ * and adds the current intersection point to the end of the list.
+ * If the list is empty, it sets the head to the current point.
  */
 void	add_intersection_node(t_x **xs_list, t_x *current)
 {
@@ -83,7 +83,7 @@ void	free_intersection_node(t_x **node_ptr)
 	return ;
 }
 
-void print_intersection_list(t_x *xs_list)
+void	print_intersection_list(t_x *xs_list)
 {
 	t_x	*current;
 

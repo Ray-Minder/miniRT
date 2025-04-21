@@ -22,9 +22,9 @@ t_tuple	divide_tuple_by_scalar(t_tuple t, double scalar);
  * @return A tuple where each component is the sum of the corresponding
  *         components of the input tuples.
  */
-t_tuple add_tuples(t_tuple a, t_tuple b)
+t_tuple	add_tuples(t_tuple a, t_tuple b)
 {
-	t_tuple result;
+	t_tuple	result;
 
 	result.x = a.x + b.x;
 	result.y = a.y + b.y;
@@ -46,9 +46,9 @@ t_tuple add_tuples(t_tuple a, t_tuple b)
  * @return A tuple where each component is the difference of the corresponding
  *         components of the input tuples.
  */
-t_tuple subtract_tuples(t_tuple a, t_tuple b)
+t_tuple	subtract_tuples(t_tuple a, t_tuple b)
 {
-	t_tuple result;
+	t_tuple	result;
 
 	result.x = a.x - b.x;
 	result.y = a.y - b.y;
@@ -68,10 +68,10 @@ t_tuple subtract_tuples(t_tuple a, t_tuple b)
  * @return A tuple where each component is the negation of the corresponding
  *         component of the input tuple.
  */
-t_tuple negate_tuple(t_tuple t)
+t_tuple	negate_tuple(t_tuple t)
 {
 	t_tuple	zero;
-	t_tuple negated_tuple;
+	t_tuple	negated_tuple;
 
 	zero = tuple(0.0, 0.0, 0.0, 0.0);
 	negated_tuple = subtract_tuples(zero, t);
@@ -91,9 +91,9 @@ t_tuple negate_tuple(t_tuple t)
  * @return A tuple where each component is the product of the corresponding
  *         component of the input tuple and the scalar.
  */
-t_tuple multiply_tuple_by_scalar(t_tuple t, double scalar)
+t_tuple	multiply_tuple_by_scalar(t_tuple t, double scalar)
 {
-	t_tuple result;
+	t_tuple	result;
 
 	result.x = t.x * scalar;
 	result.y = t.y * scalar;
@@ -116,13 +116,13 @@ t_tuple multiply_tuple_by_scalar(t_tuple t, double scalar)
  *         component of the input tuple and the scalar,
  * 		   except for the w component.
  */
-t_tuple divide_tuple_by_scalar(t_tuple t, double scalar)
+t_tuple	divide_tuple_by_scalar(t_tuple t, double scalar)
 {
-	t_tuple result;
+	t_tuple	result;
 
 	result.x = t.x / scalar;
 	result.y = t.y / scalar;
 	result.z = t.z / scalar;
-	result.w = t.w; //?
+	result.w = t.w;
 	return (result);
 }

@@ -4,7 +4,7 @@ NAME = minirt
 CC = cc
 
 # Compiler flags
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror -g #-fsanitize=address
 
 SRC_DIR = src
 OBJ_DIR = obj

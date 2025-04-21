@@ -72,7 +72,6 @@ typedef struct s_light
 {
 	bool		is_set;
 	t_tuple		position;
-	t_matrix	*transform;	//Not needed (probably)
 	double		brightness;
 	t_color		color;
 }	t_light;
@@ -146,6 +145,9 @@ typedef struct s_data
 	int			width;
 	int			height;
 	int			current_row;
+	t_x			*xs_list;
+	t_x			*curr_xs;
+	t_x			*hit;
 }	t_data;
 
 #endif

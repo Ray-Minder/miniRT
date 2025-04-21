@@ -2,7 +2,7 @@
 
 //	=== Function Declarations ===
 
-t_tuple tuple(double x, double y, double z, double w);
+t_tuple	tuple(double x, double y, double z, double w);
 t_tuple	point(double x, double y, double z);
 t_tuple	vector(double x, double y, double z);
 
@@ -20,9 +20,9 @@ t_tuple	vector(double x, double y, double z);
  * 
  * @return A tuple structure with the initialized values.
  */
-t_tuple tuple(double x, double y, double z, double w)
+t_tuple	tuple(double x, double y, double z, double w)
 {
-	t_tuple tuple;
+	t_tuple	tuple;
 
 	tuple.x = x;
 	tuple.y = y;
@@ -30,6 +30,7 @@ t_tuple tuple(double x, double y, double z, double w)
 	tuple.w = w;
 	return (tuple);
 }
+
 /**
  * @brief Creates a tuple representing a point.
  *
@@ -43,7 +44,7 @@ t_tuple tuple(double x, double y, double z, double w)
  *
  * @return A tuple structure representing a point with w = 1.0.
  */
-t_tuple point(double x, double y, double z)
+t_tuple	point(double x, double y, double z)
 {
 	return (tuple(x, y, z, 1.0));
 }
@@ -61,7 +62,7 @@ t_tuple point(double x, double y, double z)
  *
  * @return A tuple structure representing a vector with w = 0.0.
  */
-t_tuple vector(double x, double y, double z)
+t_tuple	vector(double x, double y, double z)
 {
 	return (tuple(x, y, z, 0.0));
 }

@@ -1,5 +1,12 @@
 #include "../../include/minirt.h"
 
+//	=== Function Declarations ===
+
+t_ray	transform_ray(t_data *data, t_ray *ray, t_matrix *matrix);
+void	set_transform(t_object *object, t_matrix *transformation);
+
+//	=== Function Definitions ===
+
 t_ray	transform_ray(t_data *data, t_ray *ray, t_matrix *matrix)
 {
 	t_ray	transformed_ray;
@@ -10,7 +17,8 @@ t_ray	transform_ray(t_data *data, t_ray *ray, t_matrix *matrix)
 		clean_and_exit(data, EXIT_FAILURE);
 	}
 	transformed_ray.origin = multiply_matrix_by_tuple(matrix, ray->origin);
-	transformed_ray.direction = multiply_matrix_by_tuple(matrix, ray->direction);
+	transformed_ray.direction = multiply_matrix_by_tuple(matrix,
+			ray->direction);
 	return (transformed_ray);
 }
 

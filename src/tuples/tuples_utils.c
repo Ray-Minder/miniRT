@@ -2,7 +2,7 @@
 
 //	=== Function Declarations ===
 
-void 	print_tuple(t_tuple tuple);
+void	print_tuple(t_tuple tuple);
 bool	compare_tuples(t_tuple a, t_tuple b);
 t_color	tuple_to_color(t_tuple tuple);
 t_tuple	color_to_tuple(t_color color);
@@ -19,7 +19,7 @@ bool	is_zero_vector(t_tuple v);
  *
  * @param tuple The tuple to be printed.
  */
-void print_tuple(t_tuple tuple)
+void	print_tuple(t_tuple tuple)
 {
 	if (compare_doubles(tuple.w, 0.0))
 		printf("The tuple is a vector.\n");

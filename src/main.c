@@ -6,9 +6,9 @@ static void	call_mlx_functions(t_data *data);
 
 //	=== Function Definitions ===
 
-int main(int argc, char *argv[])
+int	main(int argc, char *argv[])
 {
-	t_data data;
+	t_data	data;
 
 	if (argc != 2)
 	{

@@ -21,7 +21,7 @@ void	init_data(t_data *data)
 	data->scene = ft_calloc(1, sizeof(t_scene));
 	if (!data->scene)
 	{
-		print_error_msg("There was an error allocating memory for the scene.\n");
+		print_error_msg("Allocating memory for the scene.\n");
 		clean_and_exit(data, EXIT_FAILURE);
 	}
 }

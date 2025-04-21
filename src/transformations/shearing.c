@@ -17,7 +17,7 @@
  * 	|	zx	zy	1	0 |
  * 	|	0	0	0	1 |
  */
-t_matrix	*shearing(double xy, double xz, double yx, 
+t_matrix	*shearing(double xy, double xz, double yx,
 						double yz, double zx, double zy)
 {
 	t_matrix	*shearing_matrix;

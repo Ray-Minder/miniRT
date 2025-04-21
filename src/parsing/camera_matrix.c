@@ -39,6 +39,5 @@ int	set_transforms(t_scene *scene)
 	scene->camera.transform = view_transform(scene->camera.forward, scene->camera.position);
 	if (!scene->camera.transform)
 		return (MALLOC_FAIL);
-	scene->light.transform = NULL;
 	return (SUCCESS);
 }

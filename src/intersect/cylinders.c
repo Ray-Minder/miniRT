@@ -1,6 +1,15 @@
 #include "../../include/minirt.h"
 
-t_x *create_node_pair(t_object *cylinder)
+//	=== Function Declarations ===
+
+t_x		*create_node_pair(t_object *cylinder);
+bool	check_cap(t_ray *ray, double t);
+t_x		*intersect_caps(t_object *cylinder, t_ray *ray);
+t_x		*cylinder_intersect(t_ray *ray, t_object *cylinder);
+
+//	=== Function Definitions ===
+
+t_x	*create_node_pair(t_object *cylinder)
 {
 	t_x	*xs;
 
@@ -18,10 +27,10 @@ t_x *create_node_pair(t_object *cylinder)
 	return (xs);
 }
 
-bool check_cap(t_ray *ray, double t)
+bool	check_cap(t_ray *ray, double t)
 {
-	double x;
-	double z;
+	double	x;
+	double	z;
 
 	x = ray->origin.x + t * ray->direction.x;
 	z = ray->origin.z + t * ray->direction.z;
@@ -30,11 +39,11 @@ bool check_cap(t_ray *ray, double t)
 	return (false);
 }
 
-t_x *intersect_caps(t_object *cylinder, t_ray *ray)
+t_x	*intersect_caps(t_object *cylinder, t_ray *ray)
 {
-	double t0;
-	double t1;
-	t_x *caps;
+	double	t0;
+	double	t1;
+	t_x		*caps;
 
 	caps = create_node_pair(cylinder);
 	if (caps == NULL)
@@ -58,7 +67,7 @@ t_x *intersect_caps(t_object *cylinder, t_ray *ray)
 	return (caps);
 }
 
-t_x *cylinder_intersect(t_ray *ray, t_object *cylinder)
+t_x	*cylinder_intersect(t_ray *ray, t_object *cylinder)
 {
 	t_x		*xs;
 	double	a;

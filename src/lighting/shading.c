@@ -1,21 +1,22 @@
 #include "../../include/minirt.h"
 
-t_color shade_hit(t_data *data, t_comps *comps)
+t_color	shade_hit(t_data *data, t_comps *comps)
 {
-	t_color final_color;
+	t_color	final_color;
 	t_scene	*scene;
 
 	scene = data->scene;
 	if (is_shadowed(data, comps->over_point))
 	{
-		final_color = ambient_lighting(scene->ambient_light, comps->object->color);
+		final_color = ambient_lighting(scene->ambient_light,
+				comps->object->color);
 	}
 	else
 		final_color = lighting(scene, comps);
 	return (final_color);
 }
 
-bool is_shadowed(t_data *data, t_tuple over_point)
+bool	is_shadowed(t_data *data, t_tuple over_point)
 {
 	t_tuple	light_vector;
 	double	distance;
@@ -25,8 +26,7 @@ bool is_shadowed(t_data *data, t_tuple over_point)
 
 	light_vector = subtract_tuples(data->scene->light.position, over_point);
 	distance = tuple_magnitude(light_vector);
-	shadow_ray.origin = over_point;
-	shadow_ray.direction = normalize_tuple(light_vector);
+	shadow_ray = create_ray(over_point, normalize_tuple(light_vector));
 	xs_list = intersect_world(data, &shadow_ray);
 	the_hit = hit(data, xs_list);
 	free_intersections_list(&xs_list);

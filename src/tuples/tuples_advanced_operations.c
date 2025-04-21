@@ -19,9 +19,9 @@ t_tuple	cross_product(t_tuple a, t_tuple b);
  *
  * @return The magnitude of the tuple.
  */
-double tuple_magnitude(t_tuple t)
+double	tuple_magnitude(t_tuple t)
 {
-	double magnitude;
+	double	magnitude;
 
 	magnitude = sqrt(pow(t.x, 2) + pow(t.y, 2) + pow(t.z, 2) + pow(t.w, 2));
 	return (magnitude);
@@ -37,10 +37,10 @@ double tuple_magnitude(t_tuple t)
  *
  * @return The normalized tuple.
  */
-t_tuple normalize_tuple(t_tuple t)
+t_tuple	normalize_tuple(t_tuple t)
 {
-	t_tuple normalized_tuple;
-	double magnitude;
+	t_tuple	normalized_tuple;
+	double	magnitude;
 
 	magnitude = tuple_magnitude(t);
 	normalized_tuple.x = t.x / magnitude;
@@ -62,9 +62,9 @@ t_tuple normalize_tuple(t_tuple t)
  *
  * @return The dot product of the two tuples.
  */
-double dot_product(t_tuple a, t_tuple b)
+double	dot_product(t_tuple a, t_tuple b)
 {
-	double result;
+	double	result;
 
 	result = a.x * b.x + a.y * b.y + a.z * b.z + a.w * b.w;
 	if (compare_doubles(result, 0.0000))
@@ -85,12 +85,12 @@ double dot_product(t_tuple a, t_tuple b)
  *
  * @return The cross product of the two tuples as a new tuple.
  */
-t_tuple cross_product(t_tuple a, t_tuple b)
+t_tuple	cross_product(t_tuple a, t_tuple b)
 {
-	t_tuple result;
+	t_tuple	result;
 
 	result = vector(a.y * b.z - a.z * b.y,
-					a.z * b.x - a.x * b.z,
-					a.x * b.y - a.y * b.x);
+			a.z * b.x - a.x * b.z,
+			a.x * b.y - a.y * b.x);
 	return (result);
 }
