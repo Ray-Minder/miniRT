@@ -59,6 +59,8 @@ int	parse_camera(char **line, t_scene *scene)
 		return (FOV_OUT_OF_RANGE);
 	if (error != SUCCESS)
 		return (error);
+	if (compare_doubles(tuple_magnitude(scene->camera.forward), 0.0))
+		return (INVALID_DIRECTION_VECTOR);
 	return (SUCCESS);
 }
 

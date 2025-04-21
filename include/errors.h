@@ -21,7 +21,8 @@ typedef enum e_error
 	NO_LIGHTS,
 	FOV_OUT_OF_RANGE,
 	DOUBLE_OUT_OF_RANGE,
-	MALLOC_FAIL
+	MALLOC_FAIL,
+	INVALID_DIRECTION_VECTOR
 }	t_error;
 
 #endif
