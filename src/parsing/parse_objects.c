@@ -29,6 +29,8 @@ int	parse_sphere(char **line, t_scene *scene)
 	error = parse_color(line[3], &new_object->color);
 	if (error != SUCCESS)
 		return (error);
+	if (new_object->diameter <= 0)
+		return (DOUBLE_OUT_OF_RANGE);
 	return (SUCCESS);
 }
 
@@ -54,6 +56,8 @@ int	parse_plane(char **line, t_scene *scene)
 	error = parse_color(line[3], &new_object->color);
 	if (error != SUCCESS)
 		return (error);
+	if (compare_doubles(tuple_magnitude(new_object->direction), 0.0))
+		return (INVALID_DIRECTION_VECTOR);
 	return (SUCCESS);
 }
 
@@ -85,5 +89,9 @@ int	parse_cylinder(char **line, t_scene *scene)
 	error = parse_color(line[5], &new_object->color);
 	if (error != SUCCESS)
 		return (error);
+	if (compare_doubles(tuple_magnitude(new_object->direction), 0.0))
+		return (INVALID_DIRECTION_VECTOR);
+	if (new_object->diameter <= 0 || new_object->height <= 0)
+		return (DOUBLE_OUT_OF_RANGE);
 	return (SUCCESS);
 }

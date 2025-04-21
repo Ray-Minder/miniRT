@@ -25,3 +25,4 @@ int	validate_scene(t_scene *scene)
 		return (NO_LIGHTS);
 	return (SUCCESS);
 }
+

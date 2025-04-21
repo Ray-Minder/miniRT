@@ -23,7 +23,8 @@ static char	*g_error_messages[] = {
 	"No light",
 	"FOV out of range",
 	"Double out of range",
-	"Malloc failed"
+	"Malloc failed",
+	"Invalid direction vector"
 };
 
 int	print_error(t_error error)
