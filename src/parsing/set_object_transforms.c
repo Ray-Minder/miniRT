@@ -9,7 +9,7 @@ int	set_cylinder_transform(t_object *cylinder);
 
 //	=== Function Definitions ===
 
-int set_object_transforms(t_object *objects)
+int	set_object_transforms(t_object *objects)
 {
 	while (objects)
 	{
@@ -32,10 +32,10 @@ int set_object_transforms(t_object *objects)
 	return (SUCCESS);
 }
 
-int set_sphere_transform(t_object *sphere)
+int	set_sphere_transform(t_object *sphere)
 {
-	t_matrix *translate_matrix;
-	t_matrix *scaled_matrix;
+	t_matrix	*translate_matrix;
+	t_matrix	*scaled_matrix;
 
 	translate_matrix = translate_from_tuple(sphere->position);
 	if (!translate_matrix)
@@ -51,14 +51,14 @@ int set_sphere_transform(t_object *sphere)
 	return (SUCCESS);
 }
 
-int set_plane_transform(t_object *plane)
+int	set_plane_transform(t_object *plane)
 {
-	t_tuple forward;
-	t_tuple right;
+	t_tuple	forward;
+	t_tuple	right;
 
 	plane->direction = normalize_tuple(plane->direction);
 	right = cross_product(plane->direction, vector(0, 0, 1));
-	if (compare_doubles(right.x, 0) && compare_doubles(right.y, 0) && compare_doubles(right.z, 0))
+	if (compare_doubles(tuple_magnitude(right), 0.0))
 		right = cross_product(vector(0, 1, 0), plane->direction);
 	right = normalize_tuple(right);
 	forward = cross_product(right, plane->direction);
@@ -69,18 +69,16 @@ int set_plane_transform(t_object *plane)
 	return (SUCCESS);
 }
 
-
-int set_cylinder_transform(t_object *cylinder)
+int	set_cylinder_transform(t_object *cylinder)
 {
-	t_tuple forward;
-	t_tuple right;
-
-	t_matrix *scaling_matrix;
-	t_matrix *translation_matrix;
+	t_tuple		forward;
+	t_tuple		right;
+	t_matrix	*scaling_matrix;
+	t_matrix	*translation_matrix;
 
 	cylinder->direction = normalize_tuple(cylinder->direction);
 	right = cross_product(cylinder->direction, vector(0, 0, 1));
-	if (compare_doubles(right.x, 0) && compare_doubles(right.y, 0) && compare_doubles(right.z, 0))
+	if (compare_doubles(tuple_magnitude(right), 0.0))
 		right = cross_product(vector(0, 1, 0), cylinder->direction);
 	right = normalize_tuple(right);
 	forward = cross_product(right, cylinder->direction);

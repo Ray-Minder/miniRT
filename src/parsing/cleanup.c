@@ -1,4 +1,4 @@
-# include "../../include/minirt.h"
+#include "../../include/minirt.h"
 
 //	=== Function Declarations ===
 
