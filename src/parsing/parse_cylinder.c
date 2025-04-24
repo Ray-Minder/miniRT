@@ -4,14 +4,14 @@ static int	parse_cylinder_attributes(char **line, t_object *cylinder)
 {
 	int	error;
 
-	error = parse_tuple(line[1], &cylinder->position);
+	error = parse_tuple(line[1], &cylinder->pos);
 	if (error != SUCCESS)
 		return (error);
-	cylinder->position.w = 1;
-	error = parse_tuple(line[2], &cylinder->direction);
+	cylinder->pos.w = 1;
+	error = parse_tuple(line[2], &cylinder->dir);
 	if (error != SUCCESS)
 		return (error);
-	cylinder->direction.w = 0;
+	cylinder->dir.w = 0;
 	error = parse_double(line[3], &cylinder->diameter);
 	if (error != SUCCESS)
 		return (error);
@@ -24,7 +24,7 @@ static int	parse_cylinder_attributes(char **line, t_object *cylinder)
 
 static int	validate_cylinder_attributes(t_object *cylinder)
 {
-	if (compare_doubles(tuple_magnitude(cylinder->direction), 0.0))
+	if (compare_doubles(tuple_magnitude(cylinder->dir), 0.0))
 		return (INVALID_DIRECTION_VECTOR);
 	if (cylinder->diameter <= 0 || cylinder->height <= 0)
 		return (DOUBLE_OUT_OF_RANGE);

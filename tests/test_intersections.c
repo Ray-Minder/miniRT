@@ -9,7 +9,7 @@ void test_sphere_intersect()
 	
 	ray = create_ray(tuple(0, 0, -5, 1), tuple(0, 0, 1, 0));
 	sphere.diameter = 2;
-	sphere.position = point(0, 0, 0);
+	sphere.pos = point(0, 0, 0);
 	sphere.transform = identity(4);
 	xs = intersect(&ray, &sphere);
 	current = xs;
@@ -84,7 +84,7 @@ void test_hit()
 	
 	ray = create_ray(tuple(0, 0, -5, 1), tuple(0, 0, 1, 0));
 	sphere.diameter = 2;
-	sphere.position = point(0, 0, 0);
+	sphere.pos = point(0, 0, 0);
 	sphere.transform = identity(4);
 	xs = intersect(&ray, &sphere);
 	current = xs;
@@ -165,7 +165,7 @@ void	test_transform()
 	assert(compare_tuples(r2.direction, vector(0, 3, 0)));
 
 	sphere.diameter = 2;
-	sphere.position = point(0, 0, 0);
+	sphere.pos = point(0, 0, 0);
 	sphere.transform = identity(4);
 	r2 = create_ray(point(0, 0, -5), vector(0, 0, 1));
 

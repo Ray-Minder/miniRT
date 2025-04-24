@@ -29,8 +29,8 @@ int	parse_uint8(const char *s, uint8_t *result)
 
 int	parse_color(char *line, t_color *color)
 {
-	char	**split_line;
-	int		error;
+	char			**split_line;
+	int				error;
 	t_uint8color	uint8color;
 
 	split_line = ft_split(line, ',');

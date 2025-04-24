@@ -4,9 +4,7 @@
 
 t_x		*intersect(t_data *data, t_ray *ray, t_object *object);
 t_x		*hit(t_data *data, t_x *xs_list);
-t_x		*sphere_intersect(t_ray *ray, t_object *sphere);
 t_x		*plane_intersect(t_ray *ray, t_object *plane);
-double	calculate_discriminant(t_ray *ray);
 
 //	=== Function Definitions ===
 
@@ -33,7 +31,7 @@ t_x	*intersect(t_data *data, t_ray *ray, t_object *object)
 		printf("Returning intersect because there's no ray or object\n");
 		return (NULL);
 	}
-	transformed_ray = transform_ray(data, ray, object->inverse_transform);
+	transformed_ray = transform_ray(data, ray, object->inv_transform);
 	if (object->type == SPHERE)
 		return (sphere_intersect(&transformed_ray, object));
 	if (object->type == PLANE)
@@ -87,58 +85,6 @@ t_x	*hit(t_data *data, t_x *xs_list)
 }
 
 /**
- * @brief Intersects a ray with a sphere.
- * 
- * @param ray Pointer to the ray structure.
- * @param sphere Pointer to the sphere object.
- * 
- * @return A linked list of intersection points (t_x) with the sphere.
- * 
- * This function calculates the intersection points
- * between the ray and the sphere.
- * It uses the quadratic formula to find the intersection points.
- */
-t_x	*sphere_intersect(t_ray *ray, t_object *sphere)
-{
-	t_x		*xs;
-	double	discriminant;
-	double	a;
-	double	b;
-	t_tuple	sphere_to_ray;
-
-	xs = new_intersection_node();
-	if (!xs)
-	{
-		printf("failure to allocate new intersection\n");
-		return (NULL);
-	}
-	discriminant = calculate_discriminant(ray);
-	if (discriminant < 0)
-	{
-		xs->t = 0;
-		xs->is_hit = false;
-		return (xs);
-	}
-	xs->next = new_intersection_node();
-	if (!xs->next)
-		return (free_intersections_list(&xs), NULL);
-	sphere_to_ray = subtract_tuples(ray->origin, point(0, 0, 0));
-	a = dot_product(ray->direction, ray->direction);
-	b = 2 * dot_product(ray->direction, sphere_to_ray);
-	xs->t = (-b - sqrt(discriminant)) / (2 * a);
-	xs->is_hit = true;
-	xs->object = sphere;
-	if (xs->next)
-	{
-		xs->next->t = (-b + sqrt(discriminant)) / (2 * a);
-		xs->next->is_hit = true;
-		xs->next->object = sphere;
-		xs->next->next = NULL;
-	}
-	return (xs);
-}
-
-/**
  * @brief Intersects a ray with a plane.
  * 
  * @param ray Pointer to the ray structure.
@@ -166,27 +112,4 @@ t_x	*plane_intersect(t_ray *ray, t_object *plane)
 	xs->is_hit = true;
 	xs->object = plane;
 	return (xs);
-}
-
-/**
- * @brief Calculates the discriminant for a ray-sphere intersection.
- * 
- * @param ray Pointer to the ray structure.
- * 
- * @return The discriminant value.
- */
-double	calculate_discriminant(t_ray *ray)
-{
-	double	a;
-	double	b;
-	double	c;
-	double	discriminant;
-	t_tuple	sphere_to_ray;
-
-	sphere_to_ray = subtract_tuples(ray->origin, point(0, 0, 0));
-	a = dot_product(ray->direction, ray->direction);
-	b = 2 * dot_product(ray->direction, sphere_to_ray);
-	c = dot_product(sphere_to_ray, sphere_to_ray) - 1;
-	discriminant = b * b - 4 * a * c;
-	return (discriminant);
 }

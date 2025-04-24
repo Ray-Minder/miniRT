@@ -8,7 +8,7 @@ t_object	create_sphere(t_tuple position, double diameter, t_color color)
 
 	sphere.type = SPHERE;
 	sphere.diameter = diameter;
-	sphere.position = position;
+	sphere.pos = position;
 	sphere.material.color = color;
 	sphere.material.ambient = 0.1;
 	sphere.material.diffuse = 0.5;
@@ -36,8 +36,8 @@ t_object	create_sphere(t_tuple position, double diameter, t_color color)
 		printf("Failed to allocate memory for sphere transform\n");
 		exit(EXIT_FAILURE);
 	}
-	sphere.inverse_transform = invert_matrix(sphere.transform);	
-	if (!sphere.inverse_transform)
+	sphere.inv_transform = invert_matrix(sphere.transform);	
+	if (!sphere.inv_transform)
 	{
 		printf("Failed to allocate memory for sphere inverse transform\n");
 		free_matrix(&sphere.transform);

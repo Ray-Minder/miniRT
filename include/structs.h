@@ -82,11 +82,11 @@ typedef struct s_light
 typedef struct s_object
 {
 	t_object_type	type;
-	t_tuple			position;
-	t_tuple			direction;
+	t_tuple			pos;
+	t_tuple			dir;
 	t_matrix		*transform;
-	t_matrix		*inverse_transform;
-	t_matrix		*inverse_transpose;
+	t_matrix		*inv_transform;
+	t_matrix		*inv_transpose;
 	t_color			color;
 	double			diameter;
 	double			height;
