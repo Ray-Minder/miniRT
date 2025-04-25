@@ -152,7 +152,7 @@ t_matrix	*invert_matrix(t_matrix *m)
 {
 	t_matrix	*inverse;
 	double		_determinant;
-	int			i;
+	int			r;
 	int			c;
 	t_matrix	*_identity;
 
