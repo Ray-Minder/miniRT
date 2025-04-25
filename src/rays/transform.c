@@ -17,8 +17,8 @@ t_ray	transform_ray(t_data *data, t_ray *ray, t_matrix *matrix)
 		clean_and_exit(data, EXIT_FAILURE);
 	}
 	transformed_ray.origin = multiply_matrix_by_tuple(matrix, ray->origin);
-	transformed_ray.direction = multiply_matrix_by_tuple(matrix,
-			ray->direction);
+	transformed_ray.dir = multiply_matrix_by_tuple(matrix,
+			ray->dir);
 	return (transformed_ray);
 }
 

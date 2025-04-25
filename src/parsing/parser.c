@@ -104,7 +104,7 @@ void	parse_scene(t_data *data, char *filename)
 	if (file == -1)
 		print_clean_and_exit(data, NO_ACCESS, EXIT_FAILURE);
 	error = process_file_lines(file, data->scene);
-	if (close(file))
+	if (close(file) == -1)
 		print_error_msg("close in parse_scene");
 	if (error == SUCCESS)
 		error = validate_scene(data->scene);

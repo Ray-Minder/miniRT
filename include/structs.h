@@ -123,7 +123,7 @@ typedef struct s_scene
 typedef struct s_ray
 {
 	t_tuple	origin;
-	t_tuple	direction;
+	t_tuple	dir;
 }	t_ray;
 
 typedef struct s_data

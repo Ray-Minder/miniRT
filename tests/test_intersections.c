@@ -157,12 +157,12 @@ void	test_transform()
 	_translation = translation(3, 4, 5);
 	r2 = transform(&ray, _translation);
 	assert(compare_tuples(r2.origin, point(4, 6, 8)));
-	assert(compare_tuples(r2.direction, vector(0, 1, 0)));
+	assert(compare_tuples(r2.dir, vector(0, 1, 0)));
 
 	_scaling = scaling(2, 3, 4);
 	r2 = transform(&ray, _scaling);
 	assert(compare_tuples(r2.origin, point(2, 6, 12)));
-	assert(compare_tuples(r2.direction, vector(0, 3, 0)));
+	assert(compare_tuples(r2.dir, vector(0, 3, 0)));
 
 	sphere.diameter = 2;
 	sphere.pos = point(0, 0, 0);

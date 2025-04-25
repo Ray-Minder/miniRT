@@ -1,6 +1,6 @@
 #include "../../include/minirt.h"
 
-static t_x	*create_node_pair(t_object *object)
+t_x	*create_node_pair(t_object *object)
 {
 	t_x	*xs;
 
@@ -21,8 +21,8 @@ static t_x	*create_node_pair(t_object *object)
 static void	calculate_intersects(t_ray *ray, t_x *xs)
 {
 	const t_tuple	sphere_ray = subtract_tuples(ray->origin, point(0, 0, 0));
-	const double	a = dot_product(ray->direction, ray->direction);
-	const double	b = 2 * dot_product(ray->direction, sphere_ray);
+	const double	a = dot_product(ray->dir, ray->dir);
+	const double	b = 2 * dot_product(ray->dir, sphere_ray);
 	const double	c = dot_product(sphere_ray, sphere_ray) - 1;
 	const double	discriminant = b * b - 4 * a * c;
 

@@ -19,8 +19,8 @@ void	print_ray(t_ray ray)
 	printf("  Origin: ");
 	print_tuple(ray.origin);
 	printf("  Direction: ");
-	print_tuple(ray.direction);
-	printf("magnitude: %f\n", tuple_magnitude(ray.direction));
+	print_tuple(ray.dir);
+	printf("magnitude: %f\n", tuple_magnitude(ray.dir));
 }
 
 t_x	*intersect_world_debug(t_data *data, t_ray *ray)

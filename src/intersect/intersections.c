@@ -103,12 +103,12 @@ t_x	*plane_intersect(t_ray *ray, t_object *plane)
 	xs = new_intersection_node();
 	if (!xs)
 		return (NULL);
-	if (compare_doubles(ray->direction.y, 0.0))
+	if (compare_doubles(ray->dir.y, 0.0))
 	{
 		xs->t = 0;
 		return (xs);
 	}
-	xs->t = -ray->origin.y / ray->direction.y;
+	xs->t = -ray->origin.y / ray->dir.y;
 	xs->is_hit = true;
 	xs->object = plane;
 	return (xs);

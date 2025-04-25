@@ -69,8 +69,23 @@ t_color		color_at(t_data *data, t_ray *ray);
 // intersect_world.c
 
 t_x			*cylinder_intersect(t_ray *ray, t_object *cylinder);
-
 t_x			*intersect_world(t_data *data, t_ray *ray);
+
+//	intersection_utils.c
+
+t_x			*new_intersection_node(void);
+void		free_intersections_list(t_x **xs_list);
+void		free_intersection_node(t_x **node_ptr);
+void		print_intersection_list(t_x *xs_list);
+t_x			*create_node_pair(t_object *object);
+
+//	intersections.c
+
+t_x			*intersect(t_data *data, t_ray *ray, t_object *object);
+t_x			*hit(t_data *data, t_x *xs_list);
+void		add_intersection_node(t_x **xs_list, t_x *current);
+t_x			*sphere_intersect(t_ray *ray, t_object *sphere);
+t_x			*plane_intersect(t_ray *ray, t_object *plane);
 
 //	===== LIGHTING =====
 
@@ -174,22 +189,6 @@ t_tuple		normal_at_plane(t_object *object, t_tuple world_point);
 t_tuple		normal_at_cylinder(t_object *object, t_tuple world_point);
 t_tuple		normal_at_sphere(t_object *object, t_tuple world_point);
 t_tuple		reflect(t_tuple in, t_tuple normal);
-
-//	intersection_utils.c
-
-t_x			*new_intersection_node(void);
-void		free_intersections_list(t_x **xs_list);
-void		free_intersection_node(t_x **node_ptr);
-void		print_intersection_list(t_x *xs_list);
-
-//	intersections.c
-
-t_x			*intersect(t_data *data, t_ray *ray, t_object *object);
-t_x			*hit(t_data *data, t_x *xs_list);
-void		add_intersection_node(t_x **xs_list, t_x *current);
-t_x			*sphere_intersect(t_ray *ray, t_object *sphere);
-t_x			*plane_intersect(t_ray *ray, t_object *plane);
-double		calculate_discriminant(t_ray *ray);
 
 //	ray.c
 
