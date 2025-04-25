@@ -68,10 +68,12 @@ INIT_SRCS = $(INIT_DIR)/init_data.c
 
 INTERSECT_SRCS = $(INTERSECT_DIR)/color_at.c \
 				$(INTERSECT_DIR)/computations.c \
-				$(INTERSECT_DIR)/cylinders.c \
+				$(INTERSECT_DIR)/cylinder_caps.c \
+				$(INTERSECT_DIR)/cylinder_intersect.c \
 				$(INTERSECT_DIR)/intersect_world.c \
 				$(INTERSECT_DIR)/intersection_utils.c \
-				$(INTERSECT_DIR)/intersections.c
+				$(INTERSECT_DIR)/intersections.c \
+				$(INTERSECT_DIR)/sphere_intersect.c
 
 LIGHTING_SRCS = $(LIGHTING_DIR)/lighting.c \
 				$(LIGHTING_DIR)/shading.c
@@ -89,6 +91,7 @@ PARSING_SRCS = $(PARSING_DIR)/camera_matrix.c \
 				$(PARSING_DIR)/debug.c \
 				$(PARSING_DIR)/init_scene.c \
 				$(PARSING_DIR)/linked_list.c \
+				$(PARSING_DIR)/parse_cylinder.c \
 				$(PARSING_DIR)/parse_doubles.c \
 				$(PARSING_DIR)/parse_elements.c \
 				$(PARSING_DIR)/parse_error.c \
