@@ -42,7 +42,6 @@ const char	*get_error_msg(t_error err_no)
 	return (NULL);
 }
 
-
 /**
  * @brief Prints an error message to the standard output.
  * 
