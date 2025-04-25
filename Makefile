@@ -16,11 +16,111 @@ LIBFT = $(LIBFT_DIR)/libft.a
 MLX42_DIR = ./libraries/MLX42
 MLX42 = $(MLX42_DIR)/build/libmlx42.a
 
+CAMERA_DIR = $(SRC_DIR)/camera
+COLORS_DIR = $(SRC_DIR)/colors
+ERRORS_DIR = $(SRC_DIR)/errors
+GNL_DIR = $(SRC_DIR)/gnl
+INIT_DIR = $(SRC_DIR)/init
+INTERSECT_DIR = $(SRC_DIR)/intersect
+LIGHTING_DIR = $(SRC_DIR)/lighting
+MATRIX_DIR = $(SRC_DIR)/matrix
+MLX_DIR = $(SRC_DIR)/mlx
+PARSING_DIR = $(SRC_DIR)/parsing
+RAYS_DIR = $(SRC_DIR)/rays
+RENDERING_DIR = $(SRC_DIR)/rendering
+TRANSFORMATIONS_DIR = $(SRC_DIR)/transformations
+TUPLES_DIR = $(SRC_DIR)/tuples
+UTILITIES_DIR = $(SRC_DIR)/utilities
+
 # Source files
-SRCS = $(shell find $(SRC_DIR) -name '*.c')
+
+SRC_FILES = $(SRC_DIR)/main.c \
+			$(CAMERA_SCRS) \
+			$(COLORS_SRCS) \
+			$(ERRORS_SRCS) \
+			$(GNL_SRCS) \
+			$(INIT_SRCS) \
+			$(INTERSECT_SRCS) \
+			$(LIGHTING_SRCS) \
+			$(MATRIX_SRCS) \
+			$(MLX_SRCS) \
+			$(PARSING_SRCS) \
+			$(RAYS_SRCS) \
+			$(RENDERING_SRCS) \
+			$(TRANSFORMATIONS_SRCS) \
+			$(TUPLES_SRCS) \
+			$(UTILITIES_SRCS)
+
+CAMERA_SCRS = $(CAMERA_DIR)/camera.c \
+				$(CAMERA_DIR)/ray_for_pixel.c \
+				$(CAMERA_DIR)/view_transform.c
+
+COLORS_SRCS = $(COLORS_DIR)/color_operations.c \
+				$(COLORS_DIR)/colors.c
+
+ERRORS_SRCS = $(ERRORS_DIR)/clean.c \
+				$(ERRORS_DIR)/print_error.c
+
+GNL_SRCS = $(GNL_DIR)/get_next_line_utils.c \
+			$(GNL_DIR)/get_next_line.c
+
+INIT_SRCS = $(INIT_DIR)/init_data.c
+
+INTERSECT_SRCS = $(INTERSECT_DIR)/color_at.c \
+				$(INTERSECT_DIR)/computations.c \
+				$(INTERSECT_DIR)/cylinders.c \
+				$(INTERSECT_DIR)/intersect_world.c \
+				$(INTERSECT_DIR)/intersection_utils.c \
+				$(INTERSECT_DIR)/intersections.c
+
+LIGHTING_SRCS = $(LIGHTING_DIR)/lighting.c \
+				$(LIGHTING_DIR)/shading.c
+
+MATRIX_SRCS = $(MATRIX_DIR)/matrices.c \
+				$(MATRIX_DIR)/matrix_operations_1.c \
+				$(MATRIX_DIR)/matrix_operations_2.c \
+				$(MATRIX_DIR)/matrix_utils.c
+			
+MLX_SRCS = $(MLX_DIR)/hooks.c \
+			$(MLX_DIR)/mouse_hook.c
+
+PARSING_SRCS = $(PARSING_DIR)/camera_matrix.c \
+				$(PARSING_DIR)/cleanup.c \
+				$(PARSING_DIR)/debug.c \
+				$(PARSING_DIR)/init_scene.c \
+				$(PARSING_DIR)/linked_list.c \
+				$(PARSING_DIR)/parse_doubles.c \
+				$(PARSING_DIR)/parse_elements.c \
+				$(PARSING_DIR)/parse_error.c \
+				$(PARSING_DIR)/parse_objects.c \
+				$(PARSING_DIR)/parse_uint8.c \
+				$(PARSING_DIR)/parser.c \
+				$(PARSING_DIR)/set_object_transforms.c \
+				$(PARSING_DIR)/tuple_to_matrix.c \
+				$(PARSING_DIR)/verify_filename.c
+
+RAYS_SRCS = $(RAYS_DIR)/normals.c \
+			$(RAYS_DIR)/ray.c \
+			$(RAYS_DIR)/reflect.c \
+			$(RAYS_DIR)/transform.c
+
+RENDERING_SRCS = $(RENDERING_DIR)/render_scene.c
+
+TRANSFORMATIONS_SRCS = $(TRANSFORMATIONS_DIR)/chain_transformations.c \
+						$(TRANSFORMATIONS_DIR)/rotation.c \
+						$(TRANSFORMATIONS_DIR)/scaling.c \
+						$(TRANSFORMATIONS_DIR)/translation.c
+
+TUPLES_SRCS = $(TUPLES_DIR)/tuples_advanced_operations.c \
+				$(TUPLES_DIR)/tuples_basic_operations.c \
+				$(TUPLES_DIR)/tuples_utils.c \
+				$(TUPLES_DIR)/tuples.c
+
+UTILITIES_SRCS = $(UTILITIES_DIR)/compare_doubles.c \
+				$(UTILITIES_DIR)/degrees_to_radians.c
 
 # Object files
-OBJS = $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRCS))
+OBJS := $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRC_FILES))
 
 TESTS = $(wildcard $(TESTS_DIR)/*.c) # Automatically find all .c test files
 TEST_BINS = $(patsubst $(TESTS_DIR)/%.c, $(BIN_DIR)/%, $(TESTS)) # Convert test file names to bin names
@@ -49,7 +149,7 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 # Rule to compile each test case
-$(BIN_DIR)/%: $(TESTS_DIR)/%.c $(filter-out $(SRC_DIR)/main.c, $(SRCS)) $(LIBFT) $(MLX42)
+$(BIN_DIR)/%: $(TESTS_DIR)/%.c $(filter-out $(SRC_DIR)/main.c, $(SRC_FILES)) $(LIBFT) $(MLX42)
 #@echo $(MAGENTA)"Creating binaries."$(RESET)
 	@$(CC) $(CFLAGS) -o $@ $^ $(MLX42) -L$(LIBFT_DIR) -lft -ldl -lglfw -lm
 
