@@ -2,7 +2,8 @@
 
 //	=== Function Declarations ===
 
-t_matrix	*transpose_matrix(t_matrix *m);
+static void	copy_submatrix_values(t_matrix *m, t_matrix *submatrix,
+				int row, int column);
 t_matrix	*submatrix(t_matrix	*m, int row, int column);
 double		determinant(t_matrix *m);
 double		cofactor(t_matrix *m, int row, int col);
@@ -10,61 +11,14 @@ t_matrix	*invert_matrix(t_matrix *m);
 
 //	=== Function Definitions ===
 
-/**
- * @brief	Transposes a matrix.
- * 
- * @param	m	Pointer to the matrix to be transposed.
- * @return	A pointer to the transposed matrix, or NULL if an error occurs.
- */
-t_matrix	*transpose_matrix(t_matrix *m)
+static void	copy_submatrix_values(t_matrix *m, t_matrix *submatrix,
+		int row, int column)
 {
-	t_matrix	*transposed;
-	int			i;
-	int			j;
+	int	r;
+	int	c;
+	int	i;
+	int	j;
 
-	if (!is_matrix_initialized(m))
-		return (NULL);
-	transposed = create_matrix(m->columns, m->rows);
-	if (!transposed)
-	{
-		perror("Transpose matrix");
-		return (NULL);
-	}
-	i = -1;
-	while (++i < m->rows)
-	{
-		j = -1;
-		while (++j < m->columns)
-			transposed->values[j][i] = m->values[i][j];
-	}
-	return (transposed);
-}
-
-/**
- * @brief	Creates a submatrix by removing the specified row and column.
- * 
- * @param	m	Pointer to the original matrix.
- * @param	row	The row index to remove.
- * @param	column	The column index to remove.
- * @return	A pointer to the submatrix, or NULL if an error occurs.
- */
-t_matrix	*submatrix(t_matrix	*m, int row, int column)
-{
-	t_matrix	*submatrix;
-	int			r;
-	int			c;
-	int			i;
-	int			j;
-
-	if (!is_matrix_initialized(m) || m->rows < 1 || m->columns < 1
-		|| row > m->rows || column > m->columns)
-		return (NULL);
-	submatrix = create_matrix(m->rows - 1, m->columns - 1);
-	if (!submatrix)
-	{
-		perror("Submatrix");
-		return (NULL);
-	}
 	i = -1;
 	r = 0;
 	while (++i < m->rows)
@@ -82,6 +36,27 @@ t_matrix	*submatrix(t_matrix	*m, int row, int column)
 		}
 		r++;
 	}
+}
+
+/**
+ * @brief	Creates a submatrix by removing the specified row and column.
+ * 
+ * @param	m	Pointer to the original matrix.
+ * @param	row	The row index to remove.
+ * @param	column	The column index to remove.
+ * @return	A pointer to the submatrix, or NULL if an error occurs.
+ */
+t_matrix	*submatrix(t_matrix	*m, int row, int column)
+{
+	t_matrix	*submatrix;
+
+	if (!is_matrix_initialized(m) || m->rows < 1 || m->columns < 1
+		|| row > m->rows || column > m->columns)
+		return (NULL);
+	submatrix = create_matrix(m->rows - 1, m->columns - 1);
+	if (!submatrix)
+		return (NULL);
+	copy_submatrix_values(m, submatrix, row, column);
 	return (submatrix);
 }
 
