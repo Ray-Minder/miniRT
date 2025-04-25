@@ -25,10 +25,7 @@ void	set_up_camera(t_data *data)
 	data->cam->fov = radians(data->scene->camera.fov);
 	data->cam->inverse_transform = invert_matrix(data->cam->transform);
 	if (!data->cam->inverse_transform)
-	{
-		// print_error_msg("There was an error inverting the camera matrix.\n"); INVERT_MATRIX
 		print_clean_and_exit(data, MALLOC_FAIL, EXIT_FAILURE);
-	}
 	data->cam->origin = multiply_matrix_by_tuple(data->cam->inverse_transform,
 			point(0, 0, 0));
 	data->cam->half_view = tan(data->cam->fov / 2);

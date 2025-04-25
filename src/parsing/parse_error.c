@@ -6,7 +6,6 @@ int	print_error(t_error error);
 
 //	=== Function Definitions ===
 
-
 int	print_error(t_error error)
 {
 	ft_putstr_fd("Error\n", 2);

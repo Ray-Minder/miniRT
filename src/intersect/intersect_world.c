@@ -33,6 +33,8 @@ t_x	*intersect_world(t_data *data, t_ray *ray)
 	while (object)
 	{
 		xs = intersect(data, ray, object);
+		if (!xs)
+			print_clean_and_exit(data, MALLOC_FAIL, EXIT_FAILURE);
 		while (xs)
 		{
 			next = xs->next;

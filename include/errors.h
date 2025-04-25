@@ -23,6 +23,7 @@ typedef enum e_error
 	DOUBLE_OUT_OF_RANGE,
 	MALLOC_FAIL,
 	INVALID_DIRECTION_VECTOR,
+	MLX_ERROR,
 	ERROR_COUNT
 }	t_error;
 

@@ -28,7 +28,7 @@ t_x	*intersect(t_data *data, t_ray *ray, t_object *object)
 
 	if (!ray || !object)
 	{
-		printf("Returning intersect because there's no ray or object\n");
+		print_error_msg("Ray or object is NULL.\n");
 		return (NULL);
 	}
 	transformed_ray = transform_ray(data, ray, object->inv_transform);
@@ -38,7 +38,6 @@ t_x	*intersect(t_data *data, t_ray *ray, t_object *object)
 		return (plane_intersect(&transformed_ray, object));
 	if (object->type == CYLINDER)
 		return (cylinder_intersect(&transformed_ray, object));
-	printf("Returning intersect because the object type wasn't SPHERE\n");
 	return (NULL);
 }
 
@@ -64,10 +63,7 @@ t_x	*hit(t_data *data, t_x *xs_list)
 	lowest_hit = NULL;
 	lowest_hit = new_intersection_node();
 	if (!lowest_hit)
-	{
-		print_error_msg("Failure to allocate new intersection\n");
-		clean_and_exit(data, EXIT_FAILURE);
-	}
+		print_clean_and_exit(data, MALLOC_FAIL, EXIT_FAILURE);
 	lowest_hit->t = INFINITY;
 	while (xs_list != NULL)
 	{
@@ -104,10 +100,7 @@ t_x	*plane_intersect(t_ray *ray, t_object *plane)
 	if (!xs)
 		return (NULL);
 	if (compare_doubles(ray->dir.y, 0.0))
-	{
-		xs->t = 0;
 		return (xs);
-	}
 	xs->t = -ray->origin.y / ray->dir.y;
 	xs->is_hit = true;
 	xs->object = plane;

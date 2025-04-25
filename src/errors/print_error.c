@@ -36,6 +36,7 @@ const char	*get_error_msg(t_error err_no)
 	error_msg[DOUBLE_OUT_OF_RANGE] = "Double out of range";
 	error_msg[MALLOC_FAIL] = "Malloc failed";
 	error_msg[INVALID_DIRECTION_VECTOR] = "Invalid direction vector";
+	error_msg[MLX_ERROR] = "MLX error";
 	if (err_no >= 0 && err_no < ERROR_COUNT)
 		return (error_msg[err_no]);
 	return (NULL);
@@ -51,8 +52,8 @@ const char	*get_error_msg(t_error err_no)
  */
 void	print_error_msg(char *error_msg)
 {
-	printf("Error\n");
-	printf("%s\n", error_msg);
+	ft_putstr_fd("Error\n", 2);
+	ft_putstr_fd(error_msg, 2);
 }
 
 /**

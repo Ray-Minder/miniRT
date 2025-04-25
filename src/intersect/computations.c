@@ -26,7 +26,6 @@ t_comps	*prepare_computations(t_x *hit, t_ray *ray)
 	comps = ft_calloc(1, sizeof(t_comps));
 	if (!comps)
 	{
-		printf("Failed to allocate memory for t_comps\n");
 		return (NULL);
 	}
 	comps->hit = hit;
