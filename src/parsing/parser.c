@@ -77,11 +77,9 @@ int	process_file_lines(int file, t_scene *scene)
 			error = process_line(line, scene);
 			if (error != SUCCESS)
 			{
-				ft_putstr_fd("Error on line ", 2);
-				ft_putnbr_fd(i + 1, 2);
-				ft_putstr_fd(": ", 2);
+				printf("Error\nOn line %d: %s\n", i + 1, get_error_msg(error));
 				free(line);
-				return (print_error(error));
+				return (error);
 			}
 		}
 		free(line);
@@ -104,10 +102,11 @@ void	parse_scene(t_data *data, char *filename)
 	if (file == -1)
 		print_clean_and_exit(data, NO_ACCESS, EXIT_FAILURE);
 	error = process_file_lines(file, data->scene);
+	if (error != SUCCESS)
+		clean_and_exit(data, EXIT_FAILURE);
 	if (close(file))
 		print_error_msg("close in parse_scene");
-	if (error == SUCCESS)
-		error = validate_scene(data->scene);
+	error = validate_scene(data->scene);
 	if (error != SUCCESS)
 		print_clean_and_exit(data, error, EXIT_FAILURE);
 	error = set_transforms(data->scene);

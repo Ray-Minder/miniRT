@@ -9,7 +9,7 @@ void test_cylinder_intersect(t_tuple point, t_tuple direction, double expected_t
 
 	cylinder.type = CYLINDER;
 	cylinder.transform = identity(4);
-	cylinder.inverse_transform = invert_matrix(cylinder.transform);
+	cylinder.inv_transform = invert_matrix(cylinder.transform);
 	direction = normalize_tuple(direction);
 	ray = create_ray(point, direction);
 	xs = intersect(&ray, &cylinder);

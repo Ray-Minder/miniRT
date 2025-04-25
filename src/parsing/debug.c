@@ -20,7 +20,7 @@ void	print_objects(t_object *object_list)
 {
 	while (object_list)
 	{
-		printf("Position: %f, %f, %f\n", object_list->position.x, object_list->position.y, object_list->position.z);
+		printf("Position: %f, %f, %f\n", object_list->pos.x, object_list->pos.y, object_list->pos.z);
 		printf("Diameter: %f\n", object_list->diameter);
 		printf("Color: %f, %f, %f\n", object_list->color.r, object_list->color.g, object_list->color.b);
 		printf("Transform matrix: \n");
