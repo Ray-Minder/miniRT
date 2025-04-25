@@ -13,8 +13,7 @@ t_ray	transform_ray(t_data *data, t_ray *ray, t_matrix *matrix)
 
 	if (!ray || !is_matrix_initialized(matrix) || matrix->rows != 4)
 	{
-		print_error_msg("Error\nCouldn't transform a ray\n");
-		clean_and_exit(data, EXIT_FAILURE);
+		print_clean_and_exit(data, INVALID_ELEMENT, EXIT_FAILURE);
 	}
 	transformed_ray.origin = multiply_matrix_by_tuple(matrix, ray->origin);
 	transformed_ray.dir = multiply_matrix_by_tuple(matrix,

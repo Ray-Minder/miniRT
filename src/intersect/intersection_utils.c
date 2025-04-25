@@ -43,7 +43,7 @@ void	add_intersection_node(t_x **xs_list, t_x *current)
 
 	if (!xs_list && !current)
 	{
-		printf("There's no xs list, and no intersection to add either.\n");
+		ft_putstr_fd("Error: xs_list and current are NULL.\n", 2);
 		return ;
 	}
 	if (xs_list && !*xs_list && current)

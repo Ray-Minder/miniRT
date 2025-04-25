@@ -33,7 +33,14 @@ t_color	color_at(t_data *data, t_ray *ray)
 	the_hit = hit(data, xs_list);
 	free_intersections_list(&xs_list);
 	if (the_hit && the_hit->is_hit)
+	{
 		comps = prepare_computations(the_hit, ray);
+		if (!comps)
+		{
+			free_intersections_list(&the_hit);
+			print_clean_and_exit(data, MALLOC_FAIL, EXIT_FAILURE);
+		}
+	}
 	else
 		return (hadamard_product(color(0, 0, 0),
 				data->scene->ambient_light.color));

@@ -32,8 +32,7 @@ void	render_scene(t_data *data)
 {
 	if (mlx_image_to_window(data->mlx, data->canvas, 0, 0) < 0)
 	{
-		print_error_msg("Failure to put image to window\n");
-		clean_and_exit(data, EXIT_FAILURE);
+		print_clean_and_exit(data, MLX_ERROR, EXIT_FAILURE);
 	}
 	mlx_loop_hook(data->mlx, &render_row, (void *) data);
 }
