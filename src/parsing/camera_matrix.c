@@ -24,8 +24,8 @@ int		set_transforms(t_scene *scene);
  */
 t_tuple	get_camera_right(t_tuple forward)
 {
-	t_tuple right;
-	
+	t_tuple	right;
+
 	right = cross_product(forward, vector(0, 1, 0));
 	if (is_zero_vector(right))
 		right = cross_product(forward, vector(0, 0, 1));
@@ -36,7 +36,8 @@ int	set_transforms(t_scene *scene)
 {
 	if (set_object_transforms(scene->objects) != SUCCESS)
 		return (MALLOC_FAIL);
-	scene->camera.transform = view_transform(scene->camera.forward, scene->camera.position);
+	scene->camera.transform = view_transform(scene->camera.forward, \
+		scene->camera.position);
 	if (!scene->camera.transform)
 		return (MALLOC_FAIL);
 	return (SUCCESS);

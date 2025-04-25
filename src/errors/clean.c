@@ -63,10 +63,10 @@ void	free_objects(t_object **object_list)
 		next = current->next;
 		if (current->transform)
 			free_matrix(&current->transform);
-		if (current->inverse_transform)
-			free_matrix(&current->inverse_transform);
-		if (current->inverse_transpose)
-			free_matrix(&current->inverse_transpose);
+		if (current->inv_transform)
+			free_matrix(&current->inv_transform);
+		if (current->inv_transpose)
+			free_matrix(&current->inv_transpose);
 		free(current);
 		current = next;
 	}

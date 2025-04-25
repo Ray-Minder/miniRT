@@ -31,11 +31,11 @@ t_object	*create_object(void)
 	ptr->color.b = 0;
 	ptr->color.g = 0;
 	ptr->color.r = 0;
-	ptr->position = point(0, 0, 0);
-	ptr->direction = vector(0, 0, 0);
+	ptr->pos = point(0, 0, 0);
+	ptr->dir = vector(0, 0, 0);
 	ptr->transform = NULL;
-	ptr->inverse_transform = NULL;
-	ptr->inverse_transpose = NULL;
+	ptr->inv_transform = NULL;
+	ptr->inv_transpose = NULL;
 	ptr->next = NULL;
 	return (ptr);
 }

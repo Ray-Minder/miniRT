@@ -1,4 +1,4 @@
-# include "../../include/minirt.h"
+#include "../../include/minirt.h"
 
 //	=== Function Declarations ===
 
@@ -16,10 +16,10 @@ void	cleanup(t_scene *scene)
 	{
 		if (object->transform)
 			free_matrix(&object->transform);
-		if (object->inverse_transform)
-			free_matrix(&object->inverse_transform);
-		if (object->inverse_transpose)
-			free_matrix(&object->inverse_transpose);
+		if (object->inv_transform)
+			free_matrix(&object->inv_transform);
+		if (object->inv_transpose)
+			free_matrix(&object->inv_transpose);
 		next = object->next;
 		free(object);
 		object = next;

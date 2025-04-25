@@ -9,7 +9,7 @@ int	set_cylinder_transform(t_object *cylinder);
 
 //	=== Function Definitions ===
 
-int set_object_transforms(t_object *objects)
+int	set_object_transforms(t_object *objects)
 {
 	while (objects)
 	{
@@ -21,80 +21,79 @@ int set_object_transforms(t_object *objects)
 			set_cylinder_transform(objects);
 		if (!objects->transform)
 			return (MALLOC_FAIL);
-		objects->inverse_transform = invert_matrix(objects->transform);
-		if (!objects->inverse_transform)
+		objects->inv_transform = invert_matrix(objects->transform);
+		if (!objects->inv_transform)
 			return (MALLOC_FAIL);
-		objects->inverse_transpose = transpose_matrix(objects->inverse_transform);
-		if (!objects->inverse_transpose)
+		objects->inv_transpose = transpose_matrix(objects->inv_transform);
+		if (!objects->inv_transpose)
 			return (MALLOC_FAIL);
 		objects = objects->next;
 	}
 	return (SUCCESS);
 }
 
-int set_sphere_transform(t_object *sphere)
+int	set_sphere_transform(t_object *sphere)
 {
-	t_matrix *translate_matrix;
-	t_matrix *scaled_matrix;
+	t_matrix		*scale;
+	t_matrix		*translate;
+	const double	diameter = sphere->diameter / 2;
 
-	translate_matrix = translate_from_tuple(sphere->position);
-	if (!translate_matrix)
+	translate = translate_from_tuple(sphere->pos);
+	if (!translate)
 		return (MALLOC_FAIL);
-	scaled_matrix = scaling(sphere->diameter / 2, sphere->diameter / 2, sphere->diameter / 2);
-	if (!scaled_matrix)
+	scale = scaling(diameter, diameter, diameter);
+	if (!scale)
 		return (MALLOC_FAIL);
-	sphere->transform = multiply_matrices(translate_matrix, scaled_matrix);
-	free_matrix(&translate_matrix);
-	free_matrix(&scaled_matrix);
+	sphere->transform = multiply_matrices(translate, scale);
+	free_matrix(&translate);
+	free_matrix(&scale);
 	if (!sphere->transform)
 		return (MALLOC_FAIL);
 	return (SUCCESS);
 }
 
-int set_plane_transform(t_object *plane)
+int	set_plane_transform(t_object *plane)
 {
-	t_tuple forward;
-	t_tuple right;
+	t_tuple	forward;
+	t_tuple	right;
 
-	plane->direction = normalize_tuple(plane->direction);
-	right = cross_product(plane->direction, vector(0, 0, 1));
-	if (compare_doubles(right.x, 0) && compare_doubles(right.y, 0) && compare_doubles(right.z, 0))
-		right = cross_product(vector(0, 1, 0), plane->direction);
+	plane->dir = normalize_tuple(plane->dir);
+	right = cross_product(plane->dir, vector(0, 0, 1));
+	if (compare_doubles(tuple_magnitude(right), 0.0))
+		right = cross_product(vector(0, 1, 0), plane->dir);
 	right = normalize_tuple(right);
-	forward = cross_product(right, plane->direction);
+	forward = cross_product(right, plane->dir);
 	forward = normalize_tuple(forward);
-	plane->transform = tuples_to_matrix(plane->direction, right, forward, plane->position);
+	plane->transform = tuples_to_matrix(plane->dir, right, forward, plane->pos);
 	if (!plane->transform)
 		return (MALLOC_FAIL);
 	return (SUCCESS);
 }
 
-
-int set_cylinder_transform(t_object *cylinder)
+int	set_cylinder_transform(t_object *cyl)
 {
-	t_tuple forward;
-	t_tuple right;
+	t_tuple		forward;
+	t_tuple		right;
+	t_matrix	*scale;
+	t_matrix	*translate;
 
-	t_matrix *scaling_matrix;
-	t_matrix *translation_matrix;
-
-	cylinder->direction = normalize_tuple(cylinder->direction);
-	right = cross_product(cylinder->direction, vector(0, 0, 1));
-	if (compare_doubles(right.x, 0) && compare_doubles(right.y, 0) && compare_doubles(right.z, 0))
-		right = cross_product(vector(0, 1, 0), cylinder->direction);
+	cyl->dir = normalize_tuple(cyl->dir);
+	right = cross_product(cyl->dir, vector(0, 0, 1));
+	if (compare_doubles(tuple_magnitude(right), 0.0))
+		right = cross_product(vector(0, 1, 0), cyl->dir);
 	right = normalize_tuple(right);
-	forward = cross_product(right, cylinder->direction);
+	forward = cross_product(right, cyl->dir);
 	forward = normalize_tuple(forward);
-	translation_matrix = tuples_to_matrix(cylinder->direction, right, forward, cylinder->position);
-	if (!translation_matrix)
+	translate = tuples_to_matrix(cyl->dir, right, forward, cyl->pos);
+	if (!translate)
 		return (MALLOC_FAIL);
-	scaling_matrix = scaling(cylinder->diameter / 2, 1, cylinder->diameter / 2);
-	if (!scaling_matrix)
+	scale = scaling(cyl->diameter / 2, 1, cyl->diameter / 2);
+	if (!scale)
 		return (MALLOC_FAIL);
-	cylinder->transform = multiply_matrices(translation_matrix, scaling_matrix);
-	if (!cylinder->transform)
+	cyl->transform = multiply_matrices(translate, scale);
+	if (!cyl->transform)
 		return (MALLOC_FAIL);
-	free_matrix(&translation_matrix);
-	free_matrix(&scaling_matrix);
+	free_matrix(&translate);
+	free_matrix(&scale);
 	return (SUCCESS);
 }
