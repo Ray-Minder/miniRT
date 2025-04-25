@@ -19,12 +19,10 @@
 
 //	camera.c
 
-// t_camera *camera(double hsize, double vsize, double field_of_view);
 void		set_up_camera(t_data *data);
 
 //	view_transform.c
 
-// t_matrix	*view_transform(t_tuple from, t_tuple to, t_tuple up);
 t_matrix	*view_transform(t_tuple forward, t_tuple point);
 
 //	ray_for_pixel.c
@@ -53,6 +51,7 @@ void		free_light(t_light *light);
 //	print_error.c
 
 void		print_clean_and_exit(t_data *data, t_error err_no, int exit_code);
+const char	*get_error_msg(t_error err_no);
 void		print_error_msg(char *error_msg);
 void		print_errno(char *function_name);
 
