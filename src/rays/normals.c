@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   normals.c                                          :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: eandela <eandela@student.codam.nl>           +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/04/30 12:14:01 by eandela       #+#    #+#                 */
+/*   Updated: 2025/04/30 12:36:08 by eandela       ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minirt.h"
 
 //	=== Function Declarations ===
@@ -55,9 +67,10 @@ t_tuple	normal_at_cylinder(t_object *object, t_tuple world_point)
 	object_normal = vector(object_point.x, 0, object_point.z);
 	distance = object_point.x * object_point.x + object_point.z
 		* object_point.z;
-	if (distance < 1.0 && compare_doubles(object_point.y, object->height))
+	if (distance < 1.0 && compare_doubles(object_point.y, object->height / 2))
 		object_normal = vector(0, 1, 0);
-	else if (distance < 1.0 && compare_doubles(object_point.y, 0.0))
+	else if (distance < 1.0 && compare_doubles(object_point.y,
+			-object->height / 2))
 		object_normal = vector(0, -1, 0);
 	world_normal = multiply_matrix_by_tuple(object->inv_transpose,
 			object_normal);

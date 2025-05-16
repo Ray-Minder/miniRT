@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   main.c                                             :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: eandela <eandela@student.codam.nl>           +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/04/30 12:14:32 by eandela       #+#    #+#                 */
+/*   Updated: 2025/04/30 12:14:33 by eandela       ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/minirt.h"
 
 //	=== Function Declarations ===
@@ -26,6 +38,5 @@ int	main(int argc, char *argv[])
 static void	call_mlx_functions(t_data *data)
 {
 	mlx_key_hook(data->mlx, &key_hooks, (void *) data);
-	mlx_mouse_hook(data->mlx, &mouse_hook, (void *) data);
 	mlx_loop(data->mlx);
 }

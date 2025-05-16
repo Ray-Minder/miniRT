@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   errors.h                                           :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: eandela <eandela@student.codam.nl>           +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/04/30 12:15:14 by eandela       #+#    #+#                 */
+/*   Updated: 2025/04/30 12:15:15 by eandela       ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef ERRORS_H
 # define ERRORS_H
 
@@ -23,6 +35,7 @@ typedef enum e_error
 	DOUBLE_OUT_OF_RANGE,
 	MALLOC_FAIL,
 	INVALID_DIRECTION_VECTOR,
+	MLX_ERROR,
 	ERROR_COUNT
 }	t_error;
 

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   color_at.c                                         :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: lprieri <lprieri@student.codam.nl>           +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/04/30 12:04:56 by lprieri       #+#    #+#                 */
+/*   Updated: 2025/04/30 12:04:57 by lprieri       ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minirt.h"
 
 //	=== Function Declarations ===
@@ -33,7 +45,14 @@ t_color	color_at(t_data *data, t_ray *ray)
 	the_hit = hit(data, xs_list);
 	free_intersections_list(&xs_list);
 	if (the_hit && the_hit->is_hit)
+	{
 		comps = prepare_computations(the_hit, ray);
+		if (!comps)
+		{
+			free_intersections_list(&the_hit);
+			print_clean_and_exit(data, MALLOC_FAIL, EXIT_FAILURE);
+		}
+	}
 	else
 		return (hadamard_product(color(0, 0, 0),
 				data->scene->ambient_light.color));

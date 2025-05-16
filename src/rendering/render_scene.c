@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   render_scene.c                                     :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: lprieri <lprieri@student.codam.nl>           +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/04/30 12:06:57 by lprieri       #+#    #+#                 */
+/*   Updated: 2025/04/30 12:06:58 by lprieri       ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minirt.h"
 
 //	=== Function Declarations ===
@@ -32,8 +44,7 @@ void	render_scene(t_data *data)
 {
 	if (mlx_image_to_window(data->mlx, data->canvas, 0, 0) < 0)
 	{
-		print_error_msg("Failure to put image to window\n");
-		clean_and_exit(data, EXIT_FAILURE);
+		print_clean_and_exit(data, MLX_ERROR, EXIT_FAILURE);
 	}
 	mlx_loop_hook(data->mlx, &render_row, (void *) data);
 }

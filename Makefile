@@ -1,15 +1,14 @@
-NAME = minirt
+NAME = miniRT
 
 # Compiler
 CC = cc
 
 # Compiler flags
-CFLAGS = -Wall -Wextra -Werror -g #-fsanitize=address
+CFLAGS = -Wall -Wextra -Werror 
+#-g -fsanitize=address
 
 SRC_DIR = src
 OBJ_DIR = obj
-TESTS_DIR = tests
-BIN_DIR = bin
 
 LIBFT_DIR = libraries/libft
 LIBFT = $(LIBFT_DIR)/libft.a
@@ -83,12 +82,10 @@ MATRIX_SRCS = $(MATRIX_DIR)/matrices.c \
 				$(MATRIX_DIR)/matrix_operations_2.c \
 				$(MATRIX_DIR)/matrix_utils.c
 			
-MLX_SRCS = $(MLX_DIR)/hooks.c \
-			$(MLX_DIR)/mouse_hook.c
+MLX_SRCS = $(MLX_DIR)/hooks.c
 
 PARSING_SRCS = $(PARSING_DIR)/camera_matrix.c \
 				$(PARSING_DIR)/cleanup.c \
-				$(PARSING_DIR)/debug.c \
 				$(PARSING_DIR)/init_scene.c \
 				$(PARSING_DIR)/linked_list.c \
 				$(PARSING_DIR)/parse_cylinder.c \
@@ -125,9 +122,6 @@ UTILITIES_SRCS = $(UTILITIES_DIR)/compare_doubles.c \
 # Object files
 OBJS := $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRC_FILES))
 
-TESTS = $(wildcard $(TESTS_DIR)/*.c) # Automatically find all .c test files
-TEST_BINS = $(patsubst $(TESTS_DIR)/%.c, $(BIN_DIR)/%, $(TESTS)) # Convert test file names to bin names
-
 # Default target
 all: $(NAME)
 
@@ -149,16 +143,9 @@ $(NAME): $(OBJS) $(LIBFT) $(MLX42)
 # Compile source files to object files
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(dir $@)
-	@$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) -MMD -MP -c $< -o $@
 
-# Rule to compile each test case
-$(BIN_DIR)/%: $(TESTS_DIR)/%.c $(filter-out $(SRC_DIR)/main.c, $(SRC_FILES)) $(LIBFT) $(MLX42)
-#@echo $(MAGENTA)"Creating binaries."$(RESET)
-	@$(CC) $(CFLAGS) -o $@ $^ $(MLX42) -L$(LIBFT_DIR) -lft -ldl -lglfw -lm
-
-# Create bin directory if it doesn't exist
-$(BIN_DIR):
-	@mkdir -p $(BIN_DIR)
+-include $(OBJS:.o=.d)
 
 # Clean up build files
 clean:
@@ -176,9 +163,5 @@ fclean: clean
 	fi
 
 re: fclean $(NAME)
-
-# Run all tests
-test: all $(BIN_DIR) $(TEST_BINS)
-	@for test in $(TEST_BINS); do echo "Running $$test..."; $$test; echo ""; done
 
 .PHONY: all clean

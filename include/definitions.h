@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   definitions.h                                      :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: lprieri <lprieri@student.codam.nl>           +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/04/30 12:08:17 by lprieri       #+#    #+#                 */
+/*   Updated: 2025/04/30 12:20:54 by eandela       ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef DEFINITIONS_H
 # define DEFINITIONS_H
 
@@ -46,7 +58,6 @@ uint32_t	color_to_uint32(t_color color);
 void		clean_and_exit(t_data *data, int exit_code);
 void		free_scene(t_scene **scene);
 void		free_camera(t_camera *camera);
-void		free_light(t_light *light);
 
 //	print_error.c
 
@@ -142,8 +153,6 @@ void		print_matrix(t_matrix *matrix);
 //	===== MLX =====
 
 void		key_hooks(mlx_key_data_t keydata, void *param);
-void		mouse_hook(enum mouse_key button, enum action action,
-				enum modifier_key mods, void *param);
 
 //	===== PARSING =====
 
@@ -177,7 +186,6 @@ t_matrix	*tuples_to_matrix(t_tuple up, t_tuple right,
 t_tuple		get_camera_right(t_tuple forward);
 t_matrix	*get_camera_matrix(t_camera camera);
 int			set_transforms(t_scene *scene);
-void		print_light(t_light *light);
 
 //	===== RAYS =====
 
@@ -201,16 +209,11 @@ void		set_transform(t_object *object, t_matrix *transformation);
 
 //	===== RENDERING =====
 
-void		setup_default_scene(t_scene *scene);
 t_comps		*prepare_computations(t_x *hit, t_ray *ray);
 
 //	render_scene.c
 
 void		render_scene(t_data *data);
-
-//	render_sphere.c
-
-void		render_sphere(t_data *data);
 
 //	===== TRANSFORMATIONS =====
 
@@ -221,8 +224,6 @@ t_matrix	*scaling_from_tuple(t_tuple tuple);
 t_matrix	*rotation_x(double radians);
 t_matrix	*rotation_y(double radians);
 t_matrix	*rotation_z(double radians);
-t_matrix	*shearing(double xy, double xz, double yx,
-				double yz, double zx, double zy);
 t_matrix	*chain_transformations(t_matrix *matrices[]);
 
 //	===== TUPLES =====

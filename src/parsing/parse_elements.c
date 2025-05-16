@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   parse_elements.c                                   :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: eandela <eandela@student.codam.nl>           +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/04/30 12:13:34 by eandela       #+#    #+#                 */
+/*   Updated: 2025/04/30 15:39:12 by eandela       ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minirt.h"
 
 //	=== Function Declarations ===
@@ -55,6 +67,7 @@ int	parse_camera(char **line, t_scene *scene)
 	error = parse_tuple(line[2], &scene->camera.forward);
 	if (error != SUCCESS)
 		return (error);
+	scene->camera.forward = normalize_tuple(scene->camera.forward);
 	error = parse_double(line[3], &scene->camera.fov);
 	if (scene->camera.fov < 0 || scene->camera.fov >= 180)
 		return (FOV_OUT_OF_RANGE);

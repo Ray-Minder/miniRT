@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   matrices.c                                         :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: lprieri <lprieri@student.codam.nl>           +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/04/30 12:04:25 by lprieri       #+#    #+#                 */
+/*   Updated: 2025/04/30 12:04:26 by lprieri       ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minirt.h"
 
 //	=== Function Declarations ===
@@ -23,12 +35,12 @@ t_matrix	*create_matrix(int rows, int columns)
 
 	matrix = malloc(sizeof(t_matrix));
 	if (!matrix)
-		return (print_errno("create_matrix"), NULL);
+		return (NULL);
 	matrix->rows = rows;
 	matrix->columns = columns;
 	matrix->values = ft_calloc(rows, sizeof(double *));
 	if (!matrix->values)
-		return (free(matrix), print_errno("create_matrix"), NULL);
+		return (free(matrix), NULL);
 	i = -1;
 	while (++i < matrix->rows)
 	{
@@ -39,7 +51,7 @@ t_matrix	*create_matrix(int rows, int columns)
 				free(matrix->values[i]);
 			free(matrix->values);
 			free(matrix);
-			return (print_errno("create_matrix"), NULL);
+			return (NULL);
 		}
 	}
 	return (matrix);

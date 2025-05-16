@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   ft_strchr.c                                        :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: lprieri <lprieri@student.codam.nl>           +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/04/30 12:36:33 by lprieri       #+#    #+#                 */
+/*   Updated: 2025/04/30 12:38:55 by lprieri       ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/libft.h"
 
 char	*ft_strchr(const char *s, int c)
 {
 	char	x;
 
-	x = (char) c;	//When c is big enough, it overflows and we're back at the ASCII table
+	x = (char) c;
 	while (*s)
 	{
 		if (*s == x)

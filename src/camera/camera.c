@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   camera.c                                           :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: lprieri <lprieri@student.codam.nl>           +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/04/30 12:06:28 by lprieri       #+#    #+#                 */
+/*   Updated: 2025/04/30 15:41:25 by eandela       ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minirt.h"
 
 //	=== Function Declarations ===
@@ -25,10 +37,7 @@ void	set_up_camera(t_data *data)
 	data->cam->fov = radians(data->scene->camera.fov);
 	data->cam->inverse_transform = invert_matrix(data->cam->transform);
 	if (!data->cam->inverse_transform)
-	{
-		// print_error_msg("There was an error inverting the camera matrix.\n"); INVERT_MATRIX
 		print_clean_and_exit(data, MALLOC_FAIL, EXIT_FAILURE);
-	}
 	data->cam->origin = multiply_matrix_by_tuple(data->cam->inverse_transform,
 			point(0, 0, 0));
 	data->cam->half_view = tan(data->cam->fov / 2);

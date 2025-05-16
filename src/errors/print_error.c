@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   print_error.c                                      :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: eandela <eandela@student.codam.nl>           +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/04/30 12:11:31 by eandela       #+#    #+#                 */
+/*   Updated: 2025/04/30 15:31:46 by eandela       ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minirt.h"
 
 //	=== Function Declarations ===
@@ -32,15 +44,16 @@ const char	*get_error_msg(t_error err_no)
 	error_msg[TOO_MANY_CAMERAS] = "Too many cameras";
 	error_msg[NO_CAMERA] = "No camera";
 	error_msg[TOO_MANY_LIGHTS] = "Too many lights";
+	error_msg[NO_LIGHTS] = "No light";
 	error_msg[FOV_OUT_OF_RANGE] = "FOV out of range";
 	error_msg[DOUBLE_OUT_OF_RANGE] = "Double out of range";
 	error_msg[MALLOC_FAIL] = "Malloc failed";
 	error_msg[INVALID_DIRECTION_VECTOR] = "Invalid direction vector";
+	error_msg[MLX_ERROR] = "MLX error";
 	if (err_no >= 0 && err_no < ERROR_COUNT)
 		return (error_msg[err_no]);
 	return (NULL);
 }
-
 
 /**
  * @brief Prints an error message to the standard output.
@@ -51,8 +64,8 @@ const char	*get_error_msg(t_error err_no)
  */
 void	print_error_msg(char *error_msg)
 {
-	printf("Error\n");
-	printf("%s\n", error_msg);
+	ft_putstr_fd("Error\n", 2);
+	ft_putstr_fd(error_msg, 2);
 }
 
 /**

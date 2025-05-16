@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   computations.c                                     :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: lprieri <lprieri@student.codam.nl>           +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/04/30 12:04:46 by lprieri       #+#    #+#                 */
+/*   Updated: 2025/04/30 12:04:47 by lprieri       ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minirt.h"
 
 //	=== Function Declarations ===
@@ -26,7 +38,6 @@ t_comps	*prepare_computations(t_x *hit, t_ray *ray)
 	comps = ft_calloc(1, sizeof(t_comps));
 	if (!comps)
 	{
-		printf("Failed to allocate memory for t_comps\n");
 		return (NULL);
 	}
 	comps->hit = hit;
