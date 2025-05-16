@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   matrix_operations_1.c                              :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: lprieri <lprieri@student.codam.nl>           +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/04/30 12:04:23 by lprieri       #+#    #+#                 */
+/*   Updated: 2025/04/30 12:04:24 by lprieri       ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minirt.h"
 
 //	=== Function Declarations ===
@@ -6,6 +18,7 @@ bool		compare_matrices(t_matrix *a, t_matrix *b);
 t_matrix	*multiply_matrices(t_matrix *a, t_matrix *b);
 t_tuple		get_row_as_tuple(t_matrix *m, int row);
 t_tuple		multiply_matrix_by_tuple(t_matrix *m, t_tuple t);
+t_matrix	*transpose_matrix(t_matrix *m);
 
 //	=== Function Definitions ===
 
@@ -132,4 +145,34 @@ t_tuple	multiply_matrix_by_tuple(t_matrix *m, t_tuple t)
 			dot_product(row[2], t),
 			dot_product(row[3], t));
 	return (result);
+}
+
+/**
+ * @brief	Transposes a matrix.
+ * 
+ * @param	m	Pointer to the matrix to be transposed.
+ * @return	A pointer to the transposed matrix, or NULL if an error occurs.
+ */
+t_matrix	*transpose_matrix(t_matrix *m)
+{
+	t_matrix	*transposed;
+	int			i;
+	int			j;
+
+	if (!is_matrix_initialized(m))
+		return (NULL);
+	transposed = create_matrix(m->columns, m->rows);
+	if (!transposed)
+	{
+		perror("Transpose matrix");
+		return (NULL);
+	}
+	i = -1;
+	while (++i < m->rows)
+	{
+		j = -1;
+		while (++j < m->columns)
+			transposed->values[j][i] = m->values[i][j];
+	}
+	return (transposed);
 }

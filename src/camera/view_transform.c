@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   view_transform.c                                   :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: lprieri <lprieri@student.codam.nl>           +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/04/30 12:05:07 by lprieri       #+#    #+#                 */
+/*   Updated: 2025/04/30 15:37:33 by eandela       ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minirt.h"
 
 //	=== Function Declarations ===
@@ -30,6 +42,7 @@ t_matrix	*view_transform(t_tuple forward, t_tuple point)
 	t_matrix	*translation_m;
 	t_matrix	*_view_transform;
 
+	forward = normalize_tuple(forward);
 	right = normalize_tuple(get_camera_right(forward));
 	up = cross_product(right, forward);
 	orientation = identity(4);

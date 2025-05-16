@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   print_error.c                                      :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: eandela <eandela@student.codam.nl>           +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/04/30 12:11:31 by eandela       #+#    #+#                 */
+/*   Updated: 2025/04/30 15:31:46 by eandela       ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minirt.h"
 
 //	=== Function Declarations ===
@@ -32,6 +44,7 @@ const char	*get_error_msg(t_error err_no)
 	error_msg[TOO_MANY_CAMERAS] = "Too many cameras";
 	error_msg[NO_CAMERA] = "No camera";
 	error_msg[TOO_MANY_LIGHTS] = "Too many lights";
+	error_msg[NO_LIGHTS] = "No light";
 	error_msg[FOV_OUT_OF_RANGE] = "FOV out of range";
 	error_msg[DOUBLE_OUT_OF_RANGE] = "Double out of range";
 	error_msg[MALLOC_FAIL] = "Malloc failed";

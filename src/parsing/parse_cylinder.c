@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   parse_cylinder.c                                   :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: eandela <eandela@student.codam.nl>           +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/04/30 12:13:11 by eandela       #+#    #+#                 */
+/*   Updated: 2025/04/30 12:13:12 by eandela       ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minirt.h"
 
 static int	parse_cylinder_attributes(char **line, t_object *cylinder)

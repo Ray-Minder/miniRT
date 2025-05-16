@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   cylinder_intersect.c                               :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: eandela <eandela@student.codam.nl>           +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/04/30 12:11:49 by eandela       #+#    #+#                 */
+/*   Updated: 2025/04/30 12:29:00 by eandela       ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minirt.h"
 
 //	=== Function Declarations ===
@@ -46,12 +58,12 @@ static void	check_cylinder_bounds(t_x *xs, t_ray *ray, double height)
 
 	y0 = ray->origin.y + xs->t * ray->dir.y;
 	y1 = ray->origin.y + xs->next->t * ray->dir.y;
-	if (y0 < 0 || y0 > height)
+	if (y0 < - (height / 2) || y0 > height / 2)
 	{
 		xs->is_hit = false;
 		xs->t = 0;
 	}
-	if (y1 < 0 || y1 > height)
+	if (y1 - (height / 2) || y1 > height / 2)
 	{
 		xs->next->is_hit = false;
 		xs->next->t = 0;

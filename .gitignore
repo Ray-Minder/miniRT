@@ -1,9 +1,0 @@
-# Ignore object files
-*.o
-
-# Ignore bin directory & minirt binary
-bin/
-minirt
-
-# Ignore .vscode settings
-.vscode/
